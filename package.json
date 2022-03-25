@@ -1,5 +1,5 @@
 {
-  "name": "DataToSee",
+  "name": "data_to_see",
   "version": "1.0.0",
   "description": "demo project.",
   "main": "dist/src/Server/index.js",

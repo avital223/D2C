@@ -11,7 +11,7 @@
 	   "emitDecoratorMetadata": true,
 	   "experimentalDecorators": true,
 	   "sourceMap": true,
-	   "strict": true,
+	   "strict": false,
 	   // "noUnusedLocals":true,
 	   "noImplicitAny": true,
 	   "downlevelIteration": true

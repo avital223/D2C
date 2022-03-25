@@ -12,15 +12,31 @@ app.get('/', (req, res) => {
 });
 
 app.use((req, res, next) => {
-    res.status(404).send("Sorry, that page doesn't exist. Have a nice day :)");
+    let newPath = req.path;
+    // remove any query string
+    const index = newPath.indexOf("?");
+    if (index >= 0) {
+        newPath = newPath.slice(0, index);
+    }
+
+    // remove leading /
+    newPath = newPath.split("/")[1];
+
+    // let res.render() tell us whether the file exists or not
+    res.render(newPath,  (err: any, resp: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): void; new(): any; }; }; send: (arg0: any) => void; }) => {
+        if (err) {
+            next()
+        } else {
+            res.send(resp);
+        }
+    });
 });
 
+app.use((req, res) =>{
+    res.status(404).send("Sorry, that page doesn't exist. Have a nice day :)");
+});
 // your express configuration here
-const httpServer = http.createServer( app);
+const httpServer = http.createServer(app);
 
 // For https
 httpServer.listen(8080);
-
-
-// Start the server
-// app.listen(8080, () => console.log("Listening"))
