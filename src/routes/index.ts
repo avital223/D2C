@@ -1,7 +1,10 @@
 import * as express from "express";
+import * as db from "./questionare.router"
 
 export const register = ( app: express.Application ) => {
     const oidc = app.locals.oidc;
+
+    db.questionareConnect(app)
 
     app.get( "/", ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
@@ -21,4 +24,5 @@ export const register = ( app: express.Application ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         res.render( "questionare", { isAuthenticated: req.isAuthenticated(), user } );
     } );
+
 };
