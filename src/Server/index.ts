@@ -3,6 +3,7 @@ import * as path from "path";
 import * as dotenv from "dotenv";
 import * as sessionAuth from "../middleware/sessionAuth";
 import * as routes from "../routes";
+import { connectToDatabase } from "../services/database.service";
 
 // initialize configuration
 dotenv.config();
@@ -23,8 +24,22 @@ sessionAuth.register( app );
 // Configure routes
 routes.register( app );
 
+connectToDatabase()
+    .then(() => {
+
+        app.listen(port, () => {
+            // tslint:disable-next-line:no-console
+            console.log(`Server started at http://localhost:${port}`);
+        });
+    })
+    .catch((error: Error) => {
+        // tslint:disable-next-line:no-console
+        console.error("Database connection failed", error);
+        process.exit();
+    });
+
 // start the express server
-app.listen( port, () => {
-    // tslint:disable-next-line:no-console
-    console.log( `server started at http://localhost:${ port }` );
-} );
+// app.listen( port, () => {
+//     // tslint:disable-next-line:no-console
+//     console.log( `server started at http://localhost:${ port }` );
+// } );
