@@ -25,4 +25,9 @@ export const register = ( app: express.Application ) => {
         res.render( "questionare", { isAuthenticated: req.isAuthenticated(), user } );
     } );
 
+    app.get( "/listQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        res.render( "listQuestionare", { isAuthenticated: req.isAuthenticated(), user } );
+    } );
+
 };
