@@ -1,8 +1,8 @@
 let form: HTMLDivElement;
 
-const updateQuestionare = (_event: MouseEvent, id: string)=>{
+const updateQuestionareRedirect = (_event: MouseEvent, id: string)=>{
     _event.preventDefault();
-    window.location.href = "/editQuestionare/"+id
+    window.location.href = "/editQuestionare?"+id
 }
 
 const deleteQuestionare = (_event: MouseEvent, id: string)=>{
@@ -24,12 +24,11 @@ const addDeleteAndUpadteFunctions =(arrayIds : string[])=>{
         const dButton = document.getElementById("d_"+id) as HTMLButtonElement;
         dButton.addEventListener("click", (event)=>{deleteQuestionare(event, id)})
         const uButton = document.getElementById("u_"+id) as HTMLButtonElement;
-        uButton.addEventListener("click", (event)=>{updateQuestionare(event, id)})
+        uButton.addEventListener("click", (event)=>{updateQuestionareRedirect(event, id)})
     }
 }
 
 const loadQuestionare = (data: any) => {
-    // tslint:disable-next-line:no-console
     if(Object.keys(data).length === 0){
         form.innerHTML = "<p> No Questionares yet! </p>"
     } else{

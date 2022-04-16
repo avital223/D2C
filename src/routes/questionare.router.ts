@@ -19,9 +19,7 @@ export const questionareConnect = ( app: express.Application ) => {
 
     router.get("/:id", async (req: express.Request, res: express.Response) => {
         const id = req?.params?.id;
-
         try {
-
             const query = { _id: new ObjectId(id) };
             const questionare = (await collections.questoinare.findOne(query)) as unknown as Questionare;
 
