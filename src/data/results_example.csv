@@ -1,0 +1,116 @@
+Cognitive Domain/Measure,Score & %ile,Performance Rating,Norms,Correction:     A=age; E=educ G=gender
+Mental Status,,,,
+   MMSE,"29, 55th",Average,Manual,A + E
+General Intellectual Functioning,,,,
+  WAIS-IV Subtests/Indices/IQ:,,,,
+   Similarities,"SS=10, 50th",Average,Manual,A
+   Information,"SS=4, 2nd",Impaired,Manual,A
+   Block Design,"SS=12, 75th",High Average,Manual,A
+   Matrix Reasoning,"SS=13, 84th",High Average,Manual,A
+   Visual Puzzles,"SS=13, 84th",High Average,Manual,A
+   Digit Span,"SS=8, 25th",Average,Manual,A
+   Arithmetic,"SS=9, 37th",Average,Manual,A
+   Symbol Search,"SS=4, 2nd",Impaired,Manual,A
+   Coding,"SS=4, 2nd",Impaired,Manual,A
+   Verbal Comprehension Index,"83, 13th",Low Average,Manual,A
+   Perceptual Reasoning Index,"115, 84th",High Average,Manual,A
+   Working Memory Index,"92, 30th",Average,Manual,A
+   Processing Speed Index,"68, 2nd",Impaired,Manual,A
+   Full Scale IQ,"89, 23rd",Low Average,Manual,A
+   General Ability Index,"99, 47th",Average,Manual,A
+Premorbid Intellectual Funct.,,,,
+   Test of Nonverbal Intelligence-4,"105, 63rd",Average,Manual,A
+Attention/Concentration,,,,
+   WAIS-IV Arithmetic,"SS=9, 37th",Average,Manual,A
+"   WAIS-IV Digit Span (5F, 5B)","SS=8, 25th",Average,Manual,A
+   WAIS-IV Digit Span Forward ,"SS=6, 9th",Low Average,Manual,A
+   WAIS-IV Digit Span Backwards,"SS=11, 63rd",Average,Manual,A
+   WAIS-IV Digit Span Sequence,"SS=7, 16th",Low Average,Manual,A
+   WAIS-IV Coding,"SS=4, 2nd",Impaired,Manual,A
+   WAIS-IV Symbol Search,"SS=4, 2nd",Impaired,Manual,A
+   Trails A (0 errors),"40"", 21st",Low Average,Heaton et al. (2004) ,A + E + G
+   Stroop Word (Golden),"77, 12th",Low Average,Manual,A + E
+   Stroop Color (Golden),"51, 4th",Borderline,Manual,A + E
+"   ACT (9"", 18"", 36"")","5, 9, 10 =                    <1st, 31st, 68th",Impaired-Average,Stuss et al. (1988),A
+   Connors CPT3 Response Style,"T-Score=58; Balanced response style, emphasizing both accuracy and speed",,Manual,A + G
+   Connors CPT3 d' *,T-Score=47; Average: Average ability to differentiate targets from nontargets *,,Manual,A + G
+   Connors CPT3 Omissions *,T-Score=48; Average: Average rate of missed targets *,,Manual,A + G
+   Connors CPT3 Commissions *,T-Score=42; Low: Good performance; below average rate of incorrect reponses to non-targets *,,Manual,A + G
+   Connors CPT3 Perseverations *,"T-Score=53; Average: Average rate of random, repetitive, or anticipatory responses *",,Manual,A + G
+   Connors CPT3 HRT **,T-Score=63; Slow mean response speed**,,Manual,A + G
+   Connors CPT3 HRT SD *,T-Score=53; Average: Average consistency in reaction times  *,,Manual,A + G
+   Connors CPT3 Variability *,T-Score=53; Average: Average variability in reaction time consistency *,,Manual,A + G
+   Connors CPT3 HRT Block Change*,T-Score=38; Low: Good ability to sustain or increase response speed in later  blocks *,,Manual,A + G
+   Connors CPT3 HRT ISI Change*,T-Score=59; High Average: Slight reduction in response speed at longer ISIs *,,Manual,A + G
+"*   T-Score guidelines for CPT3 variables (except Response Style and HRT):  70+ Very Elevated, 60-69 Elevated, 55-59 High Average, 45-54 Average, 40-44 Low (with lower T scores representing better performance and higher T scores representing more difficulty)",,,,
+"** T-Score guidelines for CPT3 HRT:  70+ Atypically Slow, 60-69 Slow, 55-59 A Little Slow, 45-54 Average, 40-44 A Little Fast, <40 Atypically Fast",,,,
+Visuospatial Functioning,,,,
+  Hooper Visual Organization Test,"24, 42nd *",Average,Manual,A + E 
+   Rey-O Copy,"34, >16th",Average,Meyers & Meyers (1995),A
+   WAIS-IV Block Design,"SS=12, 75th",High Average,Manual,A
+   WAIS-IV Visual Puzzles,"SS=13, 84th",High Average,Manual,A
+Speech and Language ,,,,
+   Boston Naming Test (51+0+7),"51, 24th",Low Average,Heaton et al. (2004) ,A + E + G
+   FAS,"19, 4th",Borderline,Heaton et al. (2004) ,A + E + G
+   Animal Naming,"13, 5th",Borderline,Heaton et al. (2004) ,A + E + G
+Verbal Memory,,,,
+  WMS-IV Logical Memory I,"SS=11, 63rd",Average,Manual,A
+  WMS-IV Logical Memory II,"SS=13, 84th",High Average,Manual,A
+  WMS-IV Log. Mem. Recog.,"29/30,                  cum.% >75th",High Average,Manual,A
+   RAVLT-trial 1,"5, 23rd",Low Average,Manual,A
+   RAVLT-trial 2,"6, 6th",Borderline,Manual,A
+   RAVLT-trial 3,"8, 9th",Low Average,Manual,A
+   RAVLT-trial 4,"7, 1st",Impaired,Manual,A
+   RAVLT-trial 5 ,"7, 1st",Impaired,Manual,A
+   RAVLT-trials 1-5,"33, 4th",Borderline,Manual,A
+   RAVLT-list B,"5, 38th",Average,Manual,A
+   RAVLT-short delay recall,"6, 8th",Borderline,Manual,A
+   RAVLT-long delay recall,"6, 11th",Low Average,Manual,A
+   RAVLT-recognition (3 false +),"11, 2nd",Impaired,Manual,A
+* Scale/percentile reversed to maintain interpretive consistency across measures,,,,
+Visual Memory,,,,
+  WMS-IV Visual Repro. I,"SS=8, 25th",Average,Manual,A
+  WMS-IV Visual Repro. II,"SS=6, 9th",Low Average,Manual,A
+  WMS-IV Vis. Rep. Recog.,"7/7, cum.% >75",High Average,Manual,A
+   Rey-O-immediate,"25.5, 90th",High Average,Meyers & Meyers (1995),A
+   Rey-O-delayed,"29, 98th",Very Superior,Meyers & Meyers (1995),A
+   Rey-O-recognition,"20, 38th",Average,Meyers & Meyers (1995),A
+Frontal Sys./Exec. Functioning,,,,
+   WCST Categories Completed,"3,6-10th",Borderline-Low Average,Heaton et al (1993),A + E 
+   WCST Trials to 1st Category,"14, 11-16th",Low Average,Heaton et al (1993),A + E
+   WCST Total Errors,"43, 21st",Low Average,Heaton et al (1993),A + E
+   WCST Perseverative Errors,"17, 42nd",Average,Heaton et al (1993),A + E
+   WCST Nonperseverative Errors,"26, 8th",Borderline,Heaton et al (1993),A + E
+   WCST % Conceptual Responses,"57, 27th",Average,Heaton et al (1993),A + E
+   WCST Learning to Learn,"-7.14, 2-5th",Imparied-Borderline,Heaton et al (1993),A + E
+   WCST Set Losses,"3, 6-10th",Borderline-Low Average,Heaton et al (1993),A + E
+   Ruff Figural Fluency Total Designs,"33, 31st",Average,Manual,A + E
+   Ruff Figural Fluency Error Ratio,0,High Average,Manual,A + E
+   Trails B (1 error),"114"", 18th",Low Average,Heaton et al. (2004) ,A + E + G
+   Stroop Color-Word (Golden),"40, 90th",High Average,Manual,A + E
+   WAIS-IV Similarities,"SS=10, 50th",Average,Manual,A
+   WAIS-IV Matrix Reasoning,"SS=13, 84th",High Average,Manual,A
+"   ACT (9"", 18"", 36"")","5, 9, 10 =                    <1st, 31st, 68th",Impaired-Average,Stuss et al. (1988),A
+   FAS,"19, 4th",Borderline,Heaton et al. (2004) ,A + E + G
+   Animal Naming,"13, 5th",Borderline,Heaton et al. (2004) ,A + E + G
+Fine Motor Functioning,,,,
+"  Grooved Peg. (dom/R), 1 drop","92"", 7th",Borderline,Heaton et al. (2004) ,A + E + G
+"  Grooved Peg. (ndom/L), 0 drops","89"", 12th",Low Average,Heaton et al. (2004) ,A + E + G
+* Scale/percentile reversed to maintain interpretive consistency across measures,,,,
+Effort and Motivation,,,,
+ACS Effort Scores,,,,
+   ACS-WMS-IV Logical Memory Recognition,"29/30, BR >25%",Valid,Manual,N/A
+   ACS-WMS-IV Visual Repro Recognition,"7/7, BR >25%",Valid,Manual,N/A
+  Reliable Digit Span,9,Valid,Schroeder et al. (2012),N/A
+   Rey-O-Combination Score,58,Valid,Blaskewitz et al. (2009),N/A
+Other Effort Scores,,,,
+   VSVT-Easy Items,24/24, Valid,Manual ,N/A
+   VSVT-Difficult Items,23/24,Valid,Manual,N/A
+   VSVT-Total Items,47/48,Valid,Manual,N/A
+"   TOMM Trials 1, 2","48, 50",Valid,Manual,A
+   The Dot Counting Test,E-Score=9,Normal Effort,Manual,N/A
+Mood/Personality,,,,
+   BAI ,12,Mild Anxiety Sx,Manual,N/A
+   BDI-II ,14,Mild Depressive Sx,Manual,N/A
+   MMPI-2,3712'8+0-5/46:9# L+-K/F:,,Manual,N/A
+ Note:  “Performance ratings” are qualitative descriptors derived from the quantitative percentile (%ile) data according to the following transformations:  Extremely Low: <2nd %ile; Borderline: 2nd to 8th %iles; Low Average: 9th to 24th %iles; Average: 25th to 74th %iles; High Average: 75th to 90th %iles; Superior: 91st to 97th %iles; Very Superior: >98th %ile. ,,,,

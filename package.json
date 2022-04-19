@@ -38,6 +38,7 @@
     "dotenv": "^10.0.0",
     "ejs": "^3.0.2",
     "express": "^4.17.3",
+    "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.2",
     "mongodb": "^4.5.0",
     "okta": "^1.0.0"
