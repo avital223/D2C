@@ -1,7 +1,7 @@
 import * as express  from "express";
 import { ObjectId } from "mongodb";
 import { collections } from "../services/database.service";
-import Questionare from "../database/questionare";
+import Questionare from "../database/DBclasses";
 
 export const router = express.Router();
 
