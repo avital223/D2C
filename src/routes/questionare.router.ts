@@ -1,7 +1,7 @@
 import * as express  from "express";
 import { ObjectId } from "mongodb";
 import { collections } from "../services/database.service";
-import Questionare from "../database/questionare";
+import Questionare from "../database/DBclasses";
 
 export const router = express.Router();
 
@@ -19,9 +19,7 @@ export const questionareConnect = ( app: express.Application ) => {
 
     router.get("/:id", async (req: express.Request, res: express.Response) => {
         const id = req?.params?.id;
-
         try {
-
             const query = { _id: new ObjectId(id) };
             const questionare = (await collections.questoinare.findOne(query)) as unknown as Questionare;
 

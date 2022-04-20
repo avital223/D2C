@@ -30,8 +30,8 @@ export async function connectToDatabase () {
                     description: "'questions' is required and is a list of questions"
                 },
                 category: {
-                    bsonType: "number",
-                    description: "'category' is required and is a number"
+                    bsonType: "array",
+                    description: "'category' is required and is a array of numbers"
                 },
                 answers: {
                     bsonType: "array",

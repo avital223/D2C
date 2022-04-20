@@ -18,6 +18,8 @@ const app = express();
 app.set( "views", path.join( __dirname.split("dist")[0], "dist/views" ) );
 app.set( "view engine", "ejs" );
 
+app.use(express.static(path.join(__dirname.split("dist")[0], 'dist/src/controller')));
+
 // Configure session auth
 sessionAuth.register( app );
 
@@ -37,9 +39,3 @@ connectToDatabase()
         console.error("Database connection failed", error);
         process.exit();
     });
-
-// start the express server
-// app.listen( port, () => {
-//     // tslint:disable-next-line:no-console
-//     console.log( `server started at http://localhost:${ port }` );
-// } );
