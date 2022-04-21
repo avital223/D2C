@@ -35,4 +35,10 @@ export const register = ( app: express.Application ) => {
         res.render( "editQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );
     } );
 
+
+    app.get( "/csv", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        res.render( "csv", { isAuthenticated: req.isAuthenticated(), user, res } );
+    } );
+
 };
