@@ -1,7 +1,7 @@
 import * as express  from "express";
 import { ObjectId } from "mongodb";
 import { collections } from "../services/database.service";
-import Questionare from "../database/DBclasses";
+import Questionare from "../database/questionareDB";
 
 export const router = express.Router();
 
@@ -56,7 +56,7 @@ export const questionareConnect = ( app: express.Application ) => {
             const result = await collections.questoinare.updateOne(query, { $set: updatedGame });
 
             result
-                ? res.status(200).send(`Successfully updated q uestionare with id ${id}`)
+                ? res.status(200).send(`Successfully updated game with id ${id}`)
                 : res.status(304).send(`Questionare with id: ${id} not updated`);
         } catch (error) {
             // tslint:disable-next-line:no-console

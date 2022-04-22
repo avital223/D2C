@@ -1,10 +1,12 @@
 import * as express from "express";
 import * as db from "./questionare.router"
+import * as csv_db from "./csv.router"
 
 export const register = ( app: express.Application ) => {
     const oidc = app.locals.oidc;
 
     db.questionareConnect(app)
+    csv_db.csvConnect(app)
 
     app.get( "/", ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
@@ -36,7 +38,7 @@ export const register = ( app: express.Application ) => {
     } );
 
 
-    app.get( "/csv", oidc.ensureAuthenticated(), ( req: any, res ) => {
+    app.get( "/addCSV", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         res.render( "csv", { isAuthenticated: req.isAuthenticated(), user, res } );
     } );

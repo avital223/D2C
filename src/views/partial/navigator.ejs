@@ -3,9 +3,7 @@
         <a href="/" class="brand-logo">Hello <% if ( user ) { %><%= user.name %>,<%}%> welcome to Data To See</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="/questionare">questionare</a></li>
-            <% if ( !isAuthenticated ) { %>
-            <li><a href="/upload CSV">upload CSV</a></li>
-            <% } %>
+            <li><a href="/addCSV">upload CSV</a></li>
             <% if ( isAuthenticated ) { %>
             <li><a href="/logout">Logout</a></li>
             <% } %>
