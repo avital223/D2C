@@ -18,10 +18,14 @@
             <% if ( !isAuthenticated ) { %>
             <li class="nav-item"><a href="/login">Login</a></li>
             <% } %>
+            <% if ( user && user.groups.indexOf("Admin") > -1 ) { %>
             <li class="nav-item"> <a href="/listQuestionare">Questionare</a><ul>
-            <li><a href="/questionare">Add new Questionar</a></li>
+            <li class="nav-item"><a href="/questionare">Add new Questionare</a></li>
             </ul>
             </li>
+            <% } else { %>
+                <li class="nav-item"> <a href="/listQuestionare">Questionare</a></li>
+            <% } %>
         </ul>
     </div>
 </nav>

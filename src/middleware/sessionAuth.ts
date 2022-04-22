@@ -9,7 +9,7 @@ export const register = ( app: any ) => {
         issuer: `${ process.env.OKTA_ORG_URL }/oauth2/default`,
         redirect_uri: `${ process.env.HOST_URL }/authorization-code/callback`,
         appBaseUrl:`${ process.env.HOST_URL }`,
-        scope: "openid profile",
+        scope: "openid profile email groups",
         // oidc middleware should default to 10000ms.
         // getting timeout errors at 2500, so making sure it's set here.
         timeout: 10000

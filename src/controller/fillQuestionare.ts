@@ -1,5 +1,18 @@
+const validateEmail = (email : string) => {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
 const sendFilled = (_event: MouseEvent, questionareId: string) => {
     const email = document.getElementById("email") as HTMLInputElement;
+    if (!email || !validateEmail(email.value)){
+        const errIn = document.getElementById("error") as HTMLParagraphElement;
+        if(errIn){
+            errIn.textContent = "Error! not a valid email!"
+            errIn.hidden = false
+        }
+        return;
+    }
     const arrayInputs = Array.from(document.getElementsByTagName("td") as HTMLCollectionOf<HTMLTableCellElement>)
     const arrayQuestions  = new Map<string, string>();
     const arrayAnswers  = new Map<string, string>();

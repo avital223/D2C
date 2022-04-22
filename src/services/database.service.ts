@@ -82,32 +82,6 @@ export async function connectToDatabase () {
 
     collections.filled = filledCollection;
 
-    await db.command({
-        "collMod": process.env.COLLECTION_NAME_ADMIN,
-        "validator": {
-            $jsonSchema: {
-                bsonType: "object",
-                required: ["email", "role"],
-                additionalProperties: false,
-                properties: {
-                _id: {},
-                email: {
-                    bsonType: "string",
-                    description: "'email' is required and is a string - The filler email"
-                },
-                role: {
-                    bsonType: "string",
-                    description: "'role' is required and is the role of the admin - 1 super, 2- therapist"
-                },
-                }
-            }
-         }
-    });
-
-    const adminCollection: mongoDB.Collection = db.collection(process.env.COLLECTION_NAME_ADMIN);
-
-    collections.admin = adminCollection;
-
     // tslint:disable-next-line:no-console
     console.log(`Successfully connected to database: ${db.databaseName}`);
 }
