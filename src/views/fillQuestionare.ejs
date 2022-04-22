@@ -8,25 +8,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="./questionare.js"></script>
+    <script src="./fillQuestionare.js"></script>
 </head>
 <body>
+    
     <div class="container">
-        <h1 class="header">Edit the Questionare</h1>
+        <h1 class="header"><p id="nameQuestionare"></p></h1>
+            <% if (user && user.groups.indexOf("Admin") > -1 ) { %>
             <div class="row">
-                <div class="input-field col s6">
-                    <input v-model="name" ref="name" placeholder="name of questionare" id="name" type="text" class="validate">
-                    <!--<label for="name">Name of Questionare</label>-->
-                </div>
+                <input type="email" id="email" class="validate" >
             </div>
+            <% } else { %>
+                <div class="row">
+                    <input type="hidden" id="email" class="validate" value="<% if ( user ) { %><%= user.email %><%}%>">
+                </div>
+            <%}%>
             <div class="row">
                 <form id="fill_questionare"></form>
             </div>
             <div class="row">
-                <button id='addQuestion' class='btn-small'><i class='material-icons right'>add</i>Add new question</button>
+                <button id="send"class='btn-small'><i class='material-icons right'>save</i>save Questionare </button>
             </div>
             <div class="row">
-                <button id="send"class='btn-small'><i class='material-icons right'>send</i>send</button>
+                <p hidden id="error" class="validate" ></p>
             </div>
     </div>
 </body>

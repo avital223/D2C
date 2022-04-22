@@ -1,17 +1,20 @@
 import * as express from "express";
-import * as db from "./questionare.router"
+import * as dbQ from "./questionare.router"
+import * as dbF from "./filled.router"
 
 export const register = ( app: express.Application ) => {
     const oidc = app.locals.oidc;
 
-    db.questionareConnect(app)
+    dbQ.questionareConnect(app)
+
+    dbF.filledQuestionareConnect(app)
 
     app.get( "/", ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "index", { isAuthenticated: req.isAuthenticated(), user } ); // will be the inro page of the web
+        res.render( "index", { isAuthenticated: req.isAuthenticated(), user } ); // will be the intro page of the web
     } );
 
-    app.get( "/login", oidc.ensureAuthenticated(), ( req, res ) => {
+    app.get( "/login", oidc.ensureAuthenticated(), ( _req, res ) => {
         res.redirect( "/questionare" ); // change to main page one is created!
     } );
 
@@ -22,17 +25,33 @@ export const register = ( app: express.Application ) => {
 
     app.get( "/questionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "questionare", { isAuthenticated: req.isAuthenticated(), user } );
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "questionare", { isAuthenticated: req.isAuthenticated(), user } );
+        } else {
+            res.render( "index", { isAuthenticated: req.isAuthenticated(), user } ); // chnage later to error page
+        }
     } );
 
     app.get( "/listQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "listQuestionare", { isAuthenticated: req.isAuthenticated(), user } );
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "listQuestionare", { isAuthenticated: req.isAuthenticated(), user } );
+        } else {
+            res.render( "index", { isAuthenticated: req.isAuthenticated(), user } ); // chnage later to error page
+        }
     } );
 
     app.get( "/editQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "editQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "editQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );
+        } else {
+            res.render( "index", { isAuthenticated: req.isAuthenticated(), user } ); // chnage later to error page
+        }
     } );
 
+    app.get( "/fillQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        res.render( "fillQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );
+    } );
 };
