@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <%- include('partial/navigator.ejs') %>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>List of all My Questionares</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">List of all My Questionares</h1>
+        <script src="./listUserQuestionare.js"></script>
+        <form id="listQuestionare">
+            <div class="row" id="List">
+                    <input type="hidden" id="email" class="validate" value="<% if ( user ) { %><%= user.email %><%}%>">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,17 +1,99 @@
 const validateEmail = (email : string) => {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
-  }
+}
 
-const sendFilled = (_event: MouseEvent, questionareId: string) => {
+const fillQuestionareUser = (data: any) => {
+    const errIn = document.getElementById("error") as HTMLParagraphElement;
+    if(errIn){
+        errIn.hidden = true
+    }
+    const table = document.getElementById("filling_questionare") as HTMLTableElement;
+    const arrayCells = Array.from(table.getElementsByTagName("td") as HTMLCollectionOf<HTMLTableCellElement>)
+    for ( const cell of arrayCells){
+        const index = data.questions.indexOf(cell.textContent)
+        if(index > -1){
+            const ansCell = cell.parentNode.childNodes[1] as HTMLTableCellElement;
+            const ansList = Array.from(ansCell.getElementsByTagName("input")as HTMLCollectionOf<HTMLInputElement>)
+            const ans = data.answers[index];
+            if (ansList.length === 1){
+                ansList[0].value = ans
+            } else {
+                for( const opt of ansList){
+                    if(opt.value === ans){
+                        opt.checked = true
+                    }
+                }
+            }
+        }
+    }
+    updateSaveButton(data.questionareId, data._id)
+}
+
+const updateSaveButton = (id: string, filledId: string) => {
+    const save = document.getElementById("send") as HTMLButtonElement;
+    save.replaceWith(save.cloneNode(true));
+    const saveNew = document.getElementById("send") as HTMLButtonElement;
+    if(saveNew){
+        saveNew.addEventListener("click",(event)=>{sendFilled(event, id, filledId)})
+    }
+}
+
+const printError = (button: boolean, id: string, errMsg : string)=>{
+    const errIn = document.getElementById("error") as HTMLParagraphElement;
+    if(errIn && button){
+        errIn.textContent = errMsg
+        errIn.hidden = false
+    }
+    updateSaveButton(id, "None")
+    const ansList = Array.from(document.getElementsByTagName("input")as HTMLCollectionOf<HTMLInputElement>)
+    for( const opt of ansList){
+        if(opt.type === "radio"){
+            opt.checked = false
+        } else {
+            if (opt.type === "text"){
+                opt.value = ""
+            }
+        }
+    }
+}
+
+const getQuestionareFilled = (e: { preventDefault: () => void; } , id : string, button : boolean) => {
+    if( e !== null){
+        e.preventDefault();
+    }
     const email = document.getElementById("email") as HTMLInputElement;
+    if (email && validateEmail(email.value)){
+        fetch("/filled/"+email.value+"/"+id, {
+            method: 'GET',
+            headers:{
+                'Content-Type':'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(fillQuestionareUser)
+        .catch(()=>{
+            printError(button, id, "Could not load the content of this email! Try filling from scratch")
+        })
+    } else{
+        printError(button, id, "Error! not a valid email!")
+    }
+}
+
+const sendFilled = (_event: MouseEvent, questionareId: string, oldId: string) => {
+    _event.preventDefault()
+    const email = document.getElementById("email") as HTMLInputElement;
+    const errIn = document.getElementById("error") as HTMLParagraphElement;
     if (!email || !validateEmail(email.value)){
-        const errIn = document.getElementById("error") as HTMLParagraphElement;
         if(errIn){
             errIn.textContent = "Error! not a valid email!"
             errIn.hidden = false
         }
-        return;
+        return
+    } else {
+        if(errIn){
+            errIn.hidden = true
+        }
     }
     const arrayInputs = Array.from(document.getElementsByTagName("td") as HTMLCollectionOf<HTMLTableCellElement>)
     const arrayQuestions  = new Map<string, string>();
@@ -55,30 +137,42 @@ const sendFilled = (_event: MouseEvent, questionareId: string) => {
         questions: questionsS,
         answers
     }
-    fetch("/filled/", {
-        method: 'POST',
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify(data),
-    })
-    .then((res) => {window.location.href = "/listQuestionare"})
-    // tslint:disable-next-line:no-console
-    .catch((err) => console.log(err));
+    if(oldId !== "None"){
+        fetch("/filled/"+oldId, {
+            method: 'PUT',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        .then((res) => {window.location.href = "/listQuestionare"})
+        // tslint:disable-next-line:no-console
+        .catch((err) => console.log(err));
+    } else {
+        fetch("/filled/", {
+            method: 'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        .then((res) => {window.location.href = "/listQuestionare"})
+        // tslint:disable-next-line:no-console
+        .catch((err) => console.log(err));
+    }
 }
 
 const createQuestionare = (data: any) => {
     const formF = document.getElementById("fill_questionare") as HTMLDivElement;
     const name = document.getElementById("nameQuestionare") as HTMLParagraphElement;
+    const generate = document.getElementById("generate") as HTMLButtonElement;
     if (name){
         name.textContent = data.name
     }
     if(formF){
-        // tslint:disable-next-line:no-console
-        console.log("error")
         let newHTML = ""
         let countAnswers = 0;
-        newHTML += "<table><thead><tr><th>Question</th><th>Answer</th></tr></thead><tbody>"
+        newHTML += "<table id='filling_questionare'><thead><tr><th>Question</th><th>Answer</th></tr></thead><tbody>"
         for (let i=0; i<data.questions.length; i++){
             newHTML+="<tr><td id='q_"+i+"'>"
             newHTML+=data.questions[i]
@@ -110,6 +204,11 @@ const createQuestionare = (data: any) => {
         newHTML+="</tbody></table>"
         formF.innerHTML = newHTML
     }
+    if(generate){
+        generate.addEventListener("click", (event)=>{getQuestionareFilled(event, data._id, true)})
+    } else {
+        getQuestionareFilled(null, data._id, false)
+    }
 
 }
 
@@ -119,10 +218,6 @@ window.onload=() => {
     const queryEnd   = url.indexOf("#") + 1 || url.length + 1
     const query = url.slice(queryStart, queryEnd - 1)
     const id = query.replace(/\+/g, " ").split("&")[0];
-    const save = document.getElementById("send") as HTMLButtonElement;
-    if(save){
-        save.addEventListener("click",(event)=>{sendFilled(event, id)})
-    }
     if (query === url || query === ""){
         // tslint:disable-next-line:no-console
         console.log("error")

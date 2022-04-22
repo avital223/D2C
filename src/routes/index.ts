@@ -41,6 +41,11 @@ export const register = ( app: express.Application ) => {
         }
     } );
 
+    app.get( "/listMyQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        res.render( "listUserQuestionares", { isAuthenticated: req.isAuthenticated(), user } );
+    } );
+
     app.get( "/editQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         if (user.groups.indexOf("Admin") > -1){

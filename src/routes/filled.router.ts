@@ -17,17 +17,34 @@ export const filledQuestionareConnect = ( app: express.Application ) => {
         }
     });
 
-    router.get("/:id", async (req: express.Request, res: express.Response) => {
-        const id = req?.params?.id;
+    router.get("/:email", async (req: express.Request, res: express.Response) => {
+        const email = req?.params?.email;
         try {
-            const query = { _id: new ObjectId(id) };
-            const filled = (await collections.filled.findOne(query)) as unknown as FilledQuestionare;
-
+            const query = { email};
+            const filled = (await collections.filled.find(query).toArray()) as unknown as FilledQuestionare[];
             if (filled) {
                 res.status(200).send(filled);
+            } else {
+                res.status(404).send("")
             }
         } catch (error) {
-            res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
+            res.status(404).send(`Unable to find matching document with email: ${req.params.email}`);
+        }
+    });
+
+    router.get("/:email/:id", async (req: express.Request, res: express.Response) => {
+        const email = req?.params?.email;
+        const id = req?.params?.id;
+        try {
+            const query = { email, questionareId : id };
+            const filled = (await collections.filled.findOne(query)) as unknown as FilledQuestionare;
+            if (filled) {
+                res.status(200).send(filled);
+            } else {
+                res.status(404).send("")
+            }
+        } catch (error) {
+            res.status(404).send(`Unable to find matching document with email: ${req.params.email}`);
         }
     });
 
