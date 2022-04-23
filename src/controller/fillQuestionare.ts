@@ -209,7 +209,7 @@ const createQuestionare = (data: any) => {
     } else {
         getQuestionareFilled(null, data._id, false)
     }
-
+    updateSaveButton(data._id, "None")
 }
 
 window.onload=() => {
