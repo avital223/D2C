@@ -192,7 +192,7 @@ const createQuestionare = (data: any) => {
                     // category == 1
                     const from = Number(data.answers[countAnswers][0].split("-")[0])
                     const to = Number(data.answers[countAnswers][0].split("-")[1])
-                    for(let j=from;j<to;j++){
+                    for(let j=from;j<=to;j++){
                         newHTML+="<p><label><input type='radio' name='q_"+i+"' id='"+j+"' value='"+j+"'>"
                         newHTML+="<span>"+j+"</span></label></p>"
                     }
@@ -209,7 +209,7 @@ const createQuestionare = (data: any) => {
     } else {
         getQuestionareFilled(null, data._id, false)
     }
-
+    updateSaveButton(data._id, "None")
 }
 
 window.onload=() => {

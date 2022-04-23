@@ -2,6 +2,10 @@ const updateQuestionareRedirect = (_event: MouseEvent, id: string)=>{
     _event.preventDefault();
     window.location.href = "/editQuestionare?"+id
 }
+const compareQuestionareRedirect = (_event: MouseEvent, id: string)=>{
+    _event.preventDefault();
+    window.location.href = "/compareTwoQuestionares?"+id
+}
 
 const fillQuestionareLink = (_event: MouseEvent, id: string)=>{
     _event.preventDefault();
@@ -29,6 +33,8 @@ const addDeleteAndUpadteFunctions =(arrayIds : string[])=>{
         link.addEventListener("click", (event)=>{fillQuestionareLink(event, id)})
         const dButton = document.getElementById("d_"+id) as HTMLButtonElement;
         dButton.addEventListener("click", (event)=>{deleteQuestionare(event, id)})
+        const cButton = document.getElementById("c_"+id) as HTMLButtonElement;
+        cButton.addEventListener("click", (event)=>{compareQuestionareRedirect(event, id)})
         const uButton = document.getElementById("u_"+id) as HTMLButtonElement;
         uButton.addEventListener("click", (event)=>{updateQuestionareRedirect(event, id)})
     }
@@ -41,10 +47,11 @@ const loadQuestionare = (data: any) => {
     } else{
         const arrayIds = []
         let innerString = ""
-        innerString += "<table><thead><tr><th>Name of Questionare</th><th></th><th></th></tr></thead><tbody>"
+        innerString += "<table><thead><tr><th>Name of Questionare</th><th></th><th></th><th></th></tr></thead><tbody>"
         for( const questionare of data){
             innerString += "<tr><td><p id='"+questionare._id+"'>"+questionare.name+"</p></td>"
             innerString+="<td><button id='d_"+questionare._id+"' class='btn-small'><i class='material-icons right'>delete</i>Delete</button></td>"
+            innerString+="<td><button id='c_"+questionare._id+"' class='btn-small'><i class='material-icons right'>compare</i>Compare</button></td>"
             innerString+="<td><button id='u_"+questionare._id+"' class='btn-small'><i class='material-icons right'>edit</i>Edit</button></td></tr>"
             arrayIds.push(questionare._id)
         }
