@@ -81,7 +81,4 @@ export async function connectToDatabase () {
     const filledCollection: mongoDB.Collection = db.collection(process.env.COLLECTION_NAME_FILLED);
 
     collections.filled = filledCollection;
-
-    // tslint:disable-next-line:no-console
-    console.log(`Successfully connected to database: ${db.databaseName}`);
 }
