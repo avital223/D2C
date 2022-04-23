@@ -41,6 +41,15 @@ export const register = ( app: express.Application ) => {
         }
     } );
 
+    app.get( "/compareTwoQuestionares", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "compareTwoQuestionares", { isAuthenticated: req.isAuthenticated(), user } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    } );
+
     app.get( "/listMyQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         res.render( "listUserQuestionares", { isAuthenticated: req.isAuthenticated(), user } );
