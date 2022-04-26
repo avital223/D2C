@@ -29,7 +29,7 @@ export const register = ( app: express.Application ) => {
     app.get( "/questionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         if (user.groups.indexOf("Admin") > -1){
-            res.render( "questionare", { isAuthenticated: req.isAuthenticated(), user } );
+            res.render( "questionare/questionare", { isAuthenticated: req.isAuthenticated(), user } );
         } else {
             res.redirect( "/" ); // chnage later to error page
         }
@@ -38,7 +38,7 @@ export const register = ( app: express.Application ) => {
     app.get( "/sendEmail", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         if (user.groups.indexOf("Admin") > -1){
-            res.render( "sendEmail", { isAuthenticated: req.isAuthenticated(), user } );
+            res.render( "questionare/sendEmail", { isAuthenticated: req.isAuthenticated(), user } );
         } else {
             res.redirect( "/" ); // chnage later to error page
         }
@@ -47,7 +47,7 @@ export const register = ( app: express.Application ) => {
     app.get( "/listQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         if (user.groups.indexOf("Admin") > -1){
-            res.render( "listQuestionare", { isAuthenticated: req.isAuthenticated(), user } );
+            res.render( "questionare/listQuestionare", { isAuthenticated: req.isAuthenticated(), user } );
         } else {
             res.redirect( "listMyQuestionare" ); // chnage later to error page
         }
@@ -56,7 +56,7 @@ export const register = ( app: express.Application ) => {
     app.get( "/compareTwoQuestionares", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         if (user.groups.indexOf("Admin") > -1){
-            res.render( "compareTwoQuestionares", { isAuthenticated: req.isAuthenticated(), user } );
+            res.render( "questionare/compareTwoQuestionares", { isAuthenticated: req.isAuthenticated(), user } );
         } else {
             res.redirect( "/" ); // chnage later to error page
         }
@@ -64,13 +64,13 @@ export const register = ( app: express.Application ) => {
 
     app.get( "/listMyQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "listUserQuestionares", { isAuthenticated: req.isAuthenticated(), user } );
+        res.render( "questionare/listUserQuestionares", { isAuthenticated: req.isAuthenticated(), user } );
     } );
 
     app.get( "/editQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         if (user.groups.indexOf("Admin") > -1){
-            res.render( "editQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );
+            res.render( "questionare/editQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );
         } else {
             res.redirect( "/" ); // chnage later to error page
         }
@@ -78,6 +78,6 @@ export const register = ( app: express.Application ) => {
 
     app.get( "/fillQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "fillQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );
+        res.render( "questionare/fillQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );
     } );
 };
