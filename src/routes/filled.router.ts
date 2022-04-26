@@ -82,19 +82,19 @@ export const filledQuestionareConnect = ( app: express.Application ) => {
         }
     });
 
-    router.delete("/:id", async (req: express.Request, res: express.Response) => {
-        const id = req?.params?.id;
+    router.delete("/:questionareId", async (req: express.Request, res: express.Response) => {
+        const questionareId = req?.params?.questionareId;
 
         try {
-            const query = { _id: new ObjectId(id) };
-            const result = await collections.filled.deleteOne(query);
+            const query = { questionareId };
+            const result = await collections.filled.deleteMany(query);
 
             if (result && result.deletedCount) {
-                res.status(202).send(`Successfully removed filled questionare with id ${id}`);
+                res.status(202).send(`Successfully removed filled questionare with id ${questionareId}`);
             } else if (!result) {
-                res.status(400).send(`Failed to remove filled questionare with id ${id}`);
+                res.status(400).send(`Failed to remove filled questionare with id ${questionareId}`);
             } else if (!result.deletedCount) {
-                res.status(404).send(`filled questionare with id ${id} does not exist`);
+                res.status(404).send(`filled questionare with id ${questionareId} does not exist`);
             }
         } catch (error) {
             // tslint:disable-next-line:no-console

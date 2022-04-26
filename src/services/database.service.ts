@@ -1,6 +1,5 @@
 import * as mongoDB from "mongodb";
 import * as dotenv from "dotenv";
-import { nextTick } from "process";
 
 export const collections: { [key: string]: mongoDB.Collection } = {}
 

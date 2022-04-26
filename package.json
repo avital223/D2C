@@ -23,6 +23,7 @@
     "@types/express-session": "^1.17.4",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^17.0.21",
+    "@types/nodemailer": "^6.4.4",
     "@types/shelljs": "^0.8.11",
     "fs-extra": "^10.0.1",
     "nodemon": "^2.0.15",
@@ -41,6 +42,7 @@
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "mongodb": "^4.5.0",
+    "nodemailer": "^6.7.3",
     "okta": "^1.0.0"
   },
   "repository": {
