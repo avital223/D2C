@@ -20,7 +20,16 @@ const deleteQuestionare = (_event: MouseEvent, id: string)=>{
         headers:{
             'Content-Type':'application/json'
         },
-    }).then(()=>{
+    })
+    .then(()=>{
+        fetch("/filled/"+id, {
+            method: 'DELETE',
+            headers:{
+                'Content-Type':'application/json'
+            },
+        })
+    })
+    .then(()=>{
         window.location.reload();
     })
     // tslint:disable-next-line:no-console

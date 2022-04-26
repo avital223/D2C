@@ -1,13 +1,16 @@
 import * as express from "express";
-import * as dbQ from "./questionare.router"
-import * as dbF from "./filled.router"
+import {questionareConnect} from "./questionare.router"
+import {filledQuestionareConnect} from "./filled.router"
+import { emailConnect } from "./email.router";
 
 export const register = ( app: express.Application ) => {
     const oidc = app.locals.oidc;
 
-    dbQ.questionareConnect(app)
+    questionareConnect(app)
 
-    dbF.filledQuestionareConnect(app)
+    filledQuestionareConnect(app)
+
+    emailConnect(app)
 
     app.get( "/", ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
@@ -27,6 +30,15 @@ export const register = ( app: express.Application ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         if (user.groups.indexOf("Admin") > -1){
             res.render( "questionare", { isAuthenticated: req.isAuthenticated(), user } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    } );
+
+    app.get( "/sendEmail", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "sendEmail", { isAuthenticated: req.isAuthenticated(), user } );
         } else {
             res.redirect( "/" ); // chnage later to error page
         }

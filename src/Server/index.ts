@@ -20,6 +20,8 @@ app.set( "view engine", "ejs" );
 
 app.use(express.static(path.join(__dirname.split("dist")[0], 'dist/src/controller')));
 
+app.use(express.json())
+
 // Configure session auth
 sessionAuth.register( app );
 
