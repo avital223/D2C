@@ -1,7 +1,8 @@
 import * as express  from "express";
 import { ObjectId } from "mongodb";
 import { collections } from "../services/database.service";
-import Questionare from "../database/questionareDB";
+
+import {Questionare} from "../database/DBclasses";
 
 export const router = express.Router();
 
@@ -33,8 +34,8 @@ export const questionareConnect = ( app: express.Application ) => {
 
     router.post("/", async (req: express.Request, res: express.Response) => {
         try {
-            const newGame = req.body as Questionare;
-            const result = await collections.questoinare.insertOne(newGame);
+            const newQuestionare = req.body as Questionare;
+            const result = await collections.questoinare.insertOne(newQuestionare);
 
             result
                 ? res.status(201).send(`Successfully created a new questionare with id ${result.insertedId}`)
@@ -50,10 +51,10 @@ export const questionareConnect = ( app: express.Application ) => {
         const id = req?.params?.id;
 
         try {
-            const updatedGame: Questionare = req.body as Questionare;
+            const updateQuestionare: Questionare = req.body as Questionare;
             const query = { _id: new ObjectId(id) };
 
-            const result = await collections.questoinare.updateOne(query, { $set: updatedGame });
+            const result = await collections.questoinare.updateOne(query, { $set: updateQuestionare });
 
             result
                 ? res.status(200).send(`Successfully updated game with id ${id}`)
@@ -73,11 +74,11 @@ export const questionareConnect = ( app: express.Application ) => {
             const result = await collections.questoinare.deleteOne(query);
 
             if (result && result.deletedCount) {
-                res.status(202).send(`Successfully removed game with id ${id}`);
+                res.status(202).send(`Successfully removed questionare with id ${id}`);
             } else if (!result) {
-                res.status(400).send(`Failed to remove game with id ${id}`);
+                res.status(400).send(`Failed to remove questionare with id ${id}`);
             } else if (!result.deletedCount) {
-                res.status(404).send(`Game with id ${id} does not exist`);
+                res.status(404).send(`Questionare with id ${id} does not exist`);
             }
         } catch (error) {
             // tslint:disable-next-line:no-console

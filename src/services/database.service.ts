@@ -1,7 +1,7 @@
 import * as mongoDB from "mongodb";
 import * as dotenv from "dotenv";
 
-export const collections: { questoinare?: mongoDB.Collection } = {}
+export const collections: { [key: string]: mongoDB.Collection } = {}
 
 export async function connectToDatabase () {
     dotenv.config();
@@ -35,7 +35,7 @@ export async function connectToDatabase () {
                 },
                 answers: {
                     bsonType: "array",
-                    description: "'questions' is required and is a matrix of answers"
+                    description: "'answers' is required and is a matrix of answers"
                 },
                 }
             }
@@ -46,6 +46,38 @@ export async function connectToDatabase () {
 
     collections.questoinare = questionareCollection;
 
-    // tslint:disable-next-line:no-console
-    console.log(`Successfully connected to database: ${db.databaseName} and collection: ${questionareCollection.collectionName}`);
+
+    await db.command({
+        "collMod": process.env.COLLECTION_NAME_FILLED,
+        "validator": {
+            $jsonSchema: {
+                bsonType: "object",
+                required: ["email", "questionareId", "questions","answers"],
+                additionalProperties: false,
+                properties: {
+                _id: {},
+                email: {
+                    bsonType: "string",
+                    description: "'email' is required and is a string - The filler email"
+                },
+                questionareId: {
+                    bsonType: "string",
+                    description: "'questionarId' is required and is the ID of the questionare"
+                },
+                questions: {
+                    bsonType: "array",
+                    description: "'questions' is required and is a array of questions"
+                },
+                answers: {
+                    bsonType: "array",
+                    description: "'answers' is required and is a array of answers"
+                },
+                }
+            }
+         }
+    });
+
+    const filledCollection: mongoDB.Collection = db.collection(process.env.COLLECTION_NAME_FILLED);
+
+    collections.filled = filledCollection;
 }
