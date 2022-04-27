@@ -11,15 +11,22 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="header">add csv</h1>
-        <script src="./csv.js"></script>
-        <form id="csv">
-            <div class="row" id="List">
+        <h1 class="header">Add new CSV</h1>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input v-model="name" ref="name" placeholder="name of CSV" id="name" type="text" class="validate">
+                    <!--<label for="name">Name of Questionare</label>-->
+                </div>
             </div>
-            <div class="row" >
-                <a class="btn" href="/addCSV"><i class="material-icons right">add</i>Add new CSV</a>
+            <div class="row">
+                <form id="CSV"></form>
             </div>
-        </form>
+            <div class="row">
+                <button id='addCSV' class='btn-small'><i class='material-icons right'>add</i>Add new CSV</button>
+            </div>
+            <div class="row">
+                <button id="upload"class='btn-small'><i class='material-icons right'>upload</i>upload</button>
+            </div>
     </div>
 </body>
 </html>
