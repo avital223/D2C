@@ -1,4 +1,4 @@
-import { StatisticTesting } from "./statistical.interface"
+import { StatisticTesting } from "../statistical.interface"
 
 export class MMSE extends StatisticTesting {
     norms: string = "Manual";

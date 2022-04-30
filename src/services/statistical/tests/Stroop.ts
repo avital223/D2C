@@ -1,7 +1,7 @@
-import { StatisticTesting } from "./statistical.interface"
+import { StatisticTesting } from "../statistical.interface"
 import { ObjectId } from "mongodb";
-import { collections } from "../database.service";
-import { Stats } from "../../database/DBclasses";
+import { collections } from "../../database.service";
+import { Stats } from "../../../database/DBclasses";
 
 
 abstract class StroopBasic extends StatisticTesting{
