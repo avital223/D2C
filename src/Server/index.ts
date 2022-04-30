@@ -25,12 +25,10 @@ app.use(express.json())
 // Configure session auth
 sessionAuth.register( app );
 
-// Configure routes
-routes.register( app );
-
 connectToDatabase()
     .then(() => {
-
+        // Configure routes
+        routes.register( app );
         app.listen(port, () => {
             // tslint:disable-next-line:no-console
             console.log(`Server started at http://localhost:${port}`);

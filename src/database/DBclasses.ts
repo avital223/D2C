@@ -13,3 +13,8 @@ export class FilledQuestionare {
 export class SendEmail {
     constructor(public to:string, public subject:string, public html:string, public text:string) {}
 }
+
+// tslint:disable-next-line:max-classes-per-file
+export class Stats {
+    constructor(public name:string, public order:string, public data:object) {}
+}

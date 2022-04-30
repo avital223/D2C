@@ -2,6 +2,8 @@ import * as express from "express";
 import {questionareConnect} from "./questionare.router"
 import {filledQuestionareConnect} from "./filled.router"
 import { emailConnect } from "./email.router";
+import { statsDBConnect } from "./stats.db.router";
+import { statConnect } from "./stats.rouoter";
 
 export const register = ( app: express.Application ) => {
     const oidc = app.locals.oidc;
@@ -11,6 +13,10 @@ export const register = ( app: express.Application ) => {
     filledQuestionareConnect(app)
 
     emailConnect(app)
+
+    statsDBConnect(app); // Fixme : remove this router when production ends!!!!
+
+    statConnect(app)
 
     app.get( "/", ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
