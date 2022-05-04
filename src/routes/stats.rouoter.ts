@@ -1,14 +1,17 @@
 import * as express  from "express";
 import {MMSE} from "../services/statistical/tests/MMSE"
+import {ACT} from "../services/statistical/tests/ACT"
+import {Hooper} from "../services/statistical/tests/Hooper"
+import {SCT} from "../services/statistical/tests/SCT"
+import {Booklet} from "../services/statistical/tests/Booklet"
 import {StroopColor, StroopWords, StroopClolorWords} from "../services/statistical/tests/Stroop"
-import * as statsFunction from "../services/statistical/statisticalConversion"
 export const router = express.Router();
 
 router.use(express.json());
 
 export const statConnect = (app: express.Application ) => {
 
-    const statisticalTesting = [new MMSE(), new StroopColor(), new StroopWords(), new StroopClolorWords()]
+    const statisticalTesting = [new MMSE(), new StroopColor(), new StroopWords(), new StroopClolorWords(), new ACT(), new Hooper(), new Booklet(), new SCT()]
 
     for( const statTest of statisticalTesting){
         statTest.Constructor()
@@ -21,12 +24,12 @@ export const statConnect = (app: express.Application ) => {
         const result = req?.body?.result;
         for( const statTest of statisticalTesting){
             if(statTest.name === name){
-                const ss = statTest.getValidResult(age,gender,education,result) as number;
-                const precentage = statTest.getPrecentage(ss) as number
+                const ss = statTest.getValidResult(age,gender,education,result) as number[];
+                const precentage = statTest.getPrecentage(ss) as number[]
                 const json = {
                     "res":ss,
                     "precentage":precentage,
-                    "raiting": statsFunction.precentageToTest(precentage),
+                    "raiting": statTest.getPrecentageToTest(precentage),
                     "norms":statTest.norms,
                     "correction":statTest.getCorrection()
                 }

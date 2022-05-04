@@ -15,15 +15,19 @@ export abstract class StatisticTesting {
     typeOfStatistics: number;
     data: any;
     public abstract getValidResult(age: number, gender:boolean, education:number, result:number[]): {};
-    public getPrecentage = (finalRes:number)=> {
-        if(this.typeOfStatistics === 1){
-            return statsFunction.tToPresantege(finalRes)
+    public getPrecentage = (finalRes:number[])=> {
+        const perArray:number[] = []
+        for (const res of finalRes){
+            if(this.typeOfStatistics === 1){
+                perArray.push(statsFunction.tToPresantege(res))
+            }
+            else if (this.typeOfStatistics === 0){
+                perArray.push(statsFunction.zToPrecentage(res))
+            } else{
+                perArray.push(res)
+            }
         }
-        if (this.typeOfStatistics === 2){
-            return statsFunction.zToPrecentage(finalRes)
-        } else{
-            return finalRes
-        }
+        return perArray
     }
     public async Constructor () {
         try {
@@ -37,7 +41,9 @@ export abstract class StatisticTesting {
             console.log(error.message)
         }
     }
-
+    public getPrecentageToTest (precentage:number[]) : string{
+        return statsFunction.precentageToTest(precentage[0])
+    }
     public abstract getCorrection():{};
 }
 

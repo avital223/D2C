@@ -25,12 +25,12 @@ abstract class StroopBasic extends StatisticTesting{
             console.log(error.message)
         }
     };
-    getPrecentage: (finalRes: number) => number;
+    getPrecentage: (finalRes: number[]) => number[];
     getValidResult(age: number, gender: boolean, education: number, result: number[]): {} {
         age=Math.round(age/5) * 5; // round to the nearest number that's devided by 5
         let ageStr = age.toString()
         // set limits to the age
-        if(age < 15 ){ 
+        if(age < 15 ){
             ageStr = "15"
         } else if (age > 100){
             ageStr="100"
@@ -42,14 +42,14 @@ abstract class StroopBasic extends StatisticTesting{
         } else if(education > 20){
             educationStr = "20"
         }
-        //calculate the result
+        // calculate the result
         let difference = result[0] - this.data[ageStr][educationStr]
         if(difference < -50){
             difference = -50
         } else if (difference > 50){
             difference = 50
         }
-        return this.dataConversion[difference.toString()]
+        return [this.dataConversion[difference.toString()]]
     }
     getCorrection(): {} {
        return "A + E"
@@ -122,6 +122,6 @@ export class StroopClolorWords extends StroopBasic {
         } else if (difference > 50){
             difference = 50
         }
-        return this.dataConversion[difference.toString()]
+        return [this.dataConversion[difference.toString()]]
     }
 }

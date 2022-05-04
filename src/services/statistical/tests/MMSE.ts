@@ -9,7 +9,7 @@ export class MMSE extends StatisticTesting {
     usingEducation: boolean = true;
     usingGender: boolean = false;
     typeOfStatistics: number = 1; // using T testing
-    getPrecentage: (finalRes: number) => number;
+    getPrecentage: (finalRes: number[]) => number[];
     Constructor: () => Promise<void>;
     private getScoreStr = (result:number, minLimit:number) => {
         let resultStr=""
@@ -41,16 +41,15 @@ export class MMSE extends StatisticTesting {
         }
         if(education >= 0 && education <= 4 ){
             educationSrt="0-4"
-        } else if (age >= 5 && age <= 8 ) {
+        } else if (education >= 5 && education <= 8 ) {
             educationSrt="5-8"
-        } else if (age >= 9 && age <= 12 ) {
+        } else if (education >= 9 && education <= 12 ) {
             educationSrt="9-12"
         } else {
             educationSrt="13-50"
         }
         if(this.data.hasOwnProperty(ageStr)){
-            const json = JSON.stringify(this.data)
-            return this.data[ageStr][educationSrt][resultStr]
+            return [this.data[ageStr][educationSrt][resultStr]]
         }
     }
 
