@@ -44,13 +44,14 @@ export const register = ( app: express.Application ) => {
         }
     } );
 
-    app.get( "/listQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
-        const user = req.userContext ? req.userContext.userinfo : null;
 
     app.get( "/addCSV", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         res.render( "csv", { isAuthenticated: req.isAuthenticated(), user, res } );
     } );
+
+    app.get( "/listQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
 
         if (user.groups.indexOf("Admin") > -1){
             res.render( "questionare/listQuestionare", { isAuthenticated: req.isAuthenticated(), user } );
