@@ -25,6 +25,8 @@ export abstract class StatisticTesting {
                 perArray.push(statsFunction.zToPrecentage(res))
             } else if (this.typeOfStatistics === 3){
                 perArray.push(statsFunction.iqToPrecentage(res))
+            } else if (this.typeOfStatistics === 4){
+                perArray.push(statsFunction.iqToPrecentage(50 + 5* res))
             } else{
                 perArray.push(res)
             }

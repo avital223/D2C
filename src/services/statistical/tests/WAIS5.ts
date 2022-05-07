@@ -8,7 +8,7 @@ abstract class WAIS5Basic extends StatisticTesting{
     usingGender: boolean = false;
     includingOld = true;
     limitRes : number;
-    typeOfStatistics: number = 3; // using IQ testing
+    typeOfStatistics: number = 4; // using IQ testing
     getValidResult(age: number, gender: boolean, education: number, result: number[]): {} {
         let ageStr = ""
         if(age <= 17){
@@ -46,13 +46,6 @@ abstract class WAIS5Basic extends StatisticTesting{
             resultStr = this.limitRes.toString()
         }
         return [this.data[ageStr][resultStr]]
-    }
-    public getPrecentage(finalRes: number[]):number[] {
-        const perArray:number[] = []
-        for (const res of finalRes){
-            perArray.push(statsFunction.iqToPrecentage(50 + 5* res))
-        }
-        return perArray
     }
 
     getCorrection(): {} {

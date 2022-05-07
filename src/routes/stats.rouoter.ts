@@ -5,6 +5,7 @@ import {Hooper} from "../services/statistical/tests/Hooper"
 import {SCT} from "../services/statistical/tests/SCT"
 import {Booklet} from "../services/statistical/tests/Booklet"
 import {allWAIS5} from "../services/statistical/tests/WAIS5"
+import {allWMS4} from "../services/statistical/tests/WMS4"
 import {StroopColor, StroopWords, StroopClolorWords} from "../services/statistical/tests/Stroop"
 export const router = express.Router();
 
@@ -14,6 +15,7 @@ export const statConnect = (app: express.Application ) => {
 
     let statisticalTesting = [new MMSE(), new StroopColor(), new StroopWords(), new StroopClolorWords(), new ACT(), new Hooper(), new Booklet(), new SCT()]
     statisticalTesting = statisticalTesting.concat(allWAIS5)
+    statisticalTesting = statisticalTesting.concat(allWMS4)
     for( const statTest of statisticalTesting){
         statTest.Constructor()
     }
