@@ -11,11 +11,11 @@ export abstract class StatisticTesting {
     usingEducation: boolean;
     usingGender: boolean;
     // Type os the statistical test preforned in this test
-    // 0 - Z test (or SS) , 1 - T test, 2- Pracentile Rank,
+    // 0 - Z test (or SS) , 1 - T test, 2- Pracentile Rank, 3 - IQ score,
     typeOfStatistics: number;
     data: any;
     public abstract getValidResult(age: number, gender:boolean, education:number, result:number[]): {};
-    public getPrecentage = (finalRes:number[])=> {
+    public getPrecentage (finalRes:number[]) {
         const perArray:number[] = []
         for (const res of finalRes){
             if(this.typeOfStatistics === 1){
@@ -23,6 +23,8 @@ export abstract class StatisticTesting {
             }
             else if (this.typeOfStatistics === 0){
                 perArray.push(statsFunction.zToPrecentage(res))
+            } else if (this.typeOfStatistics === 3){
+                perArray.push(statsFunction.iqToPrecentage(res))
             } else{
                 perArray.push(res)
             }
