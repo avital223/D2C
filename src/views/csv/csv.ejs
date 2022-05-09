@@ -8,24 +8,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="../csv/uploadCSV.ts"></script>      
 </head>
 <body>
     <div class="container">
         <h1 class="header">Add new CSV</h1>
             <div class="row">
                 <div class="input-field col s6">
-                    <input v-model="name" ref="name" placeholder="name of CSV" id="name" type="text" class="validate">
-                    <!--<label for="name">Name of Questionare</label>-->
+                    <label for="csv_upload">Select CSV file to upload:</label>
+                    <input v-model="csv_upload" ref="csv_upload" placeholder="Input URL" id="csv_upload" type="file" class="validate"  accept=".csv">
+                    <!--<label for="name">Name of url</label>-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input v-model="id" ref="id" placeholder="Enter ID" id="id" type="text" class="validate">
+                    <!--<label for="id">id of patient</label>-->
                 </div>
             </div>
             <div class="row">
                 <form id="CSV"></form>
             </div>
             <div class="row">
-                <button id='addCSV' class='btn-small'><i class='material-icons right'>add</i>Add new CSV</button>
-            </div>
-            <div class="row">
-                <button id="upload"class='btn-small'><i class='material-icons right'>upload</i>upload</button>
+                <button id='send' class='btn-small'><i class='material-icons right'>add</i>send</button>
             </div>
     </div>
 </body>

@@ -44,10 +44,14 @@ export const register = ( app: express.Application ) => {
         }
     } );
 
+    app.get( "/fillTests", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        res.render( "fillTests", { isAuthenticated: req.isAuthenticated(), user, res } );
+    } );
 
     app.get( "/addCSV", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "csv", { isAuthenticated: req.isAuthenticated(), user, res } );
+        res.render( "csv/csv", { isAuthenticated: req.isAuthenticated(), user, res } );
     } );
 
     app.get( "/listQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
