@@ -41,8 +41,6 @@ export const statsDBConnect = ( app: express.Application ) => {
                 ? res.status(201).send(`Successfully created a new stat questionare with id ${result.insertedId}`)
                 : res.status(500).send("Failed to create a new stat questionare.");
         } catch (error) {
-            // tslint:disable-next-line:no-console
-            console.error(error);
             res.status(400).send(error.message);
         }
     });
