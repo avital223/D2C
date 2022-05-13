@@ -7,12 +7,14 @@ import {Booklet} from "../services/statistical/tests/Booklet"
 import {allWAIS5, fullIQ} from "../services/statistical/tests/WAIS5"
 import {allWMS4} from "../services/statistical/tests/WMS4"
 import {StroopColor, StroopWords, StroopClolorWords} from "../services/statistical/tests/Stroop"
+import {RFFTSD, RFFTER} from "../services/statistical/tests/RFFT"
 export const router = express.Router();
 
 router.use(express.json());
 
 export const statConnect = (app: express.Application ) => {
-    const statisticalTesting = [new MMSE(), new StroopColor(), new StroopWords(), new StroopClolorWords(), new ACT(), new Hooper(), new Booklet(), new SCT()]
+    const statisticalTesting = [new MMSE(), new StroopColor(), new StroopWords(), new StroopClolorWords(), new ACT(), new Hooper(), new Booklet(), new SCT()
+    , new RFFTER(), new RFFTSD()]
     statisticalTesting.push(...allWMS4)
     for( const statTest of statisticalTesting){
         statTest.Constructor()
@@ -28,17 +30,23 @@ export const statConnect = (app: express.Application ) => {
         const result = req?.body?.result;
         for( const statTest of statisticalTesting){
             if(statTest.name === name){
-                const ss = statTest.getValidResult(age,gender,education,result) as number[];
-                const precentage = statTest.getPrecentage(ss) as number[]
-                const json = {
-                    "res":ss,
-                    "precentage":precentage,
-                    "raiting": statTest.getPrecentageToTest(precentage),
-                    "norms":statTest.norms,
-                    "correction":statTest.getCorrection()
+                try {
+                    const ss = statTest.getValidResult(age,gender,education,result) as number[];
+                    const precentage = statTest.getPrecentage(ss) as number[]
+                    const json = {
+                        "res":ss,
+                        "precentage":precentage,
+                        "raiting": statTest.getPrecentageToTest(precentage),
+                        "norms":statTest.norms,
+                        "correction":statTest.getCorrection()
+                    }
+                    res.status(200).send(json);
+                    return;
                 }
-                res.status(200).send(json);
-                return;
+                catch(ex) {
+                    res.status(200).send("Something went wrong!");
+                    return;
+                }
             }
         }
         res.status(200).send("Not Found");
