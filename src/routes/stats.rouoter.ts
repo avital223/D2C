@@ -8,6 +8,7 @@ import {allWAIS5, fullIQ} from "../services/statistical/tests/WAIS5"
 import {allWMS4} from "../services/statistical/tests/WMS4"
 import {StroopColor, StroopWords, StroopClolorWords} from "../services/statistical/tests/Stroop"
 import {RFFTSD, RFFTER} from "../services/statistical/tests/RFFT"
+import {allRAVLT} from "../services/statistical/tests/RAVLT"
 export const router = express.Router();
 
 router.use(express.json());
@@ -16,6 +17,7 @@ export const statConnect = (app: express.Application ) => {
     const statisticalTesting = [new MMSE(), new StroopColor(), new StroopWords(), new StroopClolorWords(), new ACT(), new Hooper(), new Booklet(), new SCT()
     , new RFFTER(), new RFFTSD()]
     statisticalTesting.push(...allWMS4)
+    statisticalTesting.push(...allRAVLT)
     for( const statTest of statisticalTesting){
         statTest.Constructor()
     }
