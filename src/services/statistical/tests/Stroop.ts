@@ -72,8 +72,8 @@ export class StroopWords extends StroopBasic {
 
 
 // tslint:disable-next-line:max-classes-per-file
-export class StroopClolorWords extends StroopBasic {
-    name: string = "StroopClolorWords";
+export class StroopColorWords extends StroopBasic {
+    name: string = "StroopColorWords";
     id: string = "626d685f7e1152da8e425df1";
     idConversion="626d6a2a445f775ae4813675";
     idPredict="626d815596ec29d212bee6c1"
