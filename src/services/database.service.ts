@@ -80,4 +80,8 @@ export async function connectToDatabase () {
     const filledCollection: mongoDB.Collection = db.collection(process.env.COLLECTION_NAME_FILLED);
 
     collections.filled = filledCollection;
+
+    const statCollection: mongoDB.Collection = db.collection(process.env.COLLECTION_NAME_STAT);
+
+    collections.stat = statCollection;
 }
