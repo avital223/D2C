@@ -1,7 +1,3 @@
-const validateEmail = (email : string) => {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
 
 const fillQuestionareUser = (data: any) => {
     const errIn = document.getElementById("error") as HTMLParagraphElement;
@@ -62,9 +58,9 @@ const getQuestionareFilled = (e: { preventDefault: () => void; } , id : string, 
     if( e !== null){
         e.preventDefault();
     }
-    const email = document.getElementById("email") as HTMLInputElement;
-    if (email && validateEmail(email.value)){
-        fetch("/filled/"+email.value+"/"+id, {
+    const hash = document.getElementById("hash") as HTMLInputElement;
+    if (hash){
+        fetch("/filled/"+hash.value+"/"+id, {
             method: 'GET',
             headers:{
                 'Content-Type':'application/json'
@@ -73,20 +69,20 @@ const getQuestionareFilled = (e: { preventDefault: () => void; } , id : string, 
         .then(response => response.json())
         .then(fillQuestionareUser)
         .catch(()=>{
-            printError(button, id, "Could not load the content of this email! Try filling from scratch")
+            printError(button, id, "Could not load the content of this hash user! Try filling from scratch")
         })
     } else{
-        printError(button, id, "Error! not a valid email!")
+        printError(button, id, "Error! not a valid hash user!")
     }
 }
 
 const sendFilled = (_event: MouseEvent, questionareId: string, oldId: string) => {
     _event.preventDefault()
-    const email = document.getElementById("email") as HTMLInputElement;
+    const hash = document.getElementById("hash") as HTMLInputElement;
     const errIn = document.getElementById("error") as HTMLParagraphElement;
-    if (!email || !validateEmail(email.value)){
+    if (!hash || hash.value === "" ){
         if(errIn){
-            errIn.textContent = "Error! not a valid email!"
+            errIn.textContent = "Error! not a valid hash user!"
             errIn.hidden = false
         }
         return
@@ -130,36 +126,24 @@ const sendFilled = (_event: MouseEvent, questionareId: string, oldId: string) =>
             answers.push("None")
         }
     });
-    // "email", "questionareId", "questions","answers"
+    // "hash", "questionareId", "questions","answers"
     const data = {
-        email: email.value,
+        hash: hash.value,
         questionareId,
         questions: questionsS,
         answers
     }
-    if(oldId !== "None"){
-        fetch("/filled/"+oldId, {
-            method: 'PUT',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify(data),
-        })
-        .then((res) => {window.location.href = "/listQuestionare"})
-        // tslint:disable-next-line:no-console
-        .catch((err) => console.log(err));
-    } else {
-        fetch("/filled/", {
-            method: 'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify(data),
-        })
-        .then((res) => {window.location.href = "/listQuestionare"})
-        // tslint:disable-next-line:no-console
-        .catch((err) => console.log(err));
-    }
+    fetch("/filled/", {
+        method: 'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(data),
+    })
+    .then((res) => {window.location.href = "/listQuestionare"})
+    // tslint:disable-next-line:no-console
+    .catch((err) => console.log(err));
+
 }
 
 const createQuestionare = (data: any) => {

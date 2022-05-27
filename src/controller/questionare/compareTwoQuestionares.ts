@@ -1,8 +1,3 @@
-const validateEmailC = (email : string) => {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-
 const fillQuestionareUserComapre = (data:any, ending:string) =>{
     const errIn = document.getElementById("error_"+ending) as HTMLParagraphElement;
     if(errIn){
@@ -10,6 +5,8 @@ const fillQuestionareUserComapre = (data:any, ending:string) =>{
     }
     const table = document.getElementById("filling_questionare_"+ending) as HTMLTableElement;
     const arrayCells = Array.from(table.getElementsByTagName("td") as HTMLCollectionOf<HTMLTableCellElement>)
+    // tslint:disable-next-line:no-console
+    console.log(data)
     for ( const cell of arrayCells){
         const index = data.questions.indexOf(cell.textContent)
         if(index > -1){
@@ -51,9 +48,9 @@ const getQuestionareFilledC = (e: { preventDefault: () => void; } , id : string,
     if(e!== null){
         e.preventDefault()
     }
-    const email = document.getElementById("email_"+ending) as HTMLInputElement;
-    if (email && validateEmailC(email.value)){
-        fetch("/filled/"+email.value+"/"+id, {
+    const hash = document.getElementById("hash_"+ending) as HTMLInputElement;
+    if (hash && hash.value !== ""){
+        fetch("/filled/"+hash.value+"/"+id, {
             method: 'GET',
             headers:{
                 'Content-Type':'application/json'
@@ -62,11 +59,15 @@ const getQuestionareFilledC = (e: { preventDefault: () => void; } , id : string,
         .then(response => response.json())
         .then((data)=>{fillQuestionareUserComapre(data, ending)})
         .catch(()=>{
-            printErrorCompare(ending, "Could not load the content of this email! Try filling from scratch")
+            printErrorCompare(ending, "Could not load the content of this hash user! Try filling from scratch")
         })
     } else{
-        printErrorCompare(ending, "Error! not a valid email!")
+        printErrorCompare(ending, "Error! not a valid hash user!")
     }
+}
+
+const generateLists = (e: { preventDefault: () => void; } , id : string) => {
+
 }
 
 const createQuestionareForForm = (data: any, ending : string) => {

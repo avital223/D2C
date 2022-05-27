@@ -28,7 +28,7 @@ export const statsDBConnect = ( app: express.Application ) => {
                 res.status(404).send("Error")
             }
         } catch (error) {
-            res.status(404).send(`Unable to find matching document with id: ${req.params.email}`);
+            res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
         }
     });
 

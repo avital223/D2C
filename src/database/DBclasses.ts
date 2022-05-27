@@ -6,7 +6,7 @@ export class Questionare {
 
 // tslint:disable-next-line:max-classes-per-file
 export class FilledQuestionare {
-    constructor(public email: string, public questionareId: string,public questions: string[],  public answers: string[], public id?: ObjectId) {}
+    constructor(public hash: string, public questionareId: string,public questions: string[],  public answers: string[], public timestamp: Date,  public id?: ObjectId) {}
 }
 
 // tslint:disable-next-line:max-classes-per-file
