@@ -7,11 +7,11 @@ const fillQuestionareUser = (data: any) => {
     const table = document.getElementById("filling_questionare") as HTMLTableElement;
     const arrayCells = Array.from(table.getElementsByTagName("td") as HTMLCollectionOf<HTMLTableCellElement>)
     for ( const cell of arrayCells){
-        const index = data.questions.indexOf(cell.textContent)
+        const index = data[0].questions.indexOf(cell.textContent)
         if(index > -1){
             const ansCell = cell.parentNode.childNodes[1] as HTMLTableCellElement;
             const ansList = Array.from(ansCell.getElementsByTagName("input")as HTMLCollectionOf<HTMLInputElement>)
-            const ans = data.answers[index];
+            const ans = data[0].answers[index];
             if (ansList.length === 1){
                 ansList[0].value = ans
             } else {
@@ -23,7 +23,7 @@ const fillQuestionareUser = (data: any) => {
             }
         }
     }
-    updateSaveButton(data.questionareId, data._id)
+    updateSaveButton(data[0].questionareId, data[0]._id)
 }
 
 const updateSaveButton = (id: string, filledId: string) => {
@@ -106,10 +106,13 @@ const sendFilled = (_event: MouseEvent, questionareId: string, oldId: string) =>
             if(answerInputs.length === 1){
                 arrayAnswers.set(id,answerInputs[0].value)
             } else {
+                const re = /\//gi;
                 // if the answer is a multiple choice
                 for (const choice of answerInputs){
                     if(choice.type === 'radio' && choice.checked){
-                        arrayAnswers.set(id,choice.value);
+                        arrayAnswers.set(id,choice.value.replace(re,"\'"));
+                        // tslint:disable-next-line:no-console
+                        console.log(choice.value.replace(re,"\'"))
                     }
                 }
             }
@@ -118,14 +121,21 @@ const sendFilled = (_event: MouseEvent, questionareId: string, oldId: string) =>
     }
     const questionsS: string[] = []
     const answers:string[] = []
+    let isValid = true
     arrayQuestions.forEach((value: string, key: string) => {
         questionsS.push(value)
         if ( arrayAnswers.get(key) !== undefined) {
             answers.push(arrayAnswers.get(key))
         } else {
-            answers.push("None")
+            errIn.textContent = "You forgot to fill some of the questions!"
+            errIn.hidden = false
+            isValid = false
+            return;
         }
     });
+    if(! isValid){
+        return;
+    }
     // "hash", "questionareId", "questions","answers"
     const data = {
         hash: hash.value,
@@ -166,8 +176,9 @@ const createQuestionare = (data: any) => {
             } else{
                 if(data.category[i]===0){
                     const answerArray = data.answers[countAnswers]
+                    const re = /\'/gi;
                     for(let j=0;j<answerArray.length;j++){
-                        newHTML+="<p><label><input type='radio' name='q_"+i+"' id='"+j+"' value='"+answerArray[j]+"'>"
+                        newHTML+="<p><label><input type='radio' name='q_"+i+"' id='"+j+"' value='"+answerArray[j].replace(re,"\/")+"'>"
                         newHTML+="<span>"+answerArray[j]+"</span></label></p>"
 
                     }
