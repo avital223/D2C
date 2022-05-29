@@ -27,7 +27,7 @@ export const statConnect = (app: express.Application ) => {
     // A spetial case due to recursive construction
     fullIQ.Constructor()
     statisticalTesting.push(...allWAIS5)
-    router.get("/:name", async (req: express.Request, res: express.Response) => {
+    router.post("/:name", async (req: express.Request, res: express.Response) => {
         const name = req?.params?.name;
         const age = req?.body?.age;
         const gender = req?.body?.gender;

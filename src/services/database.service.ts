@@ -81,6 +81,10 @@ export async function connectToDatabase () {
 
     collections.filled = filledCollection;
 
+    const filledTestCollection: mongoDB.Collection = db.collection(process.env.COLLECTION_NAME_STAT_FILLED);
+
+    collections.filledTests = filledTestCollection;
+
     const statCollection: mongoDB.Collection = db.collection(process.env.COLLECTION_NAME_STAT);
 
     collections.stat = statCollection;
