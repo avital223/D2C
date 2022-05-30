@@ -18,3 +18,8 @@ export class SendEmail {
 export class Stats {
     constructor(public name:string, public order:string, public data:object) {}
 }
+
+// tslint:disable-next-line:max-classes-per-file
+export class FilledTests {
+    constructor(public age:string, public hash:string, public gender:boolean, public education:string,public results:object[], public timestamp:Date, public id?: ObjectId) {}
+}
