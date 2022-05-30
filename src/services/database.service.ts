@@ -83,6 +83,41 @@ export async function connectToDatabase () {
 
     collections.filled = filledCollection;
 
+
+    await db.command({
+        "collMod": process.env.COLLECTION_NAME_STAT_FILLED,
+        "validator": {
+            $jsonSchema: {
+                bsonType: "object",
+                required: ["age", "hash", "gender", "education", "results", "timestamp"],
+                additionalProperties: false,
+                properties: {
+                _id: {},
+                hash: {
+                    bsonType: "string",
+                    description: "'hash' is required and is a string"
+                },
+                age: {
+                    bsonType: "string",
+                    description: "'age' is required and is a number"
+                },
+                gender: {
+                    bsonType: "bool",
+                    description: "'gender' is required and is a boolean ( false-Male true-Female)"
+                },
+                education: {
+                    bsonType: "string",
+                    description: "'education'  is required and is a number"
+                },
+                results: {
+                    bsonType: "array",
+                    description: "'results' is required and is a array of objects of results"
+                },
+                timestamp: {},
+                }
+            }
+         }
+    });
     const filledTestCollection: mongoDB.Collection = db.collection(process.env.COLLECTION_NAME_STAT_FILLED);
 
     collections.filledTests = filledTestCollection;

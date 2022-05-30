@@ -21,5 +21,5 @@ export class Stats {
 
 // tslint:disable-next-line:max-classes-per-file
 export class FilledTests {
-    constructor(public age:string, public hash:string, public gender:boolean, public education:string,public results:any[], public timestemp:Date, public id?: ObjectId) {}
+    constructor(public age:string, public hash:string, public gender:boolean, public education:string,public results:object[], public timestamp:Date, public id?: ObjectId) {}
 }
