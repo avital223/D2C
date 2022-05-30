@@ -57,7 +57,7 @@ export const register = ( app: express.Application ) => {
         if (user.groups.indexOf("Admin") > -1){
             res.render( "questionare/listQuestionare", { isAuthenticated: req.isAuthenticated(), user } );
         } else {
-            res.redirect( "listMyQuestionare" ); // chnage later to error page
+            res.redirect( "/" ); // chnage later to error page
         }
     } );
 
@@ -77,7 +77,11 @@ export const register = ( app: express.Application ) => {
 
     app.get( "/csv", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "csv", { isAuthenticated: req.isAuthenticated(), user } );
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "csv/csv", { isAuthenticated: req.isAuthenticated(), user, res } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
     } );
 
 

@@ -2,13 +2,12 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <%- include('partial/navigator.ejs') %>
+    <%- include('../partial/navigator.ejs') %>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>CSV</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- <script src="./uploadCSV.js"></script>       -->
 </head>
 <body>
     <div class="container">
@@ -20,9 +19,16 @@
                         <input v-model="id" ref="id" placeholder="Enter ID" name="hash" type="text" class="validate">
                         <input placeholder="Enter Age" name="age" type="text" class="validate">
                         <input placeholder="Enter Education" name="education" type="text" class="validate">
-                        <input placeholder="Enter Gender" name="gender" type="text" class="validate">
+                        <label>
+                            <input type='radio' name='gender' value='Male'>
+                            <span>Male</span>
+                        </label>
+                        <label>
+                            <input type='radio' name='gender' value='Female'>
+                            <span>Female</span>
+                        </label>
+                    </br>
                         <button id='send' class='btn-small'><i class='material-icons right'>add</i>send</button>
-                        <!--<label for="id">id of patient</label>-->
                     </form>
                 </div>
             </div>

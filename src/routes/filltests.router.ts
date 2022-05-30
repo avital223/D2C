@@ -4,6 +4,7 @@ import {FilledTests} from "../database/DBclasses";
 import fetch from "node-fetch";
 import * as formidable from "formidable";
 import * as xlsx from "xlsx";
+import * as fs from "fs";
 export const router = express.Router();
 
 
@@ -202,6 +203,8 @@ export const filledTests = (app: express.Application ) => {
                     data.push(result)
                 })
             }
+
+            fs.unlinkSync(fileupload.filepath);
             for (const item of data){
                 try{
                     let nameTest = (item["Cognitive Domain/Measure"] as string).trim()
@@ -282,6 +285,9 @@ export const filledTests = (app: express.Application ) => {
                 res.status(400).send(error.message);
             }
         });
+
+
+
         res.redirect("/")
     });
 
