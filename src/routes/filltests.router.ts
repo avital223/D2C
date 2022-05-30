@@ -178,7 +178,7 @@ export const filledTests = (app: express.Application ) => {
 
         form.parse(req, async (err, fields, files) => {
             const hash = fields?.hash;
-            const age = parseInt( fields?.age as string,10);
+            const age = fields?.age;
             const genderStr = fields?.gender;
             let gender :boolean
             if(genderStr === "Male"){
@@ -186,7 +186,7 @@ export const filledTests = (app: express.Application ) => {
             } else {
                 gender = true
             }
-            const education = parseInt( fields?.education as string,10);
+            const education = fields?.education;
             const fileupload = files?.csvUpload as formidable.File;
             // Reading our test file
             const file = xlsx.readFile(fileupload.filepath)
