@@ -52,13 +52,13 @@ export async function connectToDatabase () {
         "validator": {
             $jsonSchema: {
                 bsonType: "object",
-                required: ["email", "questionareId", "questions","answers"],
+                required: ["hash", "questionareId", "questions","answers"],
                 additionalProperties: false,
                 properties: {
                 _id: {},
-                email: {
+                hash: {
                     bsonType: "string",
-                    description: "'email' is required and is a string - The filler email"
+                    description: "'hash' is required and is a string - The filler hash user"
                 },
                 questionareId: {
                     bsonType: "string",
@@ -72,6 +72,8 @@ export async function connectToDatabase () {
                     bsonType: "array",
                     description: "'answers' is required and is a array of answers"
                 },
+                timestamp: {
+                }
                 }
             }
          }
