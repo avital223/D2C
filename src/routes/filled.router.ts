@@ -1,5 +1,5 @@
 import * as express  from "express";
-import { ObjectId } from "mongodb";
+import { ObjectId, Timestamp } from "mongodb";
 import { collections } from "../services/database.service";
 import {FilledQuestionare} from "../database/DBclasses";
 
@@ -17,10 +17,10 @@ export const filledQuestionareConnect = ( app: express.Application ) => {
         }
     });
 
-    router.get("/:email", async (req: express.Request, res: express.Response) => {
-        const email = req?.params?.email;
+    router.get("/:hash", async (req: express.Request, res: express.Response) => {
+        const hash = req?.params?.hash;
         try {
-            const query = { email};
+            const query = { hash};
             const filled = (await collections.filled.find(query).toArray()) as unknown as FilledQuestionare[];
             if (filled) {
                 res.status(200).send(filled);
@@ -28,15 +28,32 @@ export const filledQuestionareConnect = ( app: express.Application ) => {
                 res.status(404).send("")
             }
         } catch (error) {
-            res.status(404).send(`Unable to find matching document with email: ${req.params.email}`);
+            res.status(404).send(`Unable to find matching document with hash: ${req.params.hash}`);
         }
     });
 
-    router.get("/:email/:id", async (req: express.Request, res: express.Response) => {
-        const email = req?.params?.email;
+    router.get("/:hash/:id", async (req: express.Request, res: express.Response) => {
+        const hash = req?.params?.hash;
         const id = req?.params?.id;
         try {
-            const query = { email, questionareId : id };
+            const query = { hash, questionareId : id };
+            const filled = (await collections.filled.find(query).toArray()) as unknown as FilledQuestionare[];
+            if (filled) {
+                res.status(200).send(filled);
+            } else {
+                res.status(404).send("")
+            }
+        } catch (error) {
+            res.status(404).send(`Unable to find matching document with hash: ${req.params.hash}`);
+        }
+    });
+
+    router.get("/:hash/:id/:mainId", async (req: express.Request, res: express.Response) => {
+        const hash = req?.params?.hash;
+        const id = req?.params?.id;
+        const mainId = req?.params?.mainId;
+        try {
+            const query = { hash, questionareId : id , _id: new ObjectId(mainId) };
             const filled = (await collections.filled.findOne(query)) as unknown as FilledQuestionare;
             if (filled) {
                 res.status(200).send(filled);
@@ -44,15 +61,16 @@ export const filledQuestionareConnect = ( app: express.Application ) => {
                 res.status(404).send("")
             }
         } catch (error) {
-            res.status(404).send(`Unable to find matching document with email: ${req.params.email}`);
+            res.status(404).send(`Unable to find matching document with hash: ${req.params.hash}`);
         }
     });
 
     router.post("/", async (req: express.Request, res: express.Response) => {
         try {
-            const newFilled = req.body as FilledQuestionare;
+            const bodyReq = req.body
+            bodyReq.timestamp = new Date()
+            const newFilled = bodyReq as FilledQuestionare;
             const result = await collections.filled.insertOne(newFilled);
-
             result
                 ? res.status(201).send(`Successfully created a new filled questionare with id ${result.insertedId}`)
                 : res.status(500).send("Failed to create a new filled questionare.");

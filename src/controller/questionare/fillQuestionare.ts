@@ -1,7 +1,3 @@
-const validateEmail = (email : string) => {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
 
 const fillQuestionareUser = (data: any) => {
     const errIn = document.getElementById("error") as HTMLParagraphElement;
@@ -11,11 +7,11 @@ const fillQuestionareUser = (data: any) => {
     const table = document.getElementById("filling_questionare") as HTMLTableElement;
     const arrayCells = Array.from(table.getElementsByTagName("td") as HTMLCollectionOf<HTMLTableCellElement>)
     for ( const cell of arrayCells){
-        const index = data.questions.indexOf(cell.textContent)
+        const index = data[0].questions.indexOf(cell.textContent)
         if(index > -1){
             const ansCell = cell.parentNode.childNodes[1] as HTMLTableCellElement;
             const ansList = Array.from(ansCell.getElementsByTagName("input")as HTMLCollectionOf<HTMLInputElement>)
-            const ans = data.answers[index];
+            const ans = data[0].answers[index];
             if (ansList.length === 1){
                 ansList[0].value = ans
             } else {
@@ -27,7 +23,7 @@ const fillQuestionareUser = (data: any) => {
             }
         }
     }
-    updateSaveButton(data.questionareId, data._id)
+    updateSaveButton(data[0].questionareId, data[0]._id)
 }
 
 const updateSaveButton = (id: string, filledId: string) => {
@@ -62,9 +58,9 @@ const getQuestionareFilled = (e: { preventDefault: () => void; } , id : string, 
     if( e !== null){
         e.preventDefault();
     }
-    const email = document.getElementById("email") as HTMLInputElement;
-    if (email && validateEmail(email.value)){
-        fetch("/filled/"+email.value+"/"+id, {
+    const hash = document.getElementById("hash") as HTMLInputElement;
+    if (hash){
+        fetch("/filled/"+hash.value+"/"+id, {
             method: 'GET',
             headers:{
                 'Content-Type':'application/json'
@@ -73,20 +69,20 @@ const getQuestionareFilled = (e: { preventDefault: () => void; } , id : string, 
         .then(response => response.json())
         .then(fillQuestionareUser)
         .catch(()=>{
-            printError(button, id, "Could not load the content of this email! Try filling from scratch")
+            printError(button, id, "Could not load the content of this hash user! Try filling from scratch")
         })
     } else{
-        printError(button, id, "Error! not a valid email!")
+        printError(button, id, "Error! not a valid hash user!")
     }
 }
 
 const sendFilled = (_event: MouseEvent, questionareId: string, oldId: string) => {
     _event.preventDefault()
-    const email = document.getElementById("email") as HTMLInputElement;
+    const hash = document.getElementById("hash") as HTMLInputElement;
     const errIn = document.getElementById("error") as HTMLParagraphElement;
-    if (!email || !validateEmail(email.value)){
+    if (!hash || hash.value === "" ){
         if(errIn){
-            errIn.textContent = "Error! not a valid email!"
+            errIn.textContent = "Error! not a valid hash user!"
             errIn.hidden = false
         }
         return
@@ -110,10 +106,13 @@ const sendFilled = (_event: MouseEvent, questionareId: string, oldId: string) =>
             if(answerInputs.length === 1){
                 arrayAnswers.set(id,answerInputs[0].value)
             } else {
+                const re = /\//gi;
                 // if the answer is a multiple choice
                 for (const choice of answerInputs){
                     if(choice.type === 'radio' && choice.checked){
-                        arrayAnswers.set(id,choice.value);
+                        arrayAnswers.set(id,choice.value.replace(re,"\'"));
+                        // tslint:disable-next-line:no-console
+                        console.log(choice.value.replace(re,"\'"))
                     }
                 }
             }
@@ -122,44 +121,39 @@ const sendFilled = (_event: MouseEvent, questionareId: string, oldId: string) =>
     }
     const questionsS: string[] = []
     const answers:string[] = []
+    let isValid = true
     arrayQuestions.forEach((value: string, key: string) => {
         questionsS.push(value)
         if ( arrayAnswers.get(key) !== undefined) {
             answers.push(arrayAnswers.get(key))
         } else {
-            answers.push("None")
+            errIn.textContent = "You forgot to fill some of the questions!"
+            errIn.hidden = false
+            isValid = false
+            return;
         }
     });
-    // "email", "questionareId", "questions","answers"
+    if(! isValid){
+        return;
+    }
+    // "hash", "questionareId", "questions","answers"
     const data = {
-        email: email.value,
+        hash: hash.value,
         questionareId,
         questions: questionsS,
         answers
     }
-    if(oldId !== "None"){
-        fetch("/filled/"+oldId, {
-            method: 'PUT',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify(data),
-        })
-        .then((res) => {window.location.href = "/listQuestionare"})
-        // tslint:disable-next-line:no-console
-        .catch((err) => console.log(err));
-    } else {
-        fetch("/filled/", {
-            method: 'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify(data),
-        })
-        .then((res) => {window.location.href = "/listQuestionare"})
-        // tslint:disable-next-line:no-console
-        .catch((err) => console.log(err));
-    }
+    fetch("/filled/", {
+        method: 'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(data),
+    })
+    .then((res) => {window.location.href = "/listQuestionare"})
+    // tslint:disable-next-line:no-console
+    .catch((err) => console.log(err));
+
 }
 
 const createQuestionare = (data: any) => {
@@ -182,8 +176,9 @@ const createQuestionare = (data: any) => {
             } else{
                 if(data.category[i]===0){
                     const answerArray = data.answers[countAnswers]
+                    const re = /\'/gi;
                     for(let j=0;j<answerArray.length;j++){
-                        newHTML+="<p><label><input type='radio' name='q_"+i+"' id='"+j+"' value='"+answerArray[j]+"'>"
+                        newHTML+="<p><label><input type='radio' name='q_"+i+"' id='"+j+"' value='"+answerArray[j].replace(re,"\/")+"'>"
                         newHTML+="<span>"+answerArray[j]+"</span></label></p>"
 
                     }
