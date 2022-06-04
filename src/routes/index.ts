@@ -5,6 +5,7 @@ import { emailConnect } from "./email.router";
 import { statsDBConnect } from "./stats.db.router";
 import { statConnect } from "./stats.router";
 import { filledTests } from "./filltests.router";
+import { produceReportConnect } from "./report.router";
 
 export const register = ( app: express.Application ) => {
     const oidc = app.locals.oidc;
@@ -20,6 +21,9 @@ export const register = ( app: express.Application ) => {
     statConnect(app)
 
     filledTests(app)
+
+    produceReportConnect(app)
+
     app.get( "/", ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         res.render( "index", { isAuthenticated: req.isAuthenticated(), user } ); // will be the intro page of the web
