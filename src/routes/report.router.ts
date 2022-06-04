@@ -98,7 +98,7 @@ export const produceReportConnect = ( app: express.Application ) => {
         const psychological = req?.body?.psychological;
         const physical = req?.body?.physical;
         const resultsid = req?.body?.resultsid;
-        // try {
+        try {
             const query = {  _id: new ObjectId(resultsid) };
             const filled = (await collections.filledTests.findOne(query)) as unknown as FilledTests ;
             if ( ! filled) {
@@ -107,7 +107,7 @@ export const produceReportConnect = ( app: express.Application ) => {
             }
             for(const partNow of partsQuestionare){
                 if(partNow.name === part){
-                    // try {
+                    try {
                         let resultsQ:any[] = []
                         switch(part){
                             case "Emotional":
@@ -127,11 +127,11 @@ export const produceReportConnect = ( app: express.Application ) => {
                         const ss = partNow.getFilledText(name, filled.gender, resultsQ);
                         res.status(200).send(ss);
                         return;
-                    // }
-                    // catch(ex) {
-                    //     res.status(404).send(ex.message);
-                    //     return;
-                    // }
+                    }
+                    catch(ex) {
+                        res.status(404).send(ex.message);
+                        return;
+                    }
                 }
             }
             for( const partNow of partsTest){
@@ -148,9 +148,9 @@ export const produceReportConnect = ( app: express.Application ) => {
                 }
             }
             res.status(200).send("Not Found Part")
-        // } catch (error) {
-        //     res.status(404).send(error.message);
-        // }
+        } catch (error) {
+            res.status(404).send(error.message);
+        }
     });
 
     app.use('/report', router)
