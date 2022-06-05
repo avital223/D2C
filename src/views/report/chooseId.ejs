@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <%- include('../partial/navigator.ejs') %>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Adding a new Questionarey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="../report/chooseID.js"></script>
+</head>
+<body>
+    
+    <div class="container">
+        <h1 class="header"><p id="nameQuestionare"></p></h1>
+            <div class="row">
+                <div class="col">
+                    <input type="text" id="hash" class="validate" >
+                </div>
+                <div class="col">
+                    <button id="generate" class='btn-small'><i class='material-icons right'>upload</i>Upload Last questionare </button>
+                </div>
+            </div>
+            <div class="row">
+                <form id = "chooseTable"></form>
+            </div>
+            <div class="row">
+                <button id="send" class='btn-small'><i class='material-icons right'>produce</i>Produce a Report </button>
+            </div>
+            <div class="row">
+                <p hidden id="error" class="validate" ></p>
+            </div>
+    </div>
+</body>
+</html>
