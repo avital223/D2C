@@ -118,10 +118,10 @@ export const produceReportConnect = ( app: express.Application ) => {
                                 resultsQ = resultsQ.concat((await returnQuestionareAsResults(cognitive,"Cognitive")))
                                 break;
                             case "PsychologicalSymptoms":
-                                resultsQ = resultsQ.concat((await returnQuestionareAsResults(psychological,"Cognitive")))
+                                resultsQ = resultsQ.concat((await returnQuestionareAsResults(psychological,"Psychological")))
                                 break;
                             case "PhysicalSymptoms":
-                                resultsQ = resultsQ.concat((await returnQuestionareAsResults(physical,"Cognitive")))
+                                resultsQ = resultsQ.concat((await returnQuestionareAsResults(physical,"Physical")))
                                 break;
                         }
                         const ss = partNow.getFilledText(name, filled.gender, resultsQ);
