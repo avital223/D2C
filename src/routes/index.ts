@@ -105,6 +105,16 @@ export const register = ( app: express.Application ) => {
             res.redirect( "/" ); // chnage later to error page
         }
     } );
+
+    app.get("/produced", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "report/editReport", { isAuthenticated: req.isAuthenticated(), user, res} );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    })
+
     app.get( "/fillQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         res.render( "questionare/fillQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );

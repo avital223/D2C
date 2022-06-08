@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <%- include('../partial/navigator.ejs') %>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Adding a new Questionarey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="../report/editReport.js">
+          $('#p0').trigger('autoresize');
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="header"><b><u>NEUROPSYCHOLOGICAL EVALUATION REPORT</u></b></h2>
+    </div>
+    <div class="container">
+        <div class="row"><b><u>name:</u></b><input  v-model="name" ref="name" placeholder="name of patient" id="name" type="text" class="validate"/></div>
+        <div class="row"><b><u>Current age:</u></b></div>
+        <div class="row"><b><u>Assesment date:</u></b></div>
+        <div class="row"><b><u>Report date:</u></b></div>
+    </div>
+    <div class="container">
+        <h4 class="header"><b><u>TESTING CONSIDERATIONS</u></b></h4>
+        <div class="input-field">
+            <textarea id="p0" class="materialize-textarea">The information contained in this report is confidential and should be regarded as consultation between professionals.</textarea>
+        </div>
+    </div>
+    <div class="container">
+        <h4 class="header"><b><u>IDENTIFYING DATA AND CONTEXT FOR REFERRAL:</u></b></h4>
+        <textarea id="p1" class="materialize-textarea"></textarea>
+    </div>
+    <div class="container">
+        <h4 class="header"><b><u>BACKGROUND INFORMATION:</u></b></h4>
+        <textarea id="p2"></textarea>
+    </div>
+    <div class="container">
+        <h4 class="header"><b><u>DESCRIPTION OF THE INCIDENT AND CURRENT COMPLAINTS:</u></b></h4>
+        <textarea id="p3"></textarea>
+    </div>
+    <div class="container">
+        <h4 class="header"><b>Cognitive Symptoms:</b></h4>
+        <textarea id="f1"></textarea>
+    </div>
+    <div class="container">
+        <h4 class="header"><b>Psychological Symptoms:</b></h4>
+        <textarea id="f2"></textarea>
+    </div>
+    <div class="container">
+        <h4 class="header"><b>Physical Symptoms:</b></h4>
+        <textarea id="f3"></textarea>
+    </div>
+    <div class="container">
+        <h4><b><u>BEHAVIORAL OBSERVATIONS AND MENTAL STATUS:</u></b></h4>
+        <textarea id="p4"></textarea>
+    </div>
+    <div class="container">
+        <h4><b><u>POTENTIAL LIMITATIONS OF THE EXAMINEE:</u></b></h4>
+        <textarea id="p5"></textarea>
+    </div>
+    <div class="container">
+        <h4><b><u>NEUROPSYCHOLOGICAL MEASURES ADMINISTERED: (see Appendix A)</u></b></h4>
+        <textarea id="f4"></textarea>
+    </div>
+    <div class="container">
+        <h4><b><u>NEUROPSYCHOLOGICAL ASSESSMENT RESULTS:</u></b></h4>
+        <textarea id="f5"></textarea>
+    </div>
+    <div class="container">
+        <h4><b>Effort and Motivation for Testing:</b></h4>
+        <textarea id="p6"></textarea>
+    </div>
+    <div class="container">
+        <h4><b>General Intellectual Functioning:</b></h4>
+        <textarea id="f6"></textarea>
+    </div>
+    <div class="container">
+        <h4><b>Attention, Concentration, and Information Processing Capacity:</b></h4>
+        <textarea id="f7"></textarea>
+    </div>
+    <div class="container">
+        <h4><b>Visuospatial and Visuoconstructive Functioning:</b></h4>
+        <textarea id="f8"></textarea>
+    </div>
+    <div class="container">
+        <h4><b>Speech and Language Functioning:</b></h4>
+        <textarea id="f9"></textarea>
+    </div>
+    <div class="container">
+        <h4><b>Learning and Memory:</b></h4>
+        <textarea id="f10"></textarea>
+    </div>
+    <div class="container">
+        <h4><b>Frontal Systems and Executive Functioning:</b></h4>
+        <textarea id="f11"></textarea>
+    </div>
+    <div class="container">
+        <h4><b>Fine Motor Functioning:</b></h4>
+        <textarea id="f12"></textarea>
+    </div>
+    <div class="container">
+        <h4><b>Psychological and Emotional Functioning:</b></h4>
+        <textarea id="f13"></textarea>
+    </div>
+    <div class="container">
+        <h4><b><u>DISCUSSION AND CONCLUSIONS:</u></b></h4>
+        <textarea id="p7"></textarea>
+    </div>
+    <div class="container">
+        <h4><b><u>DIAGNOSTIC IMPRESSIONS:</u></b></h4>
+        <textarea id="p8"></textarea>
+    </div>
+    <div class="container">
+        <h4><b><u>RECOMMENDATIONS:</u></b></h4>
+        <textarea id="p8"></textarea>
+    </div>
+    <div class="container">
+        <textarea id="">
+Thank you for giving me the opportunity to evaluate {name}. If I may be of further assistance, please do not hesitate to contact me.
+
+Sincerely,
+<% if ( user ) { %><%= user.name %>,<%}%>
+        </textarea>
+    </div>
+</body>
+</html>

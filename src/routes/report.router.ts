@@ -1,5 +1,5 @@
 import * as express  from "express";
-import { ObjectId, Timestamp } from "mongodb";
+import { ObjectId } from "mongodb";
 import { collections } from "../services/database.service";
 import { FilledQuestionare, FilledTests, Questionare } from "../database/DBclasses";
 import { PartOfReport } from "../services/report/getAutomatePart";
@@ -15,6 +15,7 @@ import { Speech } from "../services/report/parts/Speech";
 import { Visual } from "../services/report/parts/Visual";
 import { PsychologicalSymptoms } from "../services/report/parts/PsychologicalSymptoms";
 import { PhysicalSymptoms } from "../services/report/parts/PhysicalSymptoms";
+import { ListTests } from "../services/report/parts/ListTests";
 export const router = express.Router();
 
 router.use(express.json());
@@ -79,9 +80,10 @@ const returnQuestionareAsResults=async (id : string, name:string) =>{
 }
 
 const partsTest : PartOfReport[] = [new Attention(), new FrontalSystems(), new GeneralIntelligence(), new Learning(),
-                                new Motoring(), new Opening(), new Speech(), new Visual()]
+                                new Motoring(), new Opening(), new Speech(), new Visual(), new ListTests()]
 
-const partsQuestionare : PartOfReport[] = [new CognitiveSymptoms(),new Emotional(), new PsychologicalSymptoms(), new PhysicalSymptoms()]
+const partsQuestionare : PartOfReport[] = [new CognitiveSymptoms(), new PsychologicalSymptoms(), new PhysicalSymptoms(), new Emotional()]
+
 export const produceReportConnect = ( app: express.Application ) => {
     for( const part of partsTest){
         part.Constructor()
@@ -89,6 +91,46 @@ export const produceReportConnect = ( app: express.Application ) => {
     for( const part of partsQuestionare){
         part.Constructor()
     }
+
+    router.post("/", async (req: express.Request, res: express.Response) => {
+        const bai = req?.body?.bai;
+        const bdi = req?.body?.bdi;
+        const cognitive = req?.body?.cognitive;
+        const name = req?.body?.name;
+        const psychological = req?.body?.psychological;
+        const physical = req?.body?.physical;
+        const resultsids = req?.body?.resultsids as string[];
+        const textParts :string[] = []
+        let gender = false
+        let resultsQ :object[] = []
+        // try{
+            for(const resultsid of resultsids){
+                const query = {  _id: new ObjectId(resultsid) };
+                const filled = (await collections.filledTests.findOne(query)) as unknown as FilledTests ;
+                if ( ! filled) {
+                    res.status(404).send("")
+                    return;
+                }
+                resultsQ = resultsQ.concat(filled.results);
+                gender = filled.gender;
+            }
+            await Promise.all([(returnQuestionareAsResults(bdi,"BDI-II")).then((data: any)=>{resultsQ = resultsQ.concat(data)}),
+            (returnQuestionareAsResults(bai,"BAI")).then((data: any)=>{resultsQ = resultsQ.concat(data)}),
+            (returnQuestionareAsResults(cognitive,"Cognitive")).then((data: any)=>{resultsQ = resultsQ.concat(data)}),
+            (returnQuestionareAsResults(psychological,"Psychological")).then((data: any)=>{resultsQ = resultsQ.concat(data)}),
+            (returnQuestionareAsResults(physical,"Physical")).then((data: any)=>{resultsQ = resultsQ.concat(data)})]);
+            for(const partNow of partsQuestionare){
+                textParts.push(partNow.getFilledText(name, gender, resultsQ))
+            }
+            for( const partNow of partsTest){
+                textParts.push(partNow.getFilledText(name, gender, resultsQ))
+            }
+            res.status(200).send(textParts);
+        // } catch (error) {
+        //     res.status(404).send(error.message);
+        // }
+
+    });
     router.get("/:part", async (req: express.Request, res: express.Response) => {
         const part = req?.params?.part
         const bai = req?.body?.bai;

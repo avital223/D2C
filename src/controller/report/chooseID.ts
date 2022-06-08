@@ -28,6 +28,7 @@ const sendToProduceReport = (e: { preventDefault: () => void; })=>{
     let cognitive = ""
     let psychological = ""
     let physiological = ""
+    const additional = []
     const statisticalTests = document.getElementById("times_tests") as HTMLTableElement
     const ansList = Array.from(statisticalTests.getElementsByTagName("input")as HTMLCollectionOf<HTMLInputElement>)
     for( const opt of ansList){
@@ -59,6 +60,8 @@ const sendToProduceReport = (e: { preventDefault: () => void; })=>{
                         case "Cognitive Questionnare":
                             cognitive=choice.id as string
                             break
+                        default:
+                            additional.push(choice.id as string)
                     }
                     break;
                 }
@@ -66,10 +69,14 @@ const sendToProduceReport = (e: { preventDefault: () => void; })=>{
         }
     }
     if(bdi===""||bai===""||cognitive===""||physiological===""||psychological===""||listResults.length===0){
-        printErrorReport(true,"At least one option of each column must be choosen")
+        printErrorReport(true,"At least one option of each column (from BDI-II, Beck Anxiety Inventory, Psychological Questionnaire, Physiological Questionnaire, Cognitive Questionnare, Tests Results) must be choosen")
     }
     else{
-        window.location.href = "/produceWithIds?list="+listResults.join(",")+"&bdi="+bdi+"&bai="+bai+"&cognitive="+cognitive+"&physiological="+physiological+"&psychological="+psychological
+        let herf = "/produced?list="+listResults.join("+")+"&bdi="+bdi+"&bai="+bai+"&cognitive="+cognitive+"&physiological="+physiological+"&psychological="+psychological
+        if(additional.length > 0){
+            herf+="&additional="+additional.join("+")
+        }
+        window.location.href = herf
     }
 }
 
@@ -100,12 +107,20 @@ const fillListsOfAll=(data:any)=>{
     }
 }
 
-const fillListsOfTests=(data:any)=>{
+const fillListsOfTests=(data:any, hashID:string)=>{
     if(data.length === 0){
         printErrorReport(true,"No Statistical Tests with the spesified Hash")
     } else {
         printErrorReport(false,"")
     }
+    fetch("/filled/"+hashID, {
+        method: 'GET',
+        headers:{
+            'Content-Type':'application/json'
+        },
+    })
+    .then(response => response.json())
+    .then(fillListsOfAll)
     const formF = document.getElementById("tests") as HTMLTableCellElement
     if(formF){
         let newHTML = ""
@@ -142,14 +157,6 @@ const uploadAllFilled = (e: { preventDefault: () => void; })=>{
     const hash =  document.getElementById("hash") as HTMLInputElement
     if (hash){
         const hashID = hash.value
-        fetch("/filled/"+hashID, {
-            method: 'GET',
-            headers:{
-                'Content-Type':'application/json'
-            },
-        })
-        .then(response => response.json())
-        .then(fillListsOfAll)
         fetch("/fillTests/"+hashID, {
             method: 'GET',
             headers:{
@@ -157,7 +164,7 @@ const uploadAllFilled = (e: { preventDefault: () => void; })=>{
             },
         })
         .then(response => response.json())
-        .then(fillListsOfTests)
+        .then((data)=>{fillListsOfTests(data,hashID)})
     }
 }
 
