@@ -50,7 +50,7 @@ export class ListTests extends PartOfReport{
     }
 
     public getFilledText(name: string, gender: boolean, results: any[]): string {
-        let str = "NEUROPSYCHOLOGICAL MEASURES ADMINISTERED: (see Appendix A)"
+        let str = ""
         let i=0
         for(const test of this.tests){
             const testsArr = test.split(" ")

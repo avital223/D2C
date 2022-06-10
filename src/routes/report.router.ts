@@ -99,11 +99,12 @@ export const produceReportConnect = ( app: express.Application ) => {
         const name = req?.body?.name;
         const psychological = req?.body?.psychological;
         const physical = req?.body?.physical;
+        let hashUser=""
         const resultsids = req?.body?.resultsids as string[];
         const textParts :string[] = []
         let gender = false
         let resultsQ :object[] = []
-        // try{
+        try{
             for(const resultsid of resultsids){
                 const query = {  _id: new ObjectId(resultsid) };
                 const filled = (await collections.filledTests.findOne(query)) as unknown as FilledTests ;
@@ -111,6 +112,7 @@ export const produceReportConnect = ( app: express.Application ) => {
                     res.status(404).send("")
                     return;
                 }
+                hashUser = filled.hash
                 resultsQ = resultsQ.concat(filled.results);
                 gender = filled.gender;
             }
@@ -125,10 +127,11 @@ export const produceReportConnect = ( app: express.Application ) => {
             for( const partNow of partsTest){
                 textParts.push(partNow.getFilledText(name, gender, resultsQ))
             }
+            textParts.push(hashUser)
             res.status(200).send(textParts);
-        // } catch (error) {
-        //     res.status(404).send(error.message);
-        // }
+        } catch (error) {
+            res.status(404).send(error.message);
+        }
 
     });
     router.get("/:part", async (req: express.Request, res: express.Response) => {
@@ -194,6 +197,12 @@ export const produceReportConnect = ( app: express.Application ) => {
             res.status(404).send(error.message);
         }
     });
+
+    router.get("/", async (req: express.Request, res: express.Response) => {
+        const parts= req?.body?.parts
+        
+    });
+
 
     app.use('/report', router)
 }

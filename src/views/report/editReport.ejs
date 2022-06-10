@@ -14,10 +14,18 @@
 </head>
 <body>
     <div class="container">
+        <p>
+            Note: Due to Medical confidentiality, It's better to not write the explicit name while producing the report.<br/>
+            Instead, whenever you want to want to use the patient's name write: {name} <br/>
+            Like this, you can by using Word of Microsoft change all the insences of the name at once.<br/>
+            For how to do this visit <a>https://support.microsoft.com/en-us/office/find-and-replace-text-c6728c16-469e-43cd-afe4-7708c6c779b7</a>
+        </p>
+    </div>
+    <div class="container">
         <h2 class="header"><b><u>NEUROPSYCHOLOGICAL EVALUATION REPORT</u></b></h2>
     </div>
     <div class="container">
-        <div class="row"><b><u>name:</u></b><input  v-model="name" ref="name" placeholder="name of patient" id="name" type="text" class="validate"/></div>
+        <div class="row"><b><u>name:</u></b>{name}</div>
         <div class="row"><b><u>Current age:</u></b></div>
         <div class="row"><b><u>Assesment date:</u></b></div>
         <div class="row"><b><u>Report date:</u></b></div>
@@ -114,15 +122,19 @@
     </div>
     <div class="container">
         <h4><b><u>RECOMMENDATIONS:</u></b></h4>
-        <textarea id="p8"></textarea>
+        <textarea id="p9"></textarea>
     </div>
     <div class="container">
-        <textarea id="">
+        <textarea id="p10">
 Thank you for giving me the opportunity to evaluate {name}. If I may be of further assistance, please do not hesitate to contact me.
 
 Sincerely,
 <% if ( user ) { %><%= user.name %>,<%}%>
         </textarea>
+    </div>
+    <div class="container">
+        <button id="produce" class='btn-small'><i class='material-icons right'>produce</i>Produce report </button></div><br/>
+        <!-- <button id="send" class='btn-small'><i class='material-icons right'>save</i>save Report </button> -->
     </div>
 </body>
 </html>

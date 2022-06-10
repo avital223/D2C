@@ -1,6 +1,21 @@
 const addTextToEditors = (data:any) => {
-    const i=0
+//     new CognitiveSymptoms(), new PsychologicalSymptoms(), new PhysicalSymptoms(), new Emotional(), new Attention(), new FrontalSystems(), new GeneralIntelligence(), new Learning(),
+//     new Motoring(), new Opening(), new Speech(), new Visual(), new ListTests()
+
+    const order = [0,1,2,12,9,6,4,11,10,7,5,8,3]
+    for( let i=1;i<14;i++){
+        const filled = document.getElementById("f"+i.toString()) as HTMLTextAreaElement
+        filled.value = data[order[i-1]]
+    }
 }
+
+const produceDox = (e: { preventDefault: () => void; })=>{
+    if( e !== null){
+        e.preventDefault();
+    }
+    
+}
+
 
 window.onload=() => {
     const url = window.location.search;
@@ -31,6 +46,11 @@ window.onload=() => {
         body: JSON.stringify(body)
     })
     .then(response => response.json())
-    // tslint:disable-next-line:no-console
     .then(addTextToEditors)
+    // tslint:disable-next-line:no-console
+    .catch(console.log)
+    // const save = document.getElementById("save") as HTMLButtonElement
+    // save.addEventListener("click",saveReport)
+    const produce = document.getElementById("produce") as HTMLButtonElement
+    produce.addEventListener("click",produceDox)
 }
