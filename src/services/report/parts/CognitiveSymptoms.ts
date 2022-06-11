@@ -82,6 +82,6 @@ export class CognitiveSymptoms extends PartOfReport{
             prevI = this.arraySkip[countSentences]
             countSentences=countSentences+1
         }
-        return str
+        return str.replaceAll(" i ", " I ")
     }
 }

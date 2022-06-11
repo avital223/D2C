@@ -13,7 +13,42 @@ const produceDox = (e: { preventDefault: () => void; })=>{
     if( e !== null){
         e.preventDefault();
     }
-    
+    const report = document.getElementById("report") as HTMLElement
+    const copy = report.cloneNode(true) as HTMLElement
+    const textareaElements = Array.from(copy.getElementsByTagName("textarea") as  HTMLCollectionOf<HTMLTextAreaElement>)
+    for(const textarea of textareaElements){
+        const content = textarea.value.replaceAll("\n","<br></br>")
+        const p = document.createElement("p")
+        p.innerHTML = content
+        // for(const i of content){
+        //     const sub = document.createElement("p")
+        //     sub.innerHTML = i
+        //     p.appendChild(sub)
+        // }
+        textarea.replaceWith(p)
+    }
+    const body={
+        "html":copy.innerHTML
+    }
+    fetch("/report/save", {
+        method: 'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(body)
+    })
+    .then(res=>res.blob())
+    .then((res) => {
+        const url = window.URL.createObjectURL(new Blob([res]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', "report.docx");
+        document.body.appendChild(link);
+        link.click();
+    })
+    .catch((error) => {
+        alert(error);
+    })
 }
 
 

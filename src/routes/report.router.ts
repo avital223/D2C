@@ -1,4 +1,5 @@
 import * as express  from "express";
+import * as fs from "fs"
 import { ObjectId } from "mongodb";
 import { collections } from "../services/database.service";
 import { FilledQuestionare, FilledTests, Questionare } from "../database/DBclasses";
@@ -16,6 +17,8 @@ import { Visual } from "../services/report/parts/Visual";
 import { PsychologicalSymptoms } from "../services/report/parts/PsychologicalSymptoms";
 import { PhysicalSymptoms } from "../services/report/parts/PhysicalSymptoms";
 import { ListTests } from "../services/report/parts/ListTests";
+import { asBlob } from "html-docx-js-typescript"
+
 export const router = express.Router();
 
 router.use(express.json());
@@ -198,9 +201,11 @@ export const produceReportConnect = ( app: express.Application ) => {
         }
     });
 
-    router.get("/", async (req: express.Request, res: express.Response) => {
-        const parts= req?.body?.parts
-        
+    router.post("/save", async (req: express.Request, res: express.Response) => {
+        const parts= req?.body?.html
+
+        const blob = await asBlob(parts)
+        res.status(200).send(blob)
     });
 
 
