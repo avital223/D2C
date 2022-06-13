@@ -6,6 +6,7 @@ import { statsDBConnect } from "./stats.db.router";
 import { statConnect } from "./stats.router";
 import { filledTests } from "./filltests.router";
 import { produceReportConnect } from "./report.router";
+import { usersConnect } from "./users.router";
 
 export const register = ( app: express.Application ) => {
     const oidc = app.locals.oidc;
@@ -23,6 +24,8 @@ export const register = ( app: express.Application ) => {
     filledTests(app)
 
     produceReportConnect(app)
+
+    usersConnect(app)
 
     app.get( "/", ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
@@ -88,6 +91,23 @@ export const register = ( app: express.Application ) => {
         }
     } );
 
+
+    app.get( "/addUser", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "adminestrative/addUser", { isAuthenticated: req.isAuthenticated(), user, res } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    } );
+    app.get( "/listUsers", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therapist") > -1){
+            res.render( "adminestrative/listUsers", { isAuthenticated: req.isAuthenticated(), user, res } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    } );
 
     app.get( "/editQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
