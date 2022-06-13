@@ -11,7 +11,7 @@ export class FilledQuestionare {
 
 // tslint:disable-next-line:max-classes-per-file
 export class SendEmail {
-    constructor(public to:string, public subject:string, public html:string, public text:string) {}
+    constructor(public from: string, public to:string, public subject:string, public html:string, public text:string) {}
 }
 
 // tslint:disable-next-line:max-classes-per-file

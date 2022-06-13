@@ -2,6 +2,8 @@ const getContentMail = () =>{
     let innerContent = "<h4>Please fill the following Questionares:</h4>"
     let text = "Please fill the following Questionares:"
     let to = ""
+    const subject = ""
+    const from = ""
     const ansList = Array.from(document.getElementsByTagName("input")as HTMLCollectionOf<HTMLInputElement>)
     for( const opt of ansList){
         if(opt.id.startsWith("c_") && opt.id !== "c_all" && opt.checked){
@@ -14,10 +16,11 @@ const getContentMail = () =>{
             to = opt.value
         }
     }
-    // to, subject, html
+    // from, to, subject, html
     return {
+        from,
         to,
-        subject:"Please fill the following Questionare",
+        subject,
         html:innerContent.toString(),
         text
     }
