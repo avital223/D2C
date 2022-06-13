@@ -48,6 +48,7 @@ export class ACT extends StatisticTesting{
     name="ACT"
     id=""
     data=""
+    norms: string = "Stuss et al. (1988)";
     typeOfStatistics=0;
     act9 = new ACT9sec()
     act18 = new ACT18sec()

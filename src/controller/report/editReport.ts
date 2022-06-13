@@ -1,12 +1,16 @@
 const addTextToEditors = (data:any) => {
 //     new CognitiveSymptoms(), new PsychologicalSymptoms(), new PhysicalSymptoms(), new Emotional(), new Attention(), new FrontalSystems(), new GeneralIntelligence(), new Learning(),
-//     new Motoring(), new Opening(), new Speech(), new Visual(), new ListTests()
+//     new Motoring(), new Opening(), new Speech(), new Visual(), new ListTests(), new Table(), hash
 
     const order = [0,1,2,12,9,6,4,11,10,7,5,8,3]
     for( let i=1;i<14;i++){
         const filled = document.getElementById("f"+i.toString()) as HTMLTextAreaElement
         filled.value = data[order[i-1]]
     }
+    const table = document.getElementById("appendex") as HTMLTableElement
+    const body = document.createElement('tbody')
+    body.innerHTML = data[13]
+    table.appendChild(body)
 }
 
 const produceDox = (e: { preventDefault: () => void; })=>{
@@ -20,11 +24,6 @@ const produceDox = (e: { preventDefault: () => void; })=>{
         const content = textarea.value.replaceAll("\n","<br></br>")
         const p = document.createElement("p")
         p.innerHTML = content
-        // for(const i of content){
-        //     const sub = document.createElement("p")
-        //     sub.innerHTML = i
-        //     p.appendChild(sub)
-        // }
         textarea.replaceWith(p)
     }
     const body={
@@ -54,6 +53,10 @@ const produceDox = (e: { preventDefault: () => void; })=>{
 
 window.onload=() => {
     const url = window.location.search;
+    const textareaElements = Array.from(document.getElementsByTagName("textarea") as  HTMLCollectionOf<HTMLTextAreaElement>)
+    for(const t of textareaElements){
+        t.rows = 20
+    }
     const queryStart = url.indexOf("?") + 1
     const queryEnd   = url.indexOf("#") + 1 || url.length + 1
     const query = url.slice(queryStart, queryEnd - 1)

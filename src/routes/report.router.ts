@@ -18,6 +18,7 @@ import { PsychologicalSymptoms } from "../services/report/parts/PsychologicalSym
 import { PhysicalSymptoms } from "../services/report/parts/PhysicalSymptoms";
 import { ListTests } from "../services/report/parts/ListTests";
 import { asBlob } from "html-docx-js-typescript"
+import { Table } from "../services/report/parts/Table";
 
 export const router = express.Router();
 
@@ -83,7 +84,7 @@ const returnQuestionareAsResults=async (id : string, name:string) =>{
 }
 
 const partsTest : PartOfReport[] = [new Attention(), new FrontalSystems(), new GeneralIntelligence(), new Learning(),
-                                new Motoring(), new Opening(), new Speech(), new Visual(), new ListTests()]
+                                new Motoring(), new Opening(), new Speech(), new Visual(), new ListTests(), new Table()]
 
 const partsQuestionare : PartOfReport[] = [new CognitiveSymptoms(), new PsychologicalSymptoms(), new PhysicalSymptoms(), new Emotional()]
 

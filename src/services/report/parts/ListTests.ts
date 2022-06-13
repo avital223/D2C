@@ -42,7 +42,7 @@ export class ListTests extends PartOfReport{
 
     protected getNameInRes(name:string, results:any[]){
         for(const i of results){
-            if(i.name.indexOf(name)){
+            if(i.name.indexOf(name) === 0){
                 return true
             }
         }
