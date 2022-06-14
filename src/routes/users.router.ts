@@ -25,10 +25,10 @@ export const usersConnect = ( app: express.Application ) => {
             if (usr) {
                 res.status(200).send(usr);
             } else {
-                res.status(404).send("Error")
+                res.status(200).send("")
             }
         } catch (error) {
-            res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
+            res.status(200).send("");
         }
     });
 

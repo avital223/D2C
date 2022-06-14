@@ -52,7 +52,7 @@ window.onload=() => {
     const email = document.getElementById("email") as HTMLInputElement;
     let emailstr = ""
     if(email && email.value!=="all"){
-        emailstr=email.value;
+        emailstr=+"mine/"+email.value;
     }
     fetch("/users/"+emailstr, {
         method: 'GET',
