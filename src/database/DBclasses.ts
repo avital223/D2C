@@ -23,3 +23,8 @@ export class Stats {
 export class FilledTests {
     constructor(public age:string, public hash:string, public gender:boolean, public education:string,public results:object[], public timestamp:Date, public id?: ObjectId) {}
 }
+
+// tslint:disable-next-line:max-classes-per-file
+export class Users {
+    constructor(public gender:boolean,  public dob:Date, public education:string, public email:string, public id?: ObjectId) {}
+}

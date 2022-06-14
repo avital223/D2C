@@ -129,4 +129,34 @@ export async function connectToDatabase () {
     const statCollection: mongoDB.Collection = db.collection(process.env.COLLECTION_NAME_STAT);
 
     collections.stat = statCollection;
+
+    await db.command({
+        "collMod": process.env.COLLECTION_USERS,
+        "validator": {
+            $jsonSchema: {
+                bsonType: "object",
+                required: ["dob",  "gender", "education", "email"],
+                additionalProperties: false,
+                properties: {
+                _id: {},
+                dob: {},
+                gender: {
+                    bsonType: "bool",
+                    description: "'gender' is required and is a boolean ( false-Male true-Female)"
+                },
+                education: {
+                    bsonType: "string",
+                    description: "'education'  is required and is a number"
+                },
+                email: {
+                    bsonType: "string",
+                    description: "'email' is required and is an email of which therapist is it of."
+                },
+                }
+            }
+         }
+    });
+    const user: mongoDB.Collection = db.collection(process.env.COLLECTION_USERS);
+
+    collections.user = user;
 }

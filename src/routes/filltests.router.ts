@@ -1,11 +1,13 @@
 import * as express  from "express";
 import { collections } from "../services/database.service";
-import {FilledTests} from "../database/DBclasses";
+import {FilledTests, Users} from "../database/DBclasses";
 import { namingDic } from "../services/statistical/statisticalNaming";
 import fetch from "node-fetch";
 import * as formidable from "formidable";
 import * as xlsx from "xlsx";
 import * as fs from "fs";
+import { ObjectId } from "mongodb";
+import { nextTick } from "process";
 export const router = express.Router();
 
 
@@ -103,17 +105,28 @@ export const filledTests = (app: express.Application ) => {
         const form = new formidable.IncomingForm({uploadDir : './tmp'});
 
         form.parse(req, async (err, fields, files) => {
-            const hash = fields?.hash;
-            const age = fields?.age;
-            const genderStr = fields?.gender;
-            let gender :boolean
-            if(genderStr === "Male"){
-                gender = false
-            } else {
-                gender = true
-            }
-            const education = fields?.education;
+            const hash = fields?.hash as string;
             const fileupload = files?.csvUpload as formidable.File;
+            let age;
+            let gender :boolean
+            let education;
+            try {
+                const query = { _id: new ObjectId(hash) };
+                const usr =  (await collections.user.findOne(query)) as unknown as Users;
+                if (usr) {
+                    const dob = new Date(usr.dob).getTime()
+                    const ageDate = new Date(new Date().getTime()-dob);
+                    age = (Math.abs(ageDate.getUTCFullYear() - 1970)).toString()
+                    gender = usr.gender
+                    education = usr.education
+                } else {
+                    res.status(200).send("Not a valid hash user!");
+                    return;
+                }
+            } catch (error) {
+                res.status(200).send("Not a valid hash user!");
+                return;
+            }
             // Reading our test file
             const file = xlsx.readFile(fileupload.filepath)
             const arrayTests: { name: string; result?: number[]; score?: number[]; precentage?: number[]; raiting?: string; }[] = []
@@ -210,23 +223,8 @@ export const filledTests = (app: express.Application ) => {
                 console.error(error);
                 res.status(400).send(error.message);
             }
+            res.status(200).send("Added a new Testing Results to the spesified hash patient!")
         });
-        res.redirect("/")
-    });
-
-    router.get("/:hash", async (req: express.Request, res: express.Response) => {
-        const hash = req?.params?.hash;
-        try {
-            const query = { hash};
-            const filled = (await collections.filledTests.find(query).toArray()) as unknown as FilledTests[];
-            if (filled) {
-                res.status(200).send(filled);
-            } else {
-                res.status(404).send("lala")
-            }
-        } catch (error) {
-            res.status(404).send(`Unable to find matching document with hash: ${req.params.hash}`);
-        }
     });
     app.use('/fillTests', router)
 }
