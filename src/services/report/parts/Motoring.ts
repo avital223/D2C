@@ -1,4 +1,3 @@
-import { precentageToTest } from "../../statistical/statisticalConversion";
 import { PartOfReport } from "../getAutomatePart";
 export class Motoring extends PartOfReport{
     name : string = "Motoring"

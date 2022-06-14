@@ -8,13 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="../questionare/fillQuestionare.js"></script>
+    <script src="../report/chooseID.js"></script>
 </head>
 <body>
     
     <div class="container">
         <h1 class="header"><p id="nameQuestionare"></p></h1>
-            <% if (user && user.groups.indexOf("Admin") > -1 ) { %>
             <div class="row">
                 <div class="col">
                     <input type="text" id="hash" class="validate" >
@@ -23,16 +22,11 @@
                     <button id="generate" class='btn-small'><i class='material-icons right'>upload</i>Upload Last questionare </button>
                 </div>
             </div>
-            <% } else { %>
-                <div class="row">
-                    <input type="text" id="hash" class="validate" value="">
-                </div>
-            <%}%>
             <div class="row">
-                <form id="fill_questionare"></form>
+                <form id = "chooseTable"></form>
             </div>
             <div class="row">
-                <button id="send" class='btn-small'><i class='material-icons right'>save</i>save Questionare </button>
+                <button id="send" class='btn-small'><i class='material-icons right'>produce</i>Produce a Report </button>
             </div>
             <div class="row">
                 <p hidden id="error" class="validate" ></p>

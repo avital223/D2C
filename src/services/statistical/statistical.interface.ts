@@ -5,7 +5,7 @@ import { Stats } from "../../database/DBclasses";
 export abstract class StatisticTesting {
     name: string;
     id: string;
-    norms: string;
+    public norms: string;
     // using is for which factors needed to be considered while calculating the statistical test.
     usingAge: boolean;
     usingEducation: boolean;
@@ -49,6 +49,10 @@ export abstract class StatisticTesting {
         return statsFunction.precentageToTest(precentage[0])
     }
     public abstract getCorrection():{};
+
+    public getNorms(){
+        return this.norms
+    }
 }
 
 

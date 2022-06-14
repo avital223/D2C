@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <%- include('../partial/navigator.ejs') %>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Adding a new Questionarey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="../report/editReport.js">
+          $('#p0').trigger('autoresize');
+    </script>
+</head>
+<body>
+    <div class="container">
+        <p>
+            Note: Due to Medical confidentiality, It's better to not write the explicit name while producing the report.<br/>
+            Instead, whenever you want to want to use the patient's name write: {name} <br/>
+            Like this, you can by using Word of Microsoft change all the insences of the name at once.<br/>
+            For how to do this visit <a>https://support.microsoft.com/en-us/office/find-and-replace-text-c6728c16-469e-43cd-afe4-7708c6c779b7</a>
+        </p>
+    </div>
+    <div id="report">
+        <meta charset="utf-8" />
+        <div class="container">
+            <h2 class="header"><u>NEUROPSYCHOLOGICAL EVALUATION REPORT</u></h2>
+        </div>
+        <div class="container">
+            <div class="row"><u>name:</u>{name}</div>
+            <div class="row"><u>Current age:</u></div>
+            <div class="row"><u>Assesment date:</u></div>
+            <div class="row"><u>Report date:</u></div>
+        </div>
+        <div class="container">
+            <h4 class="header"><u>TESTING CONSIDERATIONS</u></h4>
+            <div class="input-field">
+                <textarea id="p0">The information contained in this report is confidential and should be regarded as consultation between professionals.</textarea>
+            </div>
+        </div>
+        <div class="container">
+            <h4 class="header"><u>IDENTIFYING DATA AND CONTEXT FOR REFERRAL:</u></h4>
+            <textarea id="p1"></textarea>
+        </div>
+        <div class="container">
+            <h4 class="header"><u>BACKGROUND INFORMATION:</u></h4>
+            <textarea id="p2"></textarea>
+        </div>
+        <div class="container">
+            <h4 class="header"><u>DESCRIPTION OF THE INCIDENT AND CURRENT COMPLAINTS:</u></h4>
+            <textarea id="p3"></textarea>
+        </div>
+        <div class="container">
+            <h4 class="header">Cognitive Symptoms:</h4>
+            <textarea id="f1"></textarea>
+        </div>
+        <div class="container">
+            <h4 class="header">Psychological Symptoms:</h4>
+            <textarea id="f2"></textarea>
+        </div>
+        <div class="container">
+            <h4 class="header">Physical Symptoms:</h4>
+            <textarea id="f3"></textarea>
+        </div>
+        <div class="container">
+            <h4><u>BEHAVIORAL OBSERVATIONS AND MENTAL STATUS:</u></h4>
+            <textarea id="p4"></textarea>
+        </div>
+        <div class="container">
+            <h4><u>POTENTIAL LIMITATIONS OF THE EXAMINEE:</u></h4>
+            <textarea id="p5"></textarea>
+        </div>
+        <div class="container">
+            <h4><u>NEUROPSYCHOLOGICAL MEASURES ADMINISTERED: (see Appendix A)</u></h4>
+            <textarea id="f4"></textarea>
+        </div>
+        <div class="container">
+            <h4><u>NEUROPSYCHOLOGICAL ASSESSMENT RESULTS:</u></h4>
+            <textarea id="f5"></textarea>
+        </div>
+        <div class="container">
+            <h4>Effort and Motivation for Testing:</h4>
+            <textarea id="p6"></textarea>
+        </div>
+        <div class="container">
+            <h4>General Intellectual Functioning:</h4>
+            <textarea id="f6"></textarea>
+        </div>
+        <div class="container">
+            <h4>Attention, Concentration, and Information Processing Capacity:</h4>
+            <textarea id="f7"></textarea>
+        </div>
+        <div class="container">
+            <h4>Visuospatial and Visuoconstructive Functioning:</h4>
+            <textarea id="f8"></textarea>
+        </div>
+        <div class="container">
+            <h4>Speech and Language Functioning:</h4>
+            <textarea id="f9"></textarea>
+        </div>
+        <div class="container">
+            <h4>Learning and Memory:</h4>
+            <textarea id="f10"></textarea>
+        </div>
+        <div class="container">
+            <h4>Frontal Systems and Executive Functioning:</h4>
+            <textarea id="f11"></textarea>
+        </div>
+        <div class="container">
+            <h4>Fine Motor Functioning:</h4>
+            <textarea id="f12"></textarea>
+        </div>
+        <div class="container">
+            <h4>Psychological and Emotional Functioning:</h4>
+            <textarea id="f13"></textarea>
+        </div>
+        <div class="container">
+            <h4><u>DISCUSSION AND CONCLUSIONS:</u></h4>
+            <textarea id="p7"></textarea>
+        </div>
+        <div class="container">
+            <h4><u>DIAGNOSTIC IMPRESSIONS:</u></h4>
+            <textarea id="p8"></textarea>
+        </div>
+        <div class="container">
+            <h4><u>RECOMMENDATIONS:</u></h4>
+            <textarea id="p9"></textarea>
+        </div>
+        <div class="container">
+            <textarea id="p10">
+Thank you for giving me the opportunity to evaluate {name}. If I may be of further assistance, please do not hesitate to contact me.
+
+Sincerely,
+<% if ( user ) { %><%= user.name %>.<%}%>
+            </textarea>
+        </div>
+        <br></br>
+        <br></br>
+        <div class="container">
+            <h4>APPENDIX A - Table of tests results</h4>
+            <table id = "appendex">
+                <thead>
+                    <th>Cognitive Domain/Measure</th>
+                    <th>Score & %ile</th>
+                    <th>Performance Rating</th>
+                    <th>Norms</th>
+                    <th>Correction: A=age; E=educ G=gender</th>
+                </thead>
+            </table>
+        </div>
+        <br></br>
+        <br></br>
+    </div>
+    <div class="container">
+        <form method="post" action="/report/save"><button id="produce" class='btn-small'><i class='material-icons right' onclick="">produce</i>Produce report </button></form></div><br/>
+        <!-- <button id="send" class='btn-small'><i class='material-icons right'>save</i>save Report </button> -->
+    </div>
+</body>
+</html>

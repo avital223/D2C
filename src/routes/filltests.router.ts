@@ -226,5 +226,21 @@ export const filledTests = (app: express.Application ) => {
             res.status(200).send("Added a new Testing Results to the spesified hash patient!")
         });
     });
+
+    router.get("/:hash", async (req: express.Request, res: express.Response) => {
+        const hash = req?.params?.hash;
+        try {
+            const query = { hash};
+            const filled = (await collections.filledTests.find(query).toArray()) as unknown as FilledTests[];
+            if (filled) {
+                res.status(200).send(filled);
+            } else {
+                res.status(404).send("lala")
+            }
+        } catch (error) {
+            res.status(404).send(`Unable to find matching document with hash: ${req.params.hash}`);
+        }
+    });
+
     app.use('/fillTests', router)
 }
