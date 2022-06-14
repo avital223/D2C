@@ -243,6 +243,7 @@ export class WAIS5PSI extends WAIS5FullTest {
 export class WAIS5FSIQ extends StatisticTesting {
     name: string = "WAIS5FSIQ";
     id: string = "62763c79136d572ae1ca13b6";
+    norm = "Manual"
     subtests = [new WAIS5VCI(), new WAIS5PRI(), new WAIS5WMI(), new WAIS5PSI()]
     typeOfStatistics: number = 3; // using IQ testing
     // order of the results are:

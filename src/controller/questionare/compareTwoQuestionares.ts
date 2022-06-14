@@ -48,17 +48,34 @@ const getQuestionareFilledC = (e: { preventDefault: () => void; } , id : string,
     }
     const hash = document.getElementById("hash") as HTMLInputElement;
     if (hash && hash.value !== ""){
-        fetch("/filled/"+hash.value+"/"+id+"/"+timeStamp, {
+        fetch("/users/"+hash.value, {
             method: 'GET',
             headers:{
                 'Content-Type':'application/json'
             },
         })
-        .then(response => response.json())
-        .then((data)=>{fillQuestionareUserComapre(data, ending)})
-        .catch(()=>{
-            printErrorCompare(ending, "Could not load the content of this hash user! Try filling from scratch")
+        .then(response => response.text())
+        .then((res)=>{
+            if(res === ""){
+                printErrorCompare("1", "Error! not a valid hash user!")
+                return;
+            }
+            fetch("/filled/"+hash.value+"/"+id+"/"+timeStamp, {
+                method: 'GET',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then((data)=>{fillQuestionareUserComapre(data, ending)})
+            .catch(()=>{
+                printErrorCompare(ending, "Could not load the content of this hash user! Try filling from scratch")
+            })
         })
+        .catch(()=>{
+            printErrorCompare(ending, "Error! not a valid hash user!")
+        })
+
     } else{
         printErrorCompare(ending, "Error! not a valid hash user!")
     }
@@ -114,16 +131,32 @@ const generateLists = (e: { preventDefault: () => void; } , id : string) => {
     }
     const hash = document.getElementById("hash") as HTMLInputElement;
     if (hash && hash.value !== ""){
-        fetch("/filled/"+hash.value+"/"+id, {
+        fetch("/users/"+hash.value, {
             method: 'GET',
             headers:{
                 'Content-Type':'application/json'
             },
         })
-        .then(response => response.json())
-        .then((data)=>{makeLists(data, id)})
+        .then(response => response.text())
+        .then((res)=>{
+            if(res === ""){
+                printErrorCompare("1", "Error! not a valid hash user!")
+                return;
+            }
+            fetch("/filled/"+hash.value+"/"+id, {
+                method: 'GET',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then((data)=>{makeLists(data, id)})
+            .catch(()=>{
+                printErrorCompare("1", "Could not load the content of this hash user! Try filling from scratch")
+            })
+        })
         .catch(()=>{
-            printErrorCompare("1", "Could not load the content of this hash user! Try filling from scratch")
+            printErrorCompare("1", "Error! not a valid hash user!")
         })
     } else{
         printErrorCompare("1", "Error! not a valid hash user!")

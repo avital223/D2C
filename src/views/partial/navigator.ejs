@@ -19,13 +19,12 @@
             <li class="nav-item"><a href="/login">Login</a></li>
             <% } %>
             <% if ( user && user.groups.indexOf("Admin") > -1 ) { %>
-            <li class="nav-item"> <a href="/listQuestionare">Questionare</a><ul>
-            <li class="nav-item"><a href="/questionare">Add new Questionare</a></li>
+            <li class="nav-item"> <a href="/listQuestionare">Questionare</a></li>
+            <li class="nav-item"><a href="/listUsers">My Users</a></li>
             <li class="nav-item"><a href="/sendEmail">send Email</a></li>
-            </ul>
-            </li>
             <li class="nav-item"> <a href="/csv">Upload CSV</a></li>
-            <li class="nav-item"> <a href="/mail">Send Email</a></li>
+            <li class="nav-item"> <a href="/mail">Contact Us</a></li>
+            <li class="nav-item"> <a href="/produceReport">Report</a></li>
             <% } else { if(user){ %>
                 <li class="nav-item"> <a href="/">My Questionares</a></li>
             <%  } } %>

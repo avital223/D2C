@@ -7,23 +7,23 @@ const fillQuestionareUser = (data: any) => {
     const table = document.getElementById("filling_questionare") as HTMLTableElement;
     const arrayCells = Array.from(table.getElementsByTagName("td") as HTMLCollectionOf<HTMLTableCellElement>)
     for ( const cell of arrayCells){
-        const index = data[0].questions.indexOf(cell.textContent)
+        const index = data[data.length-1].questions.indexOf(cell.textContent)
         if(index > -1){
             const ansCell = cell.parentNode.childNodes[1] as HTMLTableCellElement;
             const ansList = Array.from(ansCell.getElementsByTagName("input")as HTMLCollectionOf<HTMLInputElement>)
-            const ans = data[0].answers[index];
+            const ans = data[data.length-1].answers[index];
             if (ansList.length === 1){
                 ansList[0].value = ans
             } else {
                 for( const opt of ansList){
-                    if(opt.value === ans){
+                    if(opt.id === ans){
                         opt.checked = true
                     }
                 }
             }
         }
     }
-    updateSaveButton(data[0].questionareId, data[0]._id)
+    updateSaveButton(data[data.length-1].questionareId, data[data.length-1]._id)
 }
 
 const updateSaveButton = (id: string, filledId: string) => {
@@ -60,16 +60,32 @@ const getQuestionareFilled = (e: { preventDefault: () => void; } , id : string, 
     }
     const hash = document.getElementById("hash") as HTMLInputElement;
     if (hash){
-        fetch("/filled/"+hash.value+"/"+id, {
+        fetch("/users/"+hash.value, {
             method: 'GET',
             headers:{
                 'Content-Type':'application/json'
             },
         })
-        .then(response => response.json())
-        .then(fillQuestionareUser)
+        .then(response => response.text())
+        .then((res)=>{
+            if(res === ""){
+                printError(button, id, "Error! not a valid hash user!")
+                return;
+            }
+            fetch("/filled/"+hash.value+"/"+id, {
+                method: 'GET',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(fillQuestionareUser)
+            .catch(()=>{
+                printError(button, id, "Could not load the content of this hash user! Try filling from scratch")
+            })
+        })
         .catch(()=>{
-            printError(button, id, "Could not load the content of this hash user! Try filling from scratch")
+            printError(button, id, "Error! not a valid hash user!")
         })
     } else{
         printError(button, id, "Error! not a valid hash user!")
@@ -110,9 +126,7 @@ const sendFilled = (_event: MouseEvent, questionareId: string, oldId: string) =>
                 // if the answer is a multiple choice
                 for (const choice of answerInputs){
                     if(choice.type === 'radio' && choice.checked){
-                        arrayAnswers.set(id,choice.value.replace(re,"\'"));
-                        // tslint:disable-next-line:no-console
-                        console.log(choice.value.replace(re,"\'"))
+                        arrayAnswers.set(id,choice.id);
                     }
                 }
             }
