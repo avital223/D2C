@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <%- include('../partial/navigator.ejs') %>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CSV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="../adminestrative/addUser.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">Add new Patient</h1>
+            <div class="row">
+                <div class="input-field">
+                    <form>
+                        <input v-model="id" ref="id"  id="email" type="text" class="validate" hidden="true" value="<% if ( user ) { %><%= user.email %><%}%>">
+                        <input placeholder="Enter Dage of Birth" id="dob" type="date" class="validate">
+                        <input placeholder="Enter Education" id="education" type="text" class="validate">
+                        <label>
+                            <input type='radio' name='gender' value='male'>
+                            <span>Male</span>
+                        </label>
+                        <label>
+                            <input type='radio' name='gender' value='female'>
+                            <span>Female</span>
+                        </label>
+                        <br></br>
+                        <br></br>
+                        <button id='send' class='btn-small'><i class='material-icons right'>add</i>Add new Patient</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <p hidden id="error" class="validate" ></p>
+            </div>
+    </div>
+</body>
+</html>

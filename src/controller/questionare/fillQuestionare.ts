@@ -60,16 +60,32 @@ const getQuestionareFilled = (e: { preventDefault: () => void; } , id : string, 
     }
     const hash = document.getElementById("hash") as HTMLInputElement;
     if (hash){
-        fetch("/filled/"+hash.value+"/"+id, {
+        fetch("/users/"+hash.value, {
             method: 'GET',
             headers:{
                 'Content-Type':'application/json'
             },
         })
-        .then(response => response.json())
-        .then(fillQuestionareUser)
+        .then(response => response.text())
+        .then((res)=>{
+            if(res === ""){
+                printError(button, id, "Error! not a valid hash user!")
+                return;
+            }
+            fetch("/filled/"+hash.value+"/"+id, {
+                method: 'GET',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(fillQuestionareUser)
+            .catch(()=>{
+                printError(button, id, "Could not load the content of this hash user! Try filling from scratch")
+            })
+        })
         .catch(()=>{
-            printError(button, id, "Could not load the content of this hash user! Try filling from scratch")
+            printError(button, id, "Error! not a valid hash user!")
         })
     } else{
         printError(button, id, "Error! not a valid hash user!")
