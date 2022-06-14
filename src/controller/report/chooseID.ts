@@ -157,14 +157,28 @@ const uploadAllFilled = (e: { preventDefault: () => void; })=>{
     const hash =  document.getElementById("hash") as HTMLInputElement
     if (hash){
         const hashID = hash.value
-        fetch("/fillTests/"+hashID, {
+        fetch("/users/"+hash.value, {
             method: 'GET',
             headers:{
                 'Content-Type':'application/json'
             },
         })
-        .then(response => response.json())
-        .then((data)=>{fillListsOfTests(data,hashID)})
+        .then(response => response.text())
+        .then((res)=>{
+            if(res === ""){
+                printErrorReport(true, "Error! not a valid hash user!")
+                return;
+            }
+            fetch("/fillTests/"+hashID, {
+                method: 'GET',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then((data)=>{fillListsOfTests(data,hashID)})
+        })
+        .catch((err)=>{printErrorReport(true,err.message)})
     }
 }
 
