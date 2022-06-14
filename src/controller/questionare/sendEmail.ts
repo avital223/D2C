@@ -2,25 +2,22 @@ const getContentMail = () =>{
     let innerContent = "<h4>Please fill the following Questionares:</h4>"
     let text = "Please fill the following Questionares:"
     let to = ""
-    const subject = ""
-    const from = ""
     const ansList = Array.from(document.getElementsByTagName("input")as HTMLCollectionOf<HTMLInputElement>)
     for( const opt of ansList){
         if(opt.id.startsWith("c_") && opt.id !== "c_all" && opt.checked){
             const questionareId = opt.id.split("_")[1]
             const questionareName = document.getElementById(questionareId) as HTMLParagraphElement
-            innerContent +='<p><a herf="'+window.location.protocol + '//' + window.location.host+'/fillQuestionare?'+questionareId+'" >'+questionareName?.innerText+'</a> '
+            innerContent +='<p>'+questionareName?.innerText+": "
             innerContent+= window.location.protocol + '//' + window.location.host+'/fillQuestionare?'+questionareId+ '</p>' // try to remove once the web is online
             text +="\n"+questionareName?.innerText
         } if (opt.id === "email"){
             to = opt.value
         }
     }
-    // from, to, subject, html
+    // to, subject, html
     return {
-        from,
         to,
-        subject,
+        subject:"Please fill the following Questionare",
         html:innerContent.toString(),
         text
     }
@@ -31,7 +28,7 @@ const sendEmail = (e: { preventDefault: () => void; })=>{
         e.preventDefault();
     }
     const body = getContentMail()
-    fetch("/email/", {
+    fetch("/email", {
         method: 'POST',
         headers:{
             'Content-Type':'application/json'
