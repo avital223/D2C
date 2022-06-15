@@ -5,6 +5,8 @@ import { emailConnect} from "./email.router";
 import { statsDBConnect } from "./stats.db.router";
 import { statConnect } from "./stats.router";
 import { filledTests } from "./filltests.router";
+import { produceReportConnect } from "./report.router";
+import { usersConnect } from "./users.router";
 
 export const register = ( app: express.Application ) => {
     const oidc = app.locals.oidc;
@@ -20,6 +22,11 @@ export const register = ( app: express.Application ) => {
     statConnect(app)
 
     filledTests(app)
+
+    produceReportConnect(app)
+
+    usersConnect(app)
+
     app.get( "/", ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         res.render( "index", { isAuthenticated: req.isAuthenticated(), user } ); // will be the intro page of the web
@@ -99,6 +106,23 @@ export const register = ( app: express.Application ) => {
         res.render( "csv/thankYou", { isAuthenticated: req.isAuthenticated(), user } );
     } );
 
+    app.get( "/addUser", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "adminestrative/addUser", { isAuthenticated: req.isAuthenticated(), user, res } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    } );
+    app.get( "/listUsers", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therapist") > -1){
+            res.render( "adminestrative/listUsers", { isAuthenticated: req.isAuthenticated(), user, res } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    } );
+
     app.get( "/editQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         if (user.groups.indexOf("Admin") > -1){
@@ -107,6 +131,23 @@ export const register = ( app: express.Application ) => {
             res.redirect( "/" ); // chnage later to error page
         }
     } );
+    app.get( "/produceReport", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "report/chooseId", { isAuthenticated: req.isAuthenticated(), user, res } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    } );
+
+    app.get("/produced", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "report/editReport", { isAuthenticated: req.isAuthenticated(), user, res} );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    })
 
     app.get( "/fillQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;

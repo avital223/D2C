@@ -1,101 +1,29 @@
 import * as express  from "express";
 import { collections } from "../services/database.service";
-import {FilledTests} from "../database/DBclasses";
+import {FilledTests, Users} from "../database/DBclasses";
+import { namingDic } from "../services/statistical/statisticalNaming";
 import fetch from "node-fetch";
 import * as formidable from "formidable";
 import * as xlsx from "xlsx";
 import * as fs from "fs";
+import { ObjectId } from "mongodb";
+import { nextTick } from "process";
 export const router = express.Router();
 
-
-const namingDic : any = {
-	"MMSE": "MMSE",
-	"Similarities": "WAIS5SI",
-	"Information": "WAIS5IN",
-	"Block Design": "WAIS5BD",
-	"Matrix Reasoning": "WAIS5MR",
-	"Visual Puzzles": "WAIS5VP",
-	"Digit Span": "WAIS5DS",
-	"Arithmetic": "WAIS5AR",
-	"Symbol Search": "WAIS5SS",
-	"Vocabulary": "WAIS5VC",
-	"Comprehension": "WAIS5CO",
-	"Cancellation": "WAIS5CA",
-	"Picture Completion": "WAIS5PCm",
-	"Letter Numbering": "WAIS5LN",
-	"Figure Weights": "WAIS5FW",
-	"Coding": "WAIS5CD",
-	"Verbal Comprehension Index": "WAIS5VCI",
-	"Perceptual Reasoning Index": "WAIS5PRI",
-	"Working Memory Index": "WAIS5WMI",
-	"Processing Speed Index": "WAIS5PSI",
-	"Full Scale IQ": "WAIS5FSIQ",
-	"Test of Nonverbal Intelligence-4": "TONI4",
-	"Trails A": "TrialsA",
-	"Stroop Word (Golden)": "StroopWords",
-	"Stroop Color (Golden)": "StroopColor",
-	"Connors CPT3 Response Style": "CPT3RS",
-	"Connors CPT3 d' *": "CPT3D",
-	"Connors CPT3 Omissions *": "CPT3OM",
-	"Connors CPT3 Commissions *": "CPT3CO",
-	"Connors CPT3 Perseverations *": "CPT3PE",
-	"Connors CPT3 HRT **": "CPT3HRT",
-	"Connors CPT3 HRT SD *": "CPT3HRTS",
-	"Connors CPT3 Variability *": "CPT3VI",
-	"Connors CPT3 HRT Block Change*": "CPT3BC",
-	"Connors CPT3 HRT ISI Change*": "CPT3ISICS",
-	"Hooper Visual Organization Test": "Hooper",
-	"Rey-O Copy": "ROCFCopy",
-	"Boston Naming Test": "BNT",
-	"FAS": "FAS",
-	"Animal Naming": "Aminals",
-	"WMS-IV Logical Memory I": "WMS4LM1",
-	"WMS-IV Logical Memory II": "WMS4LM2",
-	"WMS-IV Log. Mem. Recog.": "WMS4LMRec",
-	"RAVLT-trial 1": "RAVLTT1",
-	"RAVLT-trial 2": "RAVLTT2",
-	"RAVLT-trial 3": "RAVLTT3",
-	"RAVLT-trial 4": "RAVLTT4",
-	"RAVLT-trial 5": "RAVLTT5",
-	"RAVLT-trials 1-5": "RAVLTT1to5",
-	"RAVLT-list B": "RAVLTTB",
-	"RAVLT-short delay recall": "RAVLTShortDelay",
-	"RAVLT-long delay recall": "RAVLTLongDelay",
-	"RAVLT-recognition": "RAVLTRec",
-	"WMS-IV Visual Repro. I": "WMS4VR1",
-	"WMS-IV Visual Repro. II": "WMS4VR2",
-	"WMS-IV Vis. Rep. Recog.": "WMS4VRRec",
-	"Rey-O-immediate": "ROCFIR",
-	"Rey-O-delayed": "ROCFDR",
-	"Rey-O-recognition": "ROCFRec",
-	"WCST Categories Completed": "WCSTCC",
-	"WCST Trials to 1st Category": "WCSTTC",
-	"WCST Total Errors": "WCSTTE",
-	"WCST Perseverative Errors": "WCSTPE",
-	"WCST Nonperseverative Errors": "WCSTNE",
-	"WCST % Conceptual Responses": "WCSTCR",
-	"WCST Learning to Learn": "WCSTLL",
-	"WCST Set Losses": "WCSTST",
-	"Ruff Figural Fluency Total Designs": "RFFTSD",
-	"Ruff Figural Fluency Error Ratio": "RFFTER",
-	"Trails B": "TrialsB",
-	"Stroop Color-Word (Golden)": "StroopColorWords",
-	"The Dot Counting Test": "DCT",
-	"B-Test": "BTest",
-    "ACT (9\", 18\", 36\")":"ACT",
-    "TOMM Trials 1, 2":"TOMM",
-    "Booklet Category Test":"Booklet",
-    "Short Category Test":"SCT"
-}
 
 const convertToNum = (i : string) =>{
     if(i.indexOf("=")>-1){
         i = i.split("=")[1]
     }
-    if(i.indexOf("<")>-1){
-        i = i.split("<")[1]
-    }
     const newStr = i.split("th")[0].split("nd")[0].split("st")[0].split("rd")[0].trim()
+    if(i.indexOf("<")>-1){
+        return "<"+newStr.split("<")[1]
+    } if(i.indexOf(">")>-1){
+        return ">"+newStr.split(">")[1]
+    }
+    if(i.indexOf("-") > -1){
+        return newStr
+    }
     try{
         return parseInt(newStr,10)
     } catch {
@@ -177,17 +105,28 @@ export const filledTests = (app: express.Application ) => {
         const form = new formidable.IncomingForm({uploadDir : './tmp'});
 
         form.parse(req, async (err, fields, files) => {
-            const hash = fields?.hash;
-            const age = fields?.age;
-            const genderStr = fields?.gender;
-            let gender :boolean
-            if(genderStr === "Male"){
-                gender = false
-            } else {
-                gender = true
-            }
-            const education = fields?.education;
+            const hash = fields?.hash as string;
             const fileupload = files?.csvUpload as formidable.File;
+            let age;
+            let gender :boolean
+            let education;
+            try {
+                const query = { _id: new ObjectId(hash) };
+                const usr =  (await collections.user.findOne(query)) as unknown as Users;
+                if (usr) {
+                    const dob = new Date(usr.dob).getTime()
+                    const ageDate = new Date(new Date().getTime()-dob);
+                    age = (Math.abs(ageDate.getUTCFullYear() - 1970)).toString()
+                    gender = usr.gender
+                    education = usr.education
+                } else {
+                    res.status(200).send("Not a valid hash user!");
+                    return;
+                }
+            } catch (error) {
+                res.status(200).send("Not a valid hash user!");
+                return;
+            }
             // Reading our test file
             const file = xlsx.readFile(fileupload.filepath)
             const arrayTests: { name: string; result?: number[]; score?: number[]; precentage?: number[]; raiting?: string; }[] = []
@@ -284,11 +223,23 @@ export const filledTests = (app: express.Application ) => {
                 console.error(error);
                 res.status(400).send(error.message);
             }
+            res.status(200).send("Added a new Testing Results to the spesified hash patient!")
         });
+    });
 
-
-
-        res.redirect("/")
+    router.get("/:hash", async (req: express.Request, res: express.Response) => {
+        const hash = req?.params?.hash;
+        try {
+            const query = { hash};
+            const filled = (await collections.filledTests.find(query).toArray()) as unknown as FilledTests[];
+            if (filled) {
+                res.status(200).send(filled);
+            } else {
+                res.status(404).send("lala")
+            }
+        } catch (error) {
+            res.status(404).send(`Unable to find matching document with hash: ${req.params.hash}`);
+        }
     });
 
     app.use('/fillTests', router)
