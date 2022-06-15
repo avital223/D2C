@@ -35,7 +35,7 @@ const sendEmail = (e: { preventDefault: () => void; })=>{
         },
         body:JSON.stringify(body)
     })
-    .then((res) => {window.location.href = "/listQuestionare"})
+    .then((res) => {window.location.href = "/thankYou"})
     // tslint:disable-next-line:no-console
     .catch((err) => console.log(err));
 }

@@ -12,13 +12,15 @@ import {allRAVLT} from "../services/statistical/tests/RAVLT"
 import {ROCFDR,ROCFIR,ROCFRec, ROCFCopy} from "../services/statistical/tests/ROCF"
 import {TrialsA, TrialsB, FAS, Animals, BNT} from "../services/statistical/tests/Mitrushina"
 import {DCT, BTest, TOMM } from "../services/statistical/tests/EffortTests"
+import { TONI4 } from "../services/statistical/tests/TONI4";
 export const router = express.Router();
 
 router.use(express.json());
 
 export const statConnect = (app: express.Application ) => {
     const statisticalTesting = [new MMSE(), new StroopColor(), new StroopWords(), new StroopColorWords(), new ACT(), new Hooper(), new Booklet(), new SCT(), new RFFTER()
-    , new RFFTSD(), new ROCFDR(),new ROCFIR(), new ROCFRec(), new ROCFCopy(), new TrialsA(), new TrialsB(), new FAS(), new Animals(), new BNT(), new DCT(), new BTest(), new TOMM()]
+    , new RFFTSD(), new ROCFDR(),new ROCFIR(), new ROCFRec(), new ROCFCopy(), new TrialsA(), new TrialsB(), new FAS(), new Animals(), new BNT(), new DCT(), new BTest(),
+     new TOMM(), new TONI4()]
     statisticalTesting.push(...allWMS4)
     statisticalTesting.push(...allRAVLT)
     for( const statTest of statisticalTesting){
@@ -41,9 +43,7 @@ export const statConnect = (app: express.Application ) => {
                     const json = {
                         "res":ss,
                         "precentage":precentage,
-                        "raiting": statTest.getPrecentageToTest(precentage),
-                        "norms":statTest.norms,
-                        "correction":statTest.getCorrection()
+                        "raiting": statTest.getPrecentageToTest(precentage)
                     }
                     res.status(200).send(json);
                     return;

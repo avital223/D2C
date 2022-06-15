@@ -75,5 +75,9 @@ export const namingDic : any = {
     "ACT (9\", 18\", 36\")":"ACT",
     "TOMM Trials 1, 2":"TOMM",
     "Booklet Category Test":"Booklet",
-    "Short Category Test":"SCT"
+    "Short Category Test":"SCT",
+    "VSVT-Easy Items":"VSVTEI",
+    "VSVT-Difficult Items":"VSVTDI",
+    "VSVT-Total Items":"VSVTTI"
+
 }

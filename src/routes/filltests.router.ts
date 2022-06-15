@@ -163,7 +163,10 @@ export const filledTests = (app: express.Application ) => {
                             rating = item["Score & %ile"].trim()
                         } else {
                             rating = item["Performance Rating"].trim()
-                            if ( namingDic[nameTest] === "ACT"){
+                            if( namingDic[nameTest].indexOf("VSVT") === 0){
+                                score = [item["Score & %ile"].trim()]
+                                precentage = [item["Score & %ile"].trim()]
+                            } else if ( namingDic[nameTest] === "ACT"){
                                 const results = item["Score & %ile"].split("=")
                                 for (const j of results[0].split(",")){
                                     score.push(parseInt(j.trim(),10))

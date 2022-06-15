@@ -211,6 +211,10 @@ export class Table extends PartOfReport{
                     str+="<tr><td>"+this.getNameFromDic(test.name)+"</td><td>"+test.score+", "+test.precentage+"</td><td>"+test.raiting+"</td><td>"+i.getNorms()+"</td><td>"+i.getCorrection()+"</td></tr>"
                 }
             }
+            arr= this.getAllByName("VSVT",results);
+            for(test of arr){
+                str+="<tr><td>"+this.getNameFromDic(test.name)+"</td><td>"+test.score+"</td><td>"+test.raiting+"</td><td>Manual</td><td>N/A</td></tr>"
+            }
             str+="<tr><td><b>Mood/Personality</b></td><th></th><th></th><th></th><th></th></tr>"
             arr=["BAI", "BDI-II"]
             for( const i of arr){
