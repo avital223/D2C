@@ -80,7 +80,7 @@ const returnQuestionareAsResults=async (id : string, name:string) =>{
             "raiting":sym[i].join(", ")
         })}
     }
-    return resultsQ
+    return [resultsQ, new Date(questionare.timestamp)]
 }
 
 const partsTest : PartOfReport[] = [new Attention(), new FrontalSystems(), new GeneralIntelligence(), new Learning(),
@@ -108,6 +108,9 @@ export const produceReportConnect = ( app: express.Application ) => {
         const textParts :string[] = []
         let gender = false
         let resultsQ :object[] = []
+        const dateString = ""
+        let minDate:Date
+        let maxDate:Date
         try{
             for(const resultsid of resultsids){
                 const query = {  _id: new ObjectId(resultsid) };
@@ -119,20 +122,80 @@ export const produceReportConnect = ( app: express.Application ) => {
                 hashUser = filled.hash
                 resultsQ = resultsQ.concat(filled.results);
                 gender = filled.gender;
+                const date = new Date(filled.timestamp)
+                if(minDate === undefined){
+                    minDate = date
+                    maxDate = date
+                } else {
+                    if( minDate > date){
+                        minDate = date
+                    }
+                    if (maxDate < date){
+                        maxDate = date
+                    }
+                }
             }
-            await Promise.all([(returnQuestionareAsResults(bdi,"BDI-II")).then((data: any)=>{resultsQ = resultsQ.concat(data)}),
-            (returnQuestionareAsResults(bai,"BAI")).then((data: any)=>{resultsQ = resultsQ.concat(data)}),
-            (returnQuestionareAsResults(cognitive,"Cognitive")).then((data: any)=>{resultsQ = resultsQ.concat(data)}),
-            (returnQuestionareAsResults(psychological,"Psychological")).then((data: any)=>{resultsQ = resultsQ.concat(data)}),
-            (returnQuestionareAsResults(physical,"Physical")).then((data: any)=>{resultsQ = resultsQ.concat(data)})]);
+            await Promise.all([(returnQuestionareAsResults(bdi,"BDI-II")).then((data: any)=>{
+                resultsQ = resultsQ.concat(data[0]);
+                const date = data[1]
+                if(minDate === undefined){
+                    minDate = date
+                    maxDate = date
+                } else {
+                    if( minDate > date){
+                        minDate = date
+                    }
+                    if (maxDate < date){
+                        maxDate = date
+                    }
+                }}),
+            (returnQuestionareAsResults(bai,"BAI")).then((data: any)=>{
+                resultsQ = resultsQ.concat(data[0]);
+                const date = data[1]
+                if( minDate > date){
+                    minDate = date
+                }
+                if (maxDate < date){
+                    maxDate = date
+                }}),
+            (returnQuestionareAsResults(cognitive,"Cognitive")).then((data: any)=>{
+                resultsQ = resultsQ.concat(data[0]);
+                const date = data[1]
+                if( minDate > date){
+                    minDate = date
+                }
+                if (maxDate < date){
+                    maxDate = date
+                }}),
+            (returnQuestionareAsResults(psychological,"Psychological")).then((data: any)=>{
+                resultsQ = resultsQ.concat(data[0]);
+                const date = data[1]
+                if( minDate > date){
+                    minDate = date
+                }
+                if (maxDate < date){
+                    maxDate = date
+                }}),
+            (returnQuestionareAsResults(physical,"Physical")).then((data: any)=>{
+                resultsQ = resultsQ.concat(data[0]);
+                const date = data[1]
+                if( minDate > date){
+                    minDate = date
+                }
+                if (maxDate < date){
+                    maxDate = date
+                }})]);
             for(const partNow of partsQuestionare){
                 textParts.push(partNow.getFilledText(name, gender, resultsQ))
             }
             for( const partNow of partsTest){
                 textParts.push(partNow.getFilledText(name, gender, resultsQ))
             }
-            textParts.push(hashUser)
-            res.status(200).send(textParts);
+            res.status(200).send({
+                "par":textParts,
+                "hash":hashUser,
+                "time":minDate.toString().split("T")[0]+"-"+maxDate.toString().split("T")[0]
+            });
         } catch (error) {
             res.status(404).send(error.message);
         }
