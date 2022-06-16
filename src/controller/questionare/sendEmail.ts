@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const getContentMail = () =>{
     let innerContent = "<h4>Please fill the following Questionares:</h4>"
     let text = "Please fill the following Questionares:"
@@ -92,7 +91,7 @@ window.onload=() => {
         .catch((err) => console.log(err));
     }
 }
-=======
+
 const getContentMail = () =>{
     let innerContent = "<h4>Please fill the following Questionares:</h4>"
     let text = "Please fill the following Questionares:"
@@ -183,4 +182,3 @@ window.onload=() => {
         .catch((err) => console.log(err));
     }
 }
->>>>>>> 767a171ff622f5df34bd7a6ba9db61b45bcec495
