@@ -185,11 +185,16 @@ export const produceReportConnect = ( app: express.Application ) => {
                 if (maxDate < date){
                     maxDate = date
                 }})]);
-            for(const partNow of partsQuestionare){
-                textParts.push(partNow.getFilledText(name, gender, resultsQ))
-            }
-            for( const partNow of partsTest){
-                textParts.push(partNow.getFilledText(name, gender, resultsQ))
+            try{
+                for(const partNow of partsQuestionare){
+                    textParts.push(partNow.getFilledText(name, gender, resultsQ))
+                }
+                for( const partNow of partsTest){
+                    textParts.push(partNow.getFilledText(name, gender, resultsQ))
+                }
+            } catch(e){
+                // tslint:disable-next-line:no-console
+                console.log(e);
             }
             res.status(200).send({
                 "par":textParts,
