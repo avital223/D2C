@@ -35,15 +35,6 @@ abstract class RFFTBasic extends StatisticTesting {
             educationSrt=">=16"
         }
         const ageStr = "25-39"
-        // if(age <= 24 ){
-        //     ageStr = "16-26"
-        // } else if(age <= 39) {
-        //     ageStr="25-39"
-        // }  else if(age <= 54) {
-        //     ageStr="40-54"
-        // } else {
-        //     ageStr="55-70"
-        // }
         let resultStr = ""
         result[0] += (this.dataDiff[ageStr][educationSrt] as unknown as number)
         const json = this.data[ageStr]

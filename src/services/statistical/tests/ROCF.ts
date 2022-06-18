@@ -8,7 +8,7 @@ abstract class ROCFBasec extends StatisticTesting{
     usingGender: boolean = false;
     min : number;
     max: number;
-    typeOfStatistics: number = 1; // using IQ testing
+    typeOfStatistics: number = 1; // using T testing
     getValidResult(age: number, gender: boolean, education: number, result: number[]): {} {
         let ageStr = ""
         if(age <= 34){

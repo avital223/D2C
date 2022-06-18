@@ -49,12 +49,12 @@ export const statConnect = (app: express.Application ) => {
                     return;
                 }
                 catch(ex) {
-                    res.status(200).send("Something went wrong!");
+                    res.status(404).send("Something went wrong!");
                     return;
                 }
             }
         }
-        res.status(200).send("Not Found");
+        res.status(404).send("Not Found");
     });
 
     app.use('/stat', router)

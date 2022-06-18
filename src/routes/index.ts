@@ -91,6 +91,14 @@ export const register = ( app: express.Application ) => {
         }
     } );
 
+    app.get( "/manualTest", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "csv/manualTest", { isAuthenticated: req.isAuthenticated(), user, res } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    } );
     app.get( "/mail", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         if (user.groups.indexOf("Admin") > -1){
