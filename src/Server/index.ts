@@ -18,8 +18,8 @@ const app = express();
 app.set( "views", path.join( __dirname.split("dist")[0], "dist/views" ) );
 app.set( "view engine", "ejs" );
 
+// static files
 app.use(express.static(path.join(__dirname.split("dist")[0], 'dist/src/controller')));
-
 app.use(express.json())
 
 // Configure session auth

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <%- include('../partial/navigator.ejs') %>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Adding a new Questionarey</title>
+    <title>D2C</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -12,7 +12,7 @@
           $('#p0').trigger('autoresize');
     </script>
 </head>
-<body>
+<body style="background-color:rgb(235, 230, 226)">
     <div class="container">
         <p>
             Note: Due to Medical confidentiality, It's better to not write the explicit name while producing the report.<br/>
@@ -152,7 +152,7 @@ Sincerely,
         <br></br>
     </div>
     <div class="container">
-        <form method="post" action="/report/save"><button id="produce" class='btn-small'><i class='material-icons right' onclick="">produce</i>Produce report </button></form></div><br/>
+        <form method="post" action="/report/save"><button id="produce" class='btn-small' style="background-color: rgb(78, 90, 81);"><i class='material-icons right' onclick="">produce</i>Produce report </button></form></div><br/>
         <!-- <button id="send" class='btn-small'><i class='material-icons right'>save</i>save Report </button> -->
     </div>
 </body>

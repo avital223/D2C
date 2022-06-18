@@ -100,6 +100,14 @@ export const register = ( app: express.Application ) => {
         }
     } );
 
+    app.get( "/about", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "about/about", { isAuthenticated: req.isAuthenticated(), user } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    } );
 
     app.get( "/thankYou", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;

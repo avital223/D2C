@@ -3,15 +3,129 @@
 <head>
     <meta charset="utf-8" />
     <%- include('partial/navigator.ejs') %>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Guitar Inventory</title>
+    <meta name="viewport" http-equiv="X-UA-Compatible" content="with=device-width, initial-scale=1.0">
+    <title>D2C</title>
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>  
+        .page-title {
+            font-size: 24px;
+            color: red;
+        }
+        .lala {
+            width: 80%;
+            height: 40px;
+            background-color: grey;
+        }
+        .gaga {
+            width:2068px;
+            max-height: 950px;
+            display: flex;
+            justify-content: center;
+        }
+        .sqs-block {
+            padding-top: 10;
+            padding-left: 17px;
+            padding-right: 17px;
+            padding-bottom: 50px;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .button-questionare {
+            padding-top: 20;
+            padding-left: 17px;
+            padding-right: 20px;
+            padding-bottom: 25px;
+            height: auto;
+            position: absolute;
+            top:60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #4e5a51 ;
+        }
+        .button-users {
+            padding-top: 20;
+            padding-left: 25px;
+            padding-right: 20px;
+            padding-bottom: 25px;
+            height: auto;
+            position: absolute;
+            top: 60%;
+            left:35%;
+            transform: translate(-50%, -50%);
+            color: #4e5a51 ;
+        }
+        .button-upload {
+            padding-top: 20;
+            padding-left: 30px;
+            padding-right: 20px;
+            padding-bottom: 25px;
+            height: auto;
+            position: absolute;
+            top: 60%;
+            left:65%;
+            transform: translate(-50%, -50%);
+            color: #4e5a51 ;
+        }
+        .page {
+            position: absolute;
+            width:2120px;
+            min-height: 700px;
+            display: flex;
+            justify-content: center;
+            background-color: #88584e;
+        }
+        .constraction{
+            padding-top: 20;
+            padding-left: 17px;
+            padding-right: 20px;
+            padding-bottom: 25px;
+            height: auto;
+            position: absolute;
+            top:60%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            color: #ebe6e2 ;
+        }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <h1 class="header">WELCOME TO D2C</h1>   
-    </div>
+<body style="background-color:rgb(235, 230, 226); min-height: 100%;">
+    <div class="gaga">
+        <img src="https://images.squarespace-cdn.com/content/v1/6128185792cf011f096258ed/9e453918-f0e9-4870-a365-b29f2d7cdc9f/joshua-newton-2Ihxa-wyMY4-unsplash.jpg?format=2500w" 
+        style="max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        padding-top:5.5vmax;
+        padding-right:5vw;
+        padding-bottom:5.5vmax;
+        padding-left: 5vw;">
+            <div class="sqs-block" style="color: #ebe6e2" font-family="Pontano Sans;">
+                <h3>Welcome to Data to See</h3>
+            </div>
+            <div class="button-users">
+                <a class="btn" href="/listUsers" style="background-color: #ebe6e2; color: #4e5a51"><i class="material-icons right"></i>USERS</a>
+            </div>
+            <div class="button-questionare">
+                <a class="btn" href="/listQuestionare" style="background-color: #ebe6e2; color: #4e5a51"><i class="material-icons right"></i>QUESTIONARE</a>
+            </div>
+            <div class="button-upload">
+                <a class="btn" href="/csv" style="background-color: #ebe6e2; color: #4e5a51"><i class="material-icons right"></i>UPLOAD DATA</a>
+            </div>
+        </div>
+        <div class="page">  
+           <div class="constraction">
+            <h3>PRODUCE A REPORT</h3> 
+            <h6>upload the data</h6>
+            <h6>fill the questions</h6>
+            <h6>Download the report</h6>
+            <a class="btn" href="/produceReport" style="background-color: #ebe6e2; color: #4e5a51"><i class="material-icons right"></i>REPORT</a>
+           </div>
+        </div>
 </body>
 </html>

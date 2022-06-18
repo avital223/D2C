@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <%- include('../partial/navigator.ejs') %>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Adding a new Questionarey</title>
+    <meta name="viewport" http-equiv="X-UA-Compatible" content="with=device-width, initial-scale=1.0">
+    <title>D2C</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="../questionare/fillQuestionare.js"></script>
 </head>
-<body>
-    
+<body style="background-color:rgb(235, 230, 226)">
     <div class="container">
         <h1 class="header"><p id="nameQuestionare"></p></h1>
             <% if (user && user.groups.indexOf("Admin") > -1 ) { %>
