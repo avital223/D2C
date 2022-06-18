@@ -17,7 +17,7 @@ import { Visual } from "../services/report/parts/Visual";
 import { PsychologicalSymptoms } from "../services/report/parts/PsychologicalSymptoms";
 import { PhysicalSymptoms } from "../services/report/parts/PhysicalSymptoms";
 import { ListTests } from "../services/report/parts/ListTests";
-import { asBlob } from "html-docx-js-typescript"
+// import { asBlob } from "html-docx-js-typescript"
 import { Table } from "../services/report/parts/Table";
 
 export const router = express.Router();
@@ -205,8 +205,8 @@ export const produceReportConnect = ( app: express.Application ) => {
     router.post("/save", async (req: express.Request, res: express.Response) => {
         const parts= req?.body?.html
 
-        const blob = await asBlob(parts)
-        res.status(200).send(blob)
+        // const blob = await asBlob(parts)
+        // res.status(200).send(blob)
     });
 
 
