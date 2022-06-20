@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <%- include('../partial/navigator.ejs') %>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Contact Us</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="../adminestrative/mail.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">Contact Us</h1>
+        <input v-model="id" ref="id"  id="email" type="text" class="validate" hidden="true" value="<% if ( user ) { %><%= user.email %><%}%>">
+        <div class="row">
+            <textarea type="text" name="massage" id="massage" placeholder="Enter your massage"  required></textarea>
+        </div>
+        <div class="row">
+            <button id="submit" class='btn-small'><i class='material-icons right'>send</i>Send Email</button>
+        </div>
+    </div>
+</body>
+</html>

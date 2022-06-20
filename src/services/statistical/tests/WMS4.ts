@@ -104,7 +104,7 @@ export class WMS4VR1 extends WMS4Basic{
 
 // tslint:disable-next-line:max-classes-per-file
 export class WMS4VR2 extends WMS4Basic{
-    name: string = "WMS4VR1";
+    name: string = "WMS4VR2";
     id: string = "6276a21e6ce1d026cf0c606d";
     limitRes = 43;
 }

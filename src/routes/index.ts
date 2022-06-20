@@ -1,7 +1,7 @@
 import * as express from "express";
 import {questionareConnect} from "./questionare.router"
 import {filledQuestionareConnect} from "./filled.router"
-import { emailConnect } from "./email.router";
+import { emailConnect} from "./email.router";
 import { statsDBConnect } from "./stats.db.router";
 import { statConnect } from "./stats.router";
 import { filledTests } from "./filltests.router";
@@ -91,6 +91,28 @@ export const register = ( app: express.Application ) => {
         }
     } );
 
+    app.get( "/manualTest", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "csv/manualTest", { isAuthenticated: req.isAuthenticated(), user, res } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    } );
+    app.get( "/mail", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1){
+            res.render( "adminestrative/mail", { isAuthenticated: req.isAuthenticated(), user } );
+        } else {
+            res.redirect( "/" ); // chnage later to error page
+        }
+    } );
+
+
+    app.get( "/thankYou", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        res.render( "adminestrative/thankYou", { isAuthenticated: req.isAuthenticated(), user } );
+    } );
 
     app.get( "/addUser", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;

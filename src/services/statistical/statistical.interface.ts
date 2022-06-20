@@ -19,14 +19,14 @@ export abstract class StatisticTesting {
         const perArray:number[] = []
         for (const res of finalRes){
             if(this.typeOfStatistics === 1){
-                perArray.push(statsFunction.tToPresantege(res))
+                perArray.push(Math.floor(statsFunction.tToPresantege(res)))
             }
             else if (this.typeOfStatistics === 0){
-                perArray.push(statsFunction.zToPrecentage(res))
+                perArray.push(Math.floor(statsFunction.zToPrecentage(res)))
             } else if (this.typeOfStatistics === 3){
-                perArray.push(statsFunction.iqToPrecentage(res))
+                perArray.push(Math.floor(statsFunction.iqToPrecentage(res)))
             } else if (this.typeOfStatistics === 4){
-                perArray.push(statsFunction.iqToPrecentage(50 + 5* res))
+                perArray.push(Math.floor(statsFunction.iqToPrecentage(50 + 5* res)))
             } else{
                 perArray.push(res)
             }

@@ -157,14 +157,30 @@ const sendFilled = (_event: MouseEvent, questionareId: string, oldId: string) =>
         questions: questionsS,
         answers
     }
-    fetch("/filled/", {
-        method: 'POST',
+    fetch("/users/"+hash.value, {
+        method: 'GET',
         headers:{
             'Content-Type':'application/json'
         },
-        body: JSON.stringify(data),
     })
-    .then((res) => {window.location.href = "/listQuestionare"})
+    .then(response => response.text())
+    .then((res)=>{
+        if(res === ""){
+            errIn.textContent = "Error! not a valid hash user!"
+            errIn.hidden = false
+            return;
+        }
+        fetch("/filled/", {
+            method: 'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        .then((_res) => {window.location.href = "/listQuestionare"})
+        // tslint:disable-next-line:no-console
+        .catch((err) => console.log(err));
+    })
     // tslint:disable-next-line:no-console
     .catch((err) => console.log(err));
 

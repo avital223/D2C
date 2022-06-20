@@ -29,11 +29,26 @@ export const emailConnect = (app: express.Application ) => {
                 to: email.to, // list of receivers
                 subject: email.subject, // Subject line
                 html: email.html.toString() // plain text body
+            })
+            .then(()=>{res.status(200).send("")})
             // tslint:disable-next-line:no-console
-            }).catch(console.error);
+            .catch(console.error);
         } else {
             // tslint:disable-next-line:no-console
             console.error("error");
         }
+    });
+
+    app.post( "/contactUs", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const email = req.body as SendEmail
+        transporter.sendMail({
+            from: "Data To See <"+process.env.EMAIL+">", // sender address
+            to: process.env.MANAGERS, // list of receivers
+            subject: email.subject, // Subject line
+            html: email.html.toString() // plain text body
+        })
+        .then(()=>{res.status(200).send("")})
+        // tslint:disable-next-line:no-console
+        .catch(console.error);
     });
 }
