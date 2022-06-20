@@ -119,8 +119,18 @@ export const produceReportConnect = ( app: express.Application ) => {
                     res.status(404).send("")
                     return;
                 }
+                for( const i of filled.results){
+                    const test = i as any
+                    if(test.name === "ACT" || test.name.indexOf("RAVLT") > -1){
+                        if (test.result.length !== 1 || test.result[0] !== -2){
+                            filled.results = filled.results.filter(data => (data as any).name !== 'ACT');
+                            test.score = test.result
+                            filled.results.push(test)
+                        }
+                    }
+                }
                 hashUser = filled.hash
-                resultsQ = resultsQ.concat(filled.results);
+                resultsQ = filled.results.concat(resultsQ);
                 gender = filled.gender;
                 const date = new Date(filled.timestamp)
                 if(minDate === undefined){

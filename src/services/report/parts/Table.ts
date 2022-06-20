@@ -100,7 +100,9 @@ export class Table extends PartOfReport{
                 str+="<tr><td><i>"+this.getNameFromDic(test.name)+"</i></td><td><i>"+test.score+", "+test.precentage+"</i></td><td><i>"+test.raiting+"</i></td><td><i>"+norm+"</td><td><i>"+correction+"</i></td></tr>"
             }
             test = WAIS.fsiq
-            str+="<tr><td><i><b>"+this.getNameFromDic(test.name)+"</b><i></td><td><i><b>"+test.score+", "+test.precentage+"</b><i></td><td><i><b>"+test.raiting+"</b><i></td><td><i><b>"+norm+"</b><i></td><td><i><b>"+correction+"</b><i></td></tr>"
+            if(test!== undefined){
+                str+="<tr><td><i><b>"+this.getNameFromDic(test.name)+"</b><i></td><td><i><b>"+test.score+", "+test.precentage+"</b><i></td><td><i><b>"+test.raiting+"</b><i></td><td><i><b>"+norm+"</b><i></td><td><i><b>"+correction+"</b><i></td></tr>"
+            }
             str+="<tr><td><b>Premorbid Intellectual Funct.</b></td><th></th><th></th><th></th><th></th></tr>"
             test = this.getNameInRes("TONI4", results)
             if(test!== undefined){
