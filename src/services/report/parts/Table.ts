@@ -54,10 +54,12 @@ export class Table extends PartOfReport{
 
     private getAllByName(name:string, results:any[]){
         const arr :any[]= []
+        const arrNames : string[] = []
         for(const i of results){
-            if(i.name.indexOf(name) === 0){
+            if(i.name.indexOf(name) === 0 && arrNames.indexOf(i.name) === -1){
                 if(this.getNameFromDic(i.name)!==""){
                     arr.push(i)
+                    arrNames.push(i.name)
                 }
             }
         }
