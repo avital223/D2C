@@ -5,7 +5,7 @@
             <% if ( !isAuthenticated ) { %>
             <li class="nav-item"><a href="/login">Login</a></li>
             <% } %>
-            <% if ( user && user.groups.indexOf("Admin") > -1 ) { %>
+            <% if ( user && (user.groups.indexOf("Admin") > -1  || user.groups.indexOf("Therpaists") > -1)) { %>
                 <li class="nav-item"><a href="/listUsers">My Users</a></li>
             <li class="nav-item"> <a href="/listQuestionare">Questionare</a></li>
             <li class="nav-item"> <a href="/csv">Upload CSV</a></li>

@@ -23,7 +23,7 @@ export const emailConnect = (app: express.Application ) => {
     app.post( "/email", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         const email = req.body as SendEmail
-        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therapists") > -1){
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1){
             transporter.sendMail({
                 from: "Data To See <"+process.env.EMAIL+">", // sender address
                 to: email.to, // list of receivers
@@ -34,8 +34,7 @@ export const emailConnect = (app: express.Application ) => {
             // tslint:disable-next-line:no-console
             .catch(console.error);
         } else {
-            // tslint:disable-next-line:no-console
-            console.error("error");
+            res.redirect("/error")
         }
     });
 
