@@ -74,7 +74,7 @@ export abstract class PartOfReport
                     const repTest=this.getNameInRes(this.tests[i],results)
                     let pre = ""
                     if(repTest.precentage.length > 0){
-                        pre = repTest.precentage[0].toString();
+                        pre = repTest.precentage.toString();
                         if(pre.indexOf(">") === -1 && pre.indexOf("<") === -1 && pre.indexOf("-") === -1){
                             pre = Math.floor(repTest.precentage[0] as number).toString()
                         }

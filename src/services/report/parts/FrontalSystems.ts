@@ -13,11 +13,13 @@ export class FrontalSystems extends PartOfReport{
             let variable = "mostly the same"
             for(const i of WCST){
                 const test =  this.getNameInRes(i,results)
-                if(ranking === ""){
-                    ranking=test.raiting
-                } else if (ranking !== test.raiting){
-                    variable = "variable"
-                    break
+                if (test !== undefined){
+                    if(ranking === ""){
+                        ranking=test.raiting
+                    } else if (ranking !== test.raiting){
+                        variable = "variable"
+                        break
+                    }
                 }
             }
             const ACT = this.getNameInRes("ACT",results)

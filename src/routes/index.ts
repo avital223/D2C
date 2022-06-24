@@ -17,8 +17,6 @@ export const register = ( app: express.Application ) => {
 
     emailConnect(app)
 
-    statsDBConnect(app); // Fixme : remove this router when production ends!!!!
-
     statConnect(app)
 
     filledTests(app)
@@ -29,7 +27,7 @@ export const register = ( app: express.Application ) => {
 
     app.get( "/", ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "index", { isAuthenticated: req.isAuthenticated(), user } ); // will be the intro page of the web
+        res.render( "index", { isAuthenticated: req.isAuthenticated(), user } );
     } );
 
     app.get( "/login", oidc.ensureAuthenticated(), ( _req, res ) => {
@@ -41,63 +39,66 @@ export const register = ( app: express.Application ) => {
         res.redirect( "/" );
     } );
 
+    app.get( "/error", ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        res.render( "adminestrative/errorPage", { isAuthenticated: req.isAuthenticated(), user } );
+    } );
     app.get( "/questionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
         if (user.groups.indexOf("Admin") > -1){
             res.render( "questionare/questionare", { isAuthenticated: req.isAuthenticated(), user } );
         } else {
-            res.redirect( "/" ); // chnage later to error page
+            res.redirect( "/error" );
         }
     } );
 
     app.get( "/sendEmail", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        if (user.groups.indexOf("Admin") > -1){
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1){
             res.render( "questionare/sendEmail", { isAuthenticated: req.isAuthenticated(), user } );
         } else {
-            res.redirect( "/" ); // chnage later to error page
+            res.redirect( "/error" );
         }
     } );
 
     app.get( "/listQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        if (user.groups.indexOf("Admin") > -1){
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1){
             res.render( "questionare/listQuestionare", { isAuthenticated: req.isAuthenticated(), user } );
         } else {
-            res.redirect( "/" ); // chnage later to error page
+            res.redirect( "/error" );
         }
     } );
 
     app.get( "/compareTwoQuestionares", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        if (user.groups.indexOf("Admin") > -1){
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1){
             res.render( "questionare/compareTwoQuestionares", { isAuthenticated: req.isAuthenticated(), user } );
         } else {
-            res.redirect( "/" ); // chnage later to error page
+            res.redirect( "/error" );
         }
-    } );
-
-    app.get( "/listMyQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
-        const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "questionare/listUserQuestionares", { isAuthenticated: req.isAuthenticated(), user } );
     } );
 
     app.get( "/csv", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        if (user.groups.indexOf("Admin") > -1){
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1){
             res.render( "csv/csv", { isAuthenticated: req.isAuthenticated(), user, res } );
         } else {
-            res.redirect( "/" ); // chnage later to error page
+            res.redirect( "/error" );
         }
     } );
 
+    app.get( "/manualTest", oidc.ensureAuthenticated(), ( req: any, res ) => {
+        const user = req.userContext ? req.userContext.userinfo : null;
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1){
+            res.render( "csv/manualTest", { isAuthenticated: req.isAuthenticated(), user, res } );
+        } else {
+            res.redirect( "/error" );
+        }
+    } );
     app.get( "/mail", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        if (user.groups.indexOf("Admin") > -1){
-            res.render( "csv/mail", { isAuthenticated: req.isAuthenticated(), user } );
-        } else {
-            res.redirect( "/" ); // chnage later to error page
-        }
+        res.render( "adminestrative/mail", { isAuthenticated: req.isAuthenticated(), user } );
     } );
 
     app.get( "/about", oidc.ensureAuthenticated(), ( req: any, res ) => {
@@ -111,23 +112,23 @@ export const register = ( app: express.Application ) => {
 
     app.get( "/thankYou", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "csv/thankYou", { isAuthenticated: req.isAuthenticated(), user } );
+        res.render( "adminestrative/thankYou", { isAuthenticated: req.isAuthenticated(), user } );
     } );
 
     app.get( "/addUser", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        if (user.groups.indexOf("Admin") > -1){
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1){
             res.render( "adminestrative/addUser", { isAuthenticated: req.isAuthenticated(), user, res } );
         } else {
-            res.redirect( "/" ); // chnage later to error page
+            res.redirect( "/error" );
         }
     } );
     app.get( "/listUsers", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therapist") > -1){
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1){
             res.render( "adminestrative/listUsers", { isAuthenticated: req.isAuthenticated(), user, res } );
         } else {
-            res.redirect( "/" ); // chnage later to error page
+            res.redirect( "/error" );
         }
     } );
 
@@ -136,29 +137,33 @@ export const register = ( app: express.Application ) => {
         if (user.groups.indexOf("Admin") > -1){
             res.render( "questionare/editQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );
         } else {
-            res.redirect( "/" ); // chnage later to error page
+            res.redirect( "/error" );
         }
     } );
     app.get( "/produceReport", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        if (user.groups.indexOf("Admin") > -1){
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1){
             res.render( "report/chooseId", { isAuthenticated: req.isAuthenticated(), user, res } );
         } else {
-            res.redirect( "/" ); // chnage later to error page
+            res.redirect( "/error" );
         }
     } );
 
     app.get("/produced", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        if (user.groups.indexOf("Admin") > -1){
+        if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1){
             res.render( "report/editReport", { isAuthenticated: req.isAuthenticated(), user, res} );
         } else {
-            res.redirect( "/" ); // chnage later to error page
+            res.redirect( "/error" );
         }
     })
 
     app.get( "/fillQuestionare", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        res.render( "questionare/fillQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );
+        if(user !== null){
+            res.render( "questionare/fillQuestionare", { isAuthenticated: req.isAuthenticated(), user, res } );
+        } else{
+            res.redirect( "/error" );
+        }
     } );
 };

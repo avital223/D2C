@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <%- include('../partial/navigator.ejs') %>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>D2C</title>
+    <title>D2C- Data to See</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -27,10 +27,13 @@
             <h2 class="header"><u>NEUROPSYCHOLOGICAL EVALUATION REPORT</u></h2>
         </div>
         <div class="container">
-            <div class="row"><u>name:</u>{name}</div>
-            <div class="row"><u>Current age:</u></div>
-            <div class="row"><u>Assesment date:</u></div>
-            <div class="row"><u>Report date:</u></div>
+            <table >
+                <tr><td><u>Name:</u></td><td>{name}</td></tr>
+                <tr><td><u>Current age:</u></td><td><p id="age"></p></td></tr>
+                <tr><td><u>DOB:</u></td><td><p id="dob"></p></td></tr>
+                <tr><td><u>Assesment date:</u></td><td><p id="date"></p></td></tr>
+                <tr><td><u>Report date:</u></td><td><p id="Cdate"></p></td></tr>
+            </table>
         </div>
         <div class="container">
             <h4 class="header"><u>TESTING CONSIDERATIONS</u></h4>
