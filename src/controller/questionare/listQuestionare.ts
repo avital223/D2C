@@ -54,7 +54,7 @@ const addDeleteAndUpadteFunctions =(arrayIds : string[], isAdmin:boolean)=>{
 const loadQuestionare = (data: any) => {
     const form = document.getElementById("List") as HTMLDivElement;
     const admin = document.getElementById("isAdmin") as HTMLInputElement;
-    const isAdmin= (admin?.innerText === "True")
+    const isAdmin= (admin?.value === "True")
     if(Object.keys(data).length === 0){
         form.innerHTML = "<p> No Questionares yet! </p>"
     } else{
@@ -77,7 +77,7 @@ const loadQuestionare = (data: any) => {
             }
             arrayIds.push(questionare._id)
         }
-        innerString += "</table>"
+        innerString += "</tbody></table>"
         form.innerHTML=innerString
         addDeleteAndUpadteFunctions(arrayIds, isAdmin)
     }
