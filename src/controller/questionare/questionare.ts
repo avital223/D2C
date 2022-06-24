@@ -24,7 +24,7 @@ const addAnswer = (e: { preventDefault: () => void; }, numId: string, id:string)
         let newString = ""
         newString += "<table><tbody>"
         newString += "<tr id='"+numId+"_1'><td><input id='answer_"+numId+"_1' type='text' class='validate'></td>"
-        newString += "<td><button id='deleteAnswer_"+numId+"_1' class='btn-small'><i class='material-icons right'>delete</i></button></td></tr></tbody></table>"
+        newString += "<td><button  style='background-color: rgb(78, 90, 81);' id='deleteAnswer_"+numId+"_1' class='btn-small'><i class='material-icons right'>delete</i></button></td></tr></tbody></table>"
         formA.innerHTML = newString
     } else{
         const tableAnswers = Array.from(formA.getElementsByTagName("table") as HTMLCollectionOf<HTMLTableElement>);
@@ -32,7 +32,7 @@ const addAnswer = (e: { preventDefault: () => void; }, numId: string, id:string)
         row.id= numId + "_"+id;
         let newString = ""
         newString += "<td><input id='answer_"+numId+"_"+id+"' type='text' class='validate'></td>"
-        newString += "<td><button id='deleteAnswer_"+numId+"_"+id+"' class='btn-small'><i class='material-icons right'>delete</i></button></td>"
+        newString += "<td><button   style='background-color: rgb(78, 90, 81);' id='deleteAnswer_"+numId+"_"+id+"' class='btn-small'><i class='material-icons right'>delete</i></button></td>"
         row.innerHTML = newString;
     }
     const button =  document.getElementById("deleteAnswer_"+numId+"_"+id) as HTMLButtonElement;
@@ -54,8 +54,8 @@ const addNewQuestion = (e: { preventDefault: () => void; }, id:string)=>{
         newString += "<table id='questionsTable'><thead><tr><th>Question</th><th>Answers</th><th>Delete</th><th>Add Answer</th></tr></thead><tbody>"
         newString += "<tr id='1'><td><input id='question_1' type='text' class='validate'></td>"
         newString += "<td><p id='answers_1'></p></td>"
-        newString += "<td><button id='deleteQuestion_1' class='btn-small'><i class='material-icons right'>delete</i></button></td>"
-        newString += "<td><button id='addAnswer_1' class='btn-small'><i class='material-icons right'>add</i></button></td></tr></tbody></table>"
+        newString += "<td><button  style='background-color: rgb(78, 90, 81);' id='deleteQuestion_1' class='btn-small'><i class='material-icons right'>delete</i></button></td>"
+        newString += "<td><button  style='background-color: rgb(78, 90, 81);' id='addAnswer_1' class='btn-small'><i class='material-icons right'>add</i></button></td></tr></tbody></table>"
         form.innerHTML = newString
     } else{
         const table = document.getElementById("questionsTable") as HTMLTableElement;
@@ -64,8 +64,8 @@ const addNewQuestion = (e: { preventDefault: () => void; }, id:string)=>{
         let newString = ""
         newString += "<td><input id='question_"+id+"' type='text' class='validate'></td>"
         newString += "<td><p id='answers_"+id+"'></p></td>"
-        newString += "<td><button id='deleteQuestion_"+id+"' class='btn-small'><i class='material-icons right'>delete</i></button></td>"
-        newString += "<td><button id='addAnswer_"+id+"' class='btn-small'><i class='material-icons right'>add</i></button></td>"
+        newString += "<td><button  style='background-color: rgb(78, 90, 81);' id='deleteQuestion_"+id+"' class='btn-small'><i class='material-icons right'>delete</i></button></td>"
+        newString += "<td><button  style='background-color: rgb(78, 90, 81);' id='addAnswer_"+id+"' class='btn-small'><i class='material-icons right'>add</i></button></td>"
         row.innerHTML = newString;
     }
     const button =  document.getElementById("deleteQuestion_"+id) as HTMLButtonElement;

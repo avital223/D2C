@@ -2,4 +2,3 @@
 
 // Copy all the view templates
 shell.cp( "-R", "src/views", "dist/" );
-shell.cp( "-R", "src/css", "dist/" );

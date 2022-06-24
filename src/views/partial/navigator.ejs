@@ -5,7 +5,7 @@
             <% if ( !isAuthenticated ) { %>
             <li class="nav-item"><a href="/login" style="color: #4e5a51; padding-top: 20px;">LOGIN</a></li>
             <% } %>
-            <% if ( user && user.groups.indexOf("Admin") > -1  || user.groups.indexOf("Therpaists") > -1) { %>
+            <% if ( user && (user.groups.indexOf("Admin") > -1  || user.groups.indexOf("Therpaists") > -1)) { %>
             <li class="nav-item"> <a href="/" style="color: #4e5a51; padding-top: 20px;">HOME</a></li>
             <li class="nav-item"> <a href="/about" style="color: #4e5a51; padding-top: 20px;">ABOUT</a></li>
             <li class="nav-item"><a href="/listUsers" style="color: #4e5a51; padding-top: 20px;">USERS</a></li>
