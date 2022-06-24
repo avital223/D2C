@@ -14,7 +14,7 @@
     
     <div class="container">
         <h1 class="header"><p id="nameQuestionare"></p></h1>
-            <% if (user && user.groups.indexOf("Admin") > -1 ) { %>
+            <% if (user && user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1) { %>
             <div class="row">
                 <div class="col">
                     <input type="text" id="hash" class="validate" >
