@@ -28,7 +28,7 @@ const loadUsers = (data: any) => {
         const today = new Date().getTime()
         const arrayIds = []
         let innerString = ""
-        innerString += "<table><thead><tr><th>Hash of the Patient</th><th>Date of Birth</th><th>Current Age</th><th>Enucation</th><th>Gender</th><th></th></tr></thead><tbody>"
+        innerString += "<table><thead><tr><th 'font-size=25px'>Hash of the Patient</th><th>Date of Birth</th><th>Current Age</th><th>Enucation</th><th>Gender</th><th></th></tr></thead><tbody>"
         for( const patient of data){
             const dob = new Date(patient.dob).getTime()
             const str = patient.dob as string
@@ -39,7 +39,7 @@ const loadUsers = (data: any) => {
             innerString += "<td><p>"+(Math.abs(ageDate.getUTCFullYear() - 1970)).toString()+"</p></td>"
             innerString += "<td><p>"+patient.education+"</p></td>"
             innerString += "<td><p>"+genderstr+"</p></td>"
-            innerString+="<td><button id='d_"+patient._id+"' class='btn-small'><i class='material-icons right'>delete</i>Delete</button></td></tr>"
+            innerString+="<td><button id='d_"+patient._id+"' class='btn-small' style='background-color: rgb(78, 90, 81);'><i class='material-icons right'>delete</i>Delete</button></td></tr>"
             arrayIds.push(patient._id)
         }
         innerString += "</tbody></table>"

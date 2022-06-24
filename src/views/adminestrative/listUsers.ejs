@@ -9,16 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
-<body>
+<body style="background-color:rgb(235, 230, 226)">
     <div class="container">
         <h1 class="header">List of all Users</h1>
         <script src="../adminestrative/listUsers.js"></script>
         <form id="listUser">
-            <input id="email" type="text" hidden="true" value="<% if ( user && user.groups.indexOf('Admin') > -1) { %><%= 'all' %><%} else if ( user && user.groups.indexOf('Therapist') > -1) {%><%= user.email %><%}%>">
+            <input id="email" type="text" hidden="true" style="background-color: rgb(78, 90, 81);" value="<% if ( user && user.groups.indexOf('Admin') > -1) { %><%= 'all' %><%} else if ( user && user.groups.indexOf('Therapist') > -1) {%><%= user.email %><%}%>">
             <div class="row" id="List">
             </div>
             <div class="row" >
-                <a class="btn" href="/addUser"><i class="material-icons right">add</i>Add new Patient</a>
+                <a class="btn" href="/addUser" style="background-color: rgb(78, 90, 81);"><i class="material-icons right">add</i>Add new Patient</a>
             </div>
         </form>
     </div>

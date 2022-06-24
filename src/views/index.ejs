@@ -3,113 +3,186 @@
 <head>
     <meta charset="utf-8" />
     <%- include('partial/navigator.ejs') %>
+    <meta name="viewport" http-equiv="X-UA-Compatible" content="with=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>D2C- Data to See</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>  
+        .page-title {
+            font-size: 24px;
+            color: red;
+        }
+        .lala {
+            width: 80%;
+            height: 40px;
+            background-color: grey;
+        }
+        .gaga {
+            width:2068px;
+            max-height: 950px;
+            display: flex;
+            justify-content: center;
+        }
+        .sqs-block {
+            padding-top: 10;
+            padding-left: 17px;
+            padding-right: 17px;
+            padding-bottom: 50px;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .button-questionare {
+            padding-top: 20;
+            padding-left: 17px;
+            padding-right: 20px;
+            padding-bottom: 25px;
+            height: auto;
+            position: absolute;
+            top:60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #4e5a51 ;
+        }
+        .button-users {
+            padding-top: 20;
+            padding-left: 25px;
+            padding-right: 20px;
+            padding-bottom: 25px;
+            height: auto;
+            position: absolute;
+            top: 60%;
+            left:35%;
+            transform: translate(-50%, -50%);
+            color: #4e5a51 ;
+        }
+        .button-upload {
+            padding-top: 20;
+            padding-left: 30px;
+            padding-right: 20px;
+            padding-bottom: 25px;
+            height: auto;
+            position: absolute;
+            top: 60%;
+            left:65%;
+            transform: translate(-50%, -50%);
+            color: #4e5a51 ;
+        }
+        .page {
+            position: absolute;
+            width:2120px;
+            min-height: 700px;
+            display: flex;
+            justify-content: center;
+            background-color: #88584e;
+        }
+        .constraction{
+            padding-top: 20;
+            padding-left: 17px;
+            padding-right: 20px;
+            padding-bottom: 25px;
+            height: auto;
+            position: absolute;
+            top:60%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            color: #ebe6e2 ;
+        }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <h1 class="header">WELCOME TO D2C - Data To See</h1>
-        <div class="section">
-            <h3>What is D2C?</h3>
-            <p>
-                D2C (or Data to See) is an online platform that help therapists diagnose, test and finally produce reports about their patients. It's a free software.
-                It's server based web that was build using Express, NodeJS, MongoDB, Okta registration and was written in typescript.
-            </p>
-        </div> 
-        <div class="divider"></div>
-        <div class="section">
-            <h3>What makes D2C special?</h3>
-            <p>
-<b>1. D2C is a free software1. D2C is a free software</b><br/>
-D2C is a free online website, that any therapist can request access to use for free of charge! (By "Contact us" in the navigator bar)<br/>
-
-<b>2. D2C provides statistical calculations of neuropsychological assessment tests</b><br/>
-D2C has an online calculator for various of neuropsychological assessment tests. By giving the patient's age, gender and years of education, can evaluate the performance of a certain individual in those neuropsychological testing.<br/>
-
-<b>3. D2C allows therapist to upload CSV with statistical calculations to be saved</b><br/>
-This platform can interpet a csv file with statistical data about their patient and save the information for later use.<br/>
-
-<b>4. D2C allows patients to fill questionares about themselves in their on free time</b><br/>
-D2C gives you a easy way to deal with filling out the questionares! As a therpaist you can send your parient an email with links to all the questionares you'd like him to fill, allowing you to save some time in the process of evaluating him.<br/>
-
-<b>5. D2C can compare the results of filled questionare during periouds of time</b><br/>
-Given an user's hash value, the therapist can compare the answers of their patient from different time the filled it, allowing the therapist to see the progress they made during that period of time.<br/>
-
-<b>6. D2C helps you produce an automatic report about your patient</b><br/>
-By selecting saved filled questionares and saved calculated neuropsychological testing results, this platform produces a report stating the results of the patient, providing insights about his performance and generating text that helps the therapist with writing and producing the final assesment report for their patient.
-D2C is a free online website, that any therapist can request access to use for free of charge! (By "Contact us" in the navigator bar)<br/>
-            </p>
+<body >
+    <div class="gaga">
+        <img src="https://images.squarespace-cdn.com/content/v1/6128185792cf011f096258ed/9e453918-f0e9-4870-a365-b29f2d7cdc9f/joshua-newton-2Ihxa-wyMY4-unsplash.jpg?format=2500w" 
+        style="max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        padding-top:5.5vmax;
+        padding-right:5vw;
+        padding-bottom:5.5vmax;
+        padding-left: 5vw;">
+            <div class="sqs-block" style="color: #ebe6e2" font-family="Pontano Sans;">
+                <h3>Welcome to Data to See</h3>
+            </div>
+            
         </div>
-        <div class="divider"></div>
-        <div class="section">
-            <h3>Features of this website</h3>
-                <p><b>As a registered User of the website</b>
-                    <ul>
-                        <li>Filling a Questionare via a link sent to the user by the therapist</li>
-                        <li>Seeing the methods this site is using</li>
-                        <li>Download an example report</li>
-                        <li>Rate this website</li>
-                        <li>Contact Us</li>
-                    </ul>
+        <div class="page">  
+            <div style="color: #ebe6e2" font-family="Pontano Sans;">
+                <h3>What is D2C?</h3>
+                <p>
+                    D2C (or Data to See) is an online platform that help therapists diagnose, test and finally produce reports about their patients. It's a free software.
+                    It's server based web that was build using Express, NodeJS, MongoDB, Okta registration and was written in typescript.
                 </p>
-                <p><b>As a Therpaist</b>
-                    <ul>
-                        <li> Listing all my patients</li>
-                        <li> Add/Delete a new patient</li>
-                        <li> Fill out a questionare for my patient</li>
-                        <li> Compare 2 Filled questionares of the same patient</li>
-                        <li> Upload a CSV file with my patient statistical data to be saved</li>
-                        <li> Claculate the results of my patient in various neuropsychological assessment tests</li>
-                        <li> Save the calulations of the patient in various neuropsychological assessment tests</li>
-                        <li> Choosing saved data of the patient for producing a report</li>
-                        <li> Edit the automated generated report for the patient</li>
-                        <li> Download the edited report of my patient as a docx file</li>
-                        <li> Send an Email to my patient with questionares you want them to fill</li>
-                        <li> Everyting a user can do</li>
-                    </ul>
+                <br/>
+                <br/>
+                <h3>What makes D2C special?</h3>
+                <p>
+    <b>1. D2C is a free software1. D2C is a free software</b><br/>
+    D2C is a free online website, that any therapist can request access to use for free of charge! (By "Contact us" in the navigator bar)<br/>
+    
+    <b>2. D2C provides statistical calculations of neuropsychological assessment tests</b><br/>
+    D2C has an online calculator for various of neuropsychological assessment tests. By giving the patient's age, gender and years of education, can evaluate the performance of a certain individual in those neuropsychological testing.<br/>
+    
+    <b>3. D2C allows therapist to upload CSV with statistical calculations to be saved</b><br/>
+    This platform can interpet a csv file with statistical data about their patient and save the information for later use.<br/>
+    
+    <b>4. D2C allows patients to fill questionares about themselves in their on free time</b><br/>
+    D2C gives you a easy way to deal with filling out the questionares! As a therpaist you can send your parient an email with links to all the questionares you'd like him to fill, allowing you to save some time in the process of evaluating him.<br/>
+    
+    <b>5. D2C can compare the results of filled questionare during periouds of time</b><br/>
+    Given an user's hash value, the therapist can compare the answers of their patient from different time the filled it, allowing the therapist to see the progress they made during that period of time.<br/>
+    
+    <b>6. D2C helps you produce an automatic report about your patient</b><br/>
+    By selecting saved filled questionares and saved calculated neuropsychological testing results, this platform produces a report stating the results of the patient, providing insights about his performance and generating text that helps the therapist with writing and producing the final assesment report for their patient.
+    D2C is a free online website, that any therapist can request access to use for free of charge! (By "Contact us" in the navigator bar)<br/>
                 </p>
-                <p><b>As an Admin</b>
-                    <ul>
-                        <li> List all the patients in this site</li>
-                        <li> Adding a new questionare that therapists can use</li>
-                        <li> Editing an existing questionare</li>
-                        <li> Deleting questionare</li>
-                        <li> Promoting new users to therapists status</li>
-                        <li> Everyting a therapist can do</li>
-                    </ul>
-                </p>
-            </ul>
+            </div>
+            <div style="color: #ebe6e2" font-family="Pontano Sans;">
+                <h3>Features of this website</h3>
+                    <p><b>As a registered User of the website</b>
+                        <ul>
+                            <li>Filling a Questionare via a link sent to the user by the therapist</li>
+                            <li>Seeing the methods this site is using</li>
+                            <li>Download an example report</li>
+                            <li>Rate this website</li>
+                            <li>Contact Us</li>
+                        </ul>
+                    </p>
+                    <p><b>As a Therpaist</b>
+                        <ul>
+                            <li> Listing all my patients</li>
+                            <li> Add/Delete a new patient</li>
+                            <li> Fill out a questionare for my patient</li>
+                            <li> Compare 2 Filled questionares of the same patient</li>
+                            <li> Upload a CSV file with my patient statistical data to be saved</li>
+                            <li> Claculate the results of my patient in various neuropsychological assessment tests</li>
+                            <li> Save the calulations of the patient in various neuropsychological assessment tests</li>
+                            <li> Choosing saved data of the patient for producing a report</li>
+                            <li> Edit the automated generated report for the patient</li>
+                            <li> Download the edited report of my patient as a docx file</li>
+                            <li> Send an Email to my patient with questionares you want them to fill</li>
+                            <li> Everyting a user can do</li>
+                        </ul>
+                    </p>
+                    <p><b>As an Admin</b>
+                        <ul>
+                            <li> List all the patients in this site</li>
+                            <li> Adding a new questionare that therapists can use</li>
+                            <li> Editing an existing questionare</li>
+                            <li> Deleting questionare</li>
+                            <li> Promoting new users to therapists status</li>
+                            <li> Everyting a therapist can do</li>
+                        </ul>
+                    </p>
+                </ul>
+            </div>
+            <div class="divider"></div>
         </div>
-        <div class="divider"></div>
-        <div class="section">
-            <h3>Methods We used</h3>
-            <p>
-                A neuropsychological evaluation uses standardized psychometric instruments (along with interview data, behavioral observations, and review of pertinent records) to assess an individual’s profile of cognitive strengths and weaknesses.
-                Neuropsychological data are typically interpreted by comparing the scores achieved by the examinee to those of a normative comparison group (i.e., a large group of individuals who were administered the test during the standardization process).
-                This comparison can be done automatically in this website. The calculation of each test is done as instructed by the manual of the test.
-                The normative comparison group used to interpret each test performance in a given neuropsychological evaluation is selected so as to be similar to the examinee in terms of key demographic variables that can impact performance on that measure such as age, education, and sometimes gender. By comparing the examinee’s score on each neuropsychological measure to the scores achieved by the normative comparison group, a percentile rank (“%ile”) can be calculated. This percentile rank typically represents the percentage of individuals in the normative comparison group with scores at or below the examinee’s score on that particular instrument. Thus, as an example, a percentile rank of 75 on a given measure means that 75% of the normative group scored equal to or below the examinee on that test, whereas only 25% (i.e., 100% minus 75%) performed better than the examinee. Likewise, a percentile rank of 2 means that only 2% of the normative group scored equal to or worse than the examinee, whereas 98% of the normative group scored better than the examinee on that measure.
-                In order to aid in the interpretation of the large amount of quantitative data generated by a neuropsychological assessment, ranges of percentile scores are typically labeled with qualitative “performance ratings.”
-                <br/>The following descriptors are used to characterize or “rate” the examinee’s performance on each of the neurocognitive measures:
-                <br/>
-                Impaired (for scores that fall at or below the 2%ile);
-                <br/>
-                Borderline (for scores that fall between the 3%ile and the 8%ile);
-                <br/>
-                Low Average (for scores that fall between the 9%ile and the 24%ile);
-                <br/>
-                Average (for scores that fall between the 25%ile and the 74%ile);
-                <br/>
-                High Average (for scores that fall between the 75%ile and the 90%ile);
-                <br/>
-                Superior (for scores that fall between the 91%ile and the 97%ile);
-                <br/>
-                Very Superior (for scores that are at or above the 98%ile).
-                
-            </p>
-        </div>  
-    </div>
+          
 </body>
 </html>
