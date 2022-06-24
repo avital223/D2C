@@ -10,19 +10,20 @@ Note: We intend to launch our website on the begining of Sep. 2022.
 
 _My Users list_
 
-![d2c_1](https://user-images.githubusercontent.com/64374818/175479648-3a5c2b29-a838-45fc-8f73-7f423ca13181.PNG)
+![d2c_1](https://user-images.githubusercontent.com/64374818/175569410-174f0426-5ed4-46b6-8c6f-4ad566d75cdb.PNG)
 
 _Fill out Questionare_
 
-![d2c_2](https://user-images.githubusercontent.com/64374818/175480236-f40722a8-ba0a-42e1-bd54-5d8d9668ece8.PNG)
+![d2c_2](https://user-images.githubusercontent.com/64374818/175569555-18ab3702-21d6-4c1a-9369-8f4b01955470.PNG)
 
 _Calculate Tests_
 
-![d2c_3](https://user-images.githubusercontent.com/64374818/175483187-85d9d252-0213-4645-8a71-3b35a6415c3a.PNG)
+![d2c_3](https://user-images.githubusercontent.com/64374818/175569891-3257da7e-480e-494e-a330-7acac153c298.PNG)
 
 _Edit Report_
 
-![d2c_4](https://user-images.githubusercontent.com/64374818/175485852-e13271f4-fc96-403f-b1e0-14f4bc1f77e2.PNG)
+![d2c_4](https://user-images.githubusercontent.com/64374818/175570231-3d144590-d3f7-4485-af50-54a6038fceea.PNG)
+
 
 ## What Makes D2C special?
 **1. D2C is a free software** <br/>
