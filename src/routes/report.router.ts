@@ -287,6 +287,10 @@ export const produceReportConnect = ( app: express.Application ) => {
         res.status(200).send(blob)
     });
 
+    router.post("/example", async (req: express.Request, res: express.Response) => {
+        const filePath = `./tmp/example.docx`;
+        res.download(filePath);
+    });
 
     app.use('/report', router)
 }
