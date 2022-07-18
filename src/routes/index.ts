@@ -66,7 +66,7 @@ export const register = ( app: express.Application ) => {
         if (user.groups.indexOf("Admin") > -1 || user.groups.indexOf("Therpaists") > -1){
             res.render( "questionare/listQuestionare", { isAuthenticated: req.isAuthenticated(), user } );
         } else {
-            res.redirect( "/error" );
+            res.redirect( "/thankYou" );
         }
     } );
 
@@ -103,11 +103,7 @@ export const register = ( app: express.Application ) => {
 
     app.get( "/about", oidc.ensureAuthenticated(), ( req: any, res ) => {
         const user = req.userContext ? req.userContext.userinfo : null;
-        if (user.groups.indexOf("Admin") > -1){
-            res.render( "about/about", { isAuthenticated: req.isAuthenticated(), user } );
-        } else {
-            res.redirect( "/" ); // chnage later to error page
-        }
+        res.render( "about/about", { isAuthenticated: req.isAuthenticated(), user } );
     } );
 
     app.get( "/thankYou", oidc.ensureAuthenticated(), ( req: any, res ) => {

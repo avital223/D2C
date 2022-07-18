@@ -2,12 +2,12 @@
     <div class="nav-wrapper" style="background-color:#dbd3cf ; height:100px; width: 100%;">
         <a href="/" class="brand-logo" style="color: #4e5a51; font-size: 22px; padding-top: 20px; padding-left: 15px;">Hello <% if  ( user ) { %><%= user.name %>,<%}%></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <% if ( !isAuthenticated ) { %>
-            <li class="nav-item"><a href="/login" style="color: #4e5a51; padding-top: 20px;">LOGIN</a></li>
-            <% } %>
-            <% if ( user && (user.groups.indexOf("Admin") > -1  || user.groups.indexOf("Therpaists") > -1)) { %>
             <li class="nav-item"> <a href="/" style="color: #4e5a51; padding-top: 20px;">HOME</a></li>
             <li class="nav-item"> <a href="/about" style="color: #4e5a51; padding-top: 20px;">ABOUT</a></li>
+            <% if ( !isAuthenticated ) { %>
+                <li class="nav-item"><a href="/login" style="color: #4e5a51; padding-top: 20px;">LOGIN</a></li>
+                <% } %>
+            <% if ( user && (user.groups.indexOf("Admin") > -1  || user.groups.indexOf("Therpaists") > -1)) { %>
             <li class="nav-item"><a href="/listUsers" style="color: #4e5a51; padding-top: 20px;">USERS</a></li>
             <li class="nav-item"> <a href="/listQuestionare" style="color: #4e5a51; padding-top: 20px;">QUESTIONARE</a></li>
             <li class="nav-item"> <a href="/csv" style="color: #4e5a51; padding-top: 20px;">UPLOAD FILE</a></li>

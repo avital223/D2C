@@ -9,6 +9,44 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="../adminestrative/mail.js"></script>
+    <style>
+		/*  
+		 * Rating styles
+		 */
+		.rating {
+			width: 450px;
+			margin: 0 auto 1em;
+			font-size: 70px;
+			overflow:hidden;
+		}
+        .rating input {
+        float: right;
+        opacity: 0;
+        position: absolute;
+        }
+		.rating a,
+        .rating label {
+			float:right;
+			color: #dbd3cf;
+            font-size:2cm;
+			text-decoration: none;
+			-webkit-transition: color .4s;
+			-moz-transition: color .4s;
+			-o-transition: color .4s;
+			transition: color .4s;
+		}
+        .rating label:hover ~ label,
+        .rating input:focus ~ label,
+        .rating input:checked ~ label,
+        .rating label:hover,
+		.rating a:hover,
+		.rating a:hover ~ a,
+		.rating a:focus,
+		.rating a:focus ~ a		{
+			color: rgb(78, 90, 81);
+			cursor: pointer;
+		}
+    </style>
 </head>
 <body>
     <div class="container">
@@ -17,8 +55,16 @@
         <div class="row">
             <textarea type="text" name="massage" id="massage" placeholder="Enter your massage"  required></textarea>
         </div>
+        <h4>How do you like our website? (on a scale from 1-5)</h4>
+        <div class="row rating">
+            <input name="stars" id="e5" type="radio"></a><label for="e5">★</label>
+		    <input name="stars" id="e4" type="radio"></a><label for="e4">★</label>
+		    <input name="stars" id="e3" type="radio"></a><label for="e3">★</label>
+		    <input name="stars" id="e2" type="radio"></a><label for="e2">★</label>
+		    <input name="stars" id="e1" type="radio"></a><label for="e1">★</label>
+        </div>
         <div class="row">
-            <button id="submit" class='btn-small'><i class='material-icons right'>send</i>Send Email</button>
+            <button id="submit" class='btn-small' style="background-color: rgb(78, 90, 81);"><i class='material-icons right' >send</i>Send Email</button>
         </div>
     </div>
 </body>
