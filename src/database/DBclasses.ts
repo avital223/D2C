@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 
 export class Questionare {
-    constructor(public name: string, public questions: string[], public category: number[], public answers: string[][], public id?: ObjectId) {}
+    constructor(public name: string, public description: string, public questions: string[], public category: number[], public answers: string[][], public id?: ObjectId) {}
 }
 
 // tslint:disable-next-line:max-classes-per-file

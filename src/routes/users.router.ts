@@ -70,7 +70,12 @@ export const usersConnect = ( app: express.Application ) => {
             const result = await collections.user.deleteOne(query);
 
             if (result && result.deletedCount) {
-                res.status(202).send(`Successfully removed user with id ${id}`);
+                const query2 = { "hash":id};
+                const filled = (await collections.filledTests.deleteMany(query2));
+                const ques = (await collections.filled.deleteMany(query2));
+                if( filled && ques){
+                    res.status(202).send(`Successfully removed user with id ${id}`);
+                }
             } else if (!result) {
                 res.status(400).send(`Failed to remove user with id ${id}`);
             } else if (!result.deletedCount) {

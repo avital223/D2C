@@ -82,6 +82,7 @@ const addNewQuestion = (e: { preventDefault: () => void; }, id:string)=>{
 
 const prepareData= () => {
     const name = document.getElementById("name") as HTMLInputElement;
+    const description = document.getElementById("description") as HTMLInputElement;
     const table = document.getElementById("questionsTable") as HTMLTableElement;
     const arrayInputs = Array.from(table.getElementsByTagName("input") as HTMLCollectionOf<HTMLInputElement>)
     const arrayQuestions  = new Map<string, string>();
@@ -120,6 +121,7 @@ const prepareData= () => {
     });
     const data = {
         name: name.value,
+        description: description.value,
         questions: questionsS,
         category: categories,
         answers
@@ -165,6 +167,10 @@ const updateQuestionare = (e: { preventDefault: () => void; }, id:string)=>{
 const constructWindow = (questionare: any) =>{
     const nameFiend = document.getElementById("name") as HTMLInputElement;
     nameFiend.value = questionare.name;
+    const description = document.getElementById("description") as HTMLInputElement;
+    if (description){
+        description.value = questionare.description
+    }
     let counter = 0
     for(let i=1; i<= questionare.questions.length; i++){
         addNewQuestion(null, i.toString())
