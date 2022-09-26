@@ -189,9 +189,13 @@ const sendFilled = (_event: MouseEvent, questionareId: string, oldId: string) =>
 const createQuestionare = (data: any) => {
     const formF = document.getElementById("fill_questionare") as HTMLDivElement;
     const name = document.getElementById("nameQuestionare") as HTMLParagraphElement;
+    const description = document.getElementById("description") as HTMLParagraphElement;
     const generate = document.getElementById("generate") as HTMLButtonElement;
     if (name){
         name.textContent = data.name
+    }
+    if (description){
+        description.textContent = data.description
     }
     if(formF){
         let newHTML = ""
